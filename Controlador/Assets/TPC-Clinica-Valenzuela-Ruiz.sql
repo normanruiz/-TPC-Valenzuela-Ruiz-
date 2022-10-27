@@ -306,6 +306,14 @@ GO
 --  Fin script creacion base de datos Trabajo Practico Cuatrimestral Valenzuela Ruiz
 -- ####################################################################################################################
 
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+SELECT e.[id]
+      ,e.[descripcion] 
+	   FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] AS e WITH (NOLOCK);
+GO
+
 
 
 /*
