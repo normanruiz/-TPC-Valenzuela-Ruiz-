@@ -15,6 +15,7 @@ namespace Modelo
         public Medico medico { get; set; }
         public String Observaciones { get; set; }
         public Estado estado { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
     }
 }
