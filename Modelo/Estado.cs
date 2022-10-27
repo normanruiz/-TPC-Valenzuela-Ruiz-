@@ -9,7 +9,7 @@ namespace Modelo
     public class Estado
     {
         public int Id { get; set; }
-        public String Descipcion { get; set; }
+        public String Descripcion { get; set; }
 
     }
 }
