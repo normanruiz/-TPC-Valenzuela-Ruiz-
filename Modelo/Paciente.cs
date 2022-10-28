@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modelo
 {
-    internal class Paciente : Persona
+    public class Paciente : Persona
     {
         public string Dni { get; set; }
         public DateTime FechaNacimiento { get; set; }
