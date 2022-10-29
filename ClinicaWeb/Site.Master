@@ -15,7 +15,7 @@
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <link rel="stylesheet" href="MisEstilos.css" />
 </head>
 <body>
     <form runat="server">
@@ -41,18 +41,17 @@
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
-                <a class="navbar-brand" runat="server">Mis turnos</a>
+                <a class="navbar-brand" runat="server">ADMINISTRAR TURNOS</a>
             </div>
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
-            </footer>
         </div>
-
+        <%--<footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
+            </footer>--%>
     </form>
 </body>
 </html>
