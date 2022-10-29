@@ -11,7 +11,6 @@ namespace Modelo
         public int Id { get; set; }
         public String Rango { get; set; }
         public DateTime Fecha { get; set; }
-        public Boolean Asignado { get; set; }
 
     }
 }

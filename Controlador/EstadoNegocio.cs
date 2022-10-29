@@ -18,14 +18,14 @@ namespace Controlador
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT e.[id], e.[descripcion] FROM[TPC - Clinica - Valenzuela - Ruiz].[dbo].[estados] AS e WITH(NOLOCK); ");
+                Conexion.setearConsulta("SELECT e.[id], e.[descripcion] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] AS e WITH (NOLOCK);");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())
                 {
                     estado = new Estado();
-                    estado.Id = (Int32)Conexion.Lector["Id"];
-                    estado.Descripcion = (string)Conexion.Lector["Descripcion"];
+                    estado.Id = (Int32)Conexion.Lector["id"];
+                    estado.Descripcion = (string)Conexion.Lector["descripcion"];
                     listaEstados.Add(estado);
                 }
 
