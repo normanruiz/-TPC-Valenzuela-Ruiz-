@@ -18,7 +18,7 @@ namespace Controlador
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("");
+                Conexion.setearConsulta("SELECT p.[id], p.[nombre], p.[apellido], p.[email], p.[idUsuario], u.[nombre] AS 'usuario', u.[contrasenia], u.[perfil] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK) INNER JOIN[TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK) ON p.[idUsuario] = U.[id];");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())

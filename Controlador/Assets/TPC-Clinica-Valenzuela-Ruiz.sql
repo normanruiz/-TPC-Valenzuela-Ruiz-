@@ -115,6 +115,36 @@ ALTER DATABASE [TPC-Clinica-Valenzuela-Ruiz] SET  READ_WRITE
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla [dbo].[usuarios]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+/****** Object:  Table [dbo].[usuarios]    Script Date: 29/10/2022 14:34:34 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[usuarios](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [varchar](60) NOT NULL,
+	[contrasenia] [varchar](60) NOT NULL,
+	[perfil] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Creacion de la tabla [dbo].[estados]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -188,7 +218,6 @@ CREATE TABLE [dbo].[horarios](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[rango] [varchar](40) NOT NULL,
 	[fecha] [date] NOT NULL,
-	[asignado] [bit] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -201,10 +230,44 @@ UNIQUE NONCLUSTERED
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[horarios] ADD  DEFAULT ((0)) FOR [asignado]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla [dbo].[personas]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
 GO
 
+/****** Object:  Table [dbo].[personas]    Script Date: 29/10/2022 14:51:43 ******/
+SET ANSI_NULLS ON
+GO
 
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[personas](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [varchar](60) NOT NULL,
+	[apellido] [varchar](60) NOT NULL,
+	[email] [varchar](20) NOT NULL,
+	[idUsuario] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[nombre] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[personas]  WITH CHECK ADD FOREIGN KEY([idUsuario])
+REFERENCES [dbo].[usuarios] ([id])
+GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Creacion de la tabla [dbo].[medicos]
@@ -329,13 +392,35 @@ SELECT e.[id]
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---  CRUDs [dbo].[estados]
+--  CRUDs [dbo].[personas]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+SELECT p.[id]
+      ,p.[nombre]
+      ,p.[apellido]
+      ,p.[email]
+      ,p.[idUsuario]
+	  ,u.[nombre] AS 'usuario'
+      ,u.[contrasenia]
+      ,u.[perfil]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK)
+			      ON p.[idUsuario] = U.[id];
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---  CRUDs [dbo].[medicos]
+--  CRUDs [dbo].[usuarios]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SELECT u.[id]
+      ,u.[nombre]
+      ,u.[contrasenia]
+      ,u.[perfil]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK);
+
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  CRUDs [dbo].[medicos] !!!Imcompleto¡¡¡
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 SELECT m.[id]
@@ -356,7 +441,29 @@ GO
 --  Fin Querys y nonquerys para los CRUDs
 -- ####################################################################################################################
 
+
+
+
+
 /*
+
+create table personas(
+	id int not null identity(1,1) primary key,
+	nombre varchar(60) not null unique,
+	apellido varchar(60) not null,
+	email varchar(20) not null unique,
+	idUsuario int foreign key references usuarios(id),
+);
+go
+
+
+create table usuarios(
+	id int not null identity(1,1) primary key,
+	nombre varchar(60) not null unique,
+	contrasenia varchar(60) not null,
+	perfil varchar(20) not null,
+);
+go
 
 create table horarios(
 	id int not null identity(1,1) primary key,
