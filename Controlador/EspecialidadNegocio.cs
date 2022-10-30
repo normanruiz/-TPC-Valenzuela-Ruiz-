@@ -42,5 +42,39 @@ namespace Controlador
             }
 
         }
+
+        public Especialidad buscar_con_id(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Especialidad especialidad;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT e.[id], e.[nombre] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK) WHERE e.[id] = @id;");
+                conexion.setearParametro("@id", id);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    especialidad = new Especialidad();
+                    especialidad.Id = (Int32)conexion.Lector["id"];
+                    especialidad.Nombre = (string)conexion.Lector["nombre"];
+                }
+                else
+                {
+                    especialidad = null;
+                }
+                return especialidad;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
     }
 }
