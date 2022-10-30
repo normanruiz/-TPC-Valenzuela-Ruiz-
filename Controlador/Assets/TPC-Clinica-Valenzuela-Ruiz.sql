@@ -285,7 +285,7 @@ GO
 
 CREATE TABLE [dbo].[medicos](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[idpersona] [int] NOT NULL,
+	[idPersona] [int] NOT NULL,
 	[idEspecialidad] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -304,6 +304,46 @@ GO
 
 ALTER TABLE [dbo].[medicos]  WITH CHECK ADD FOREIGN KEY([idEspecialidad])
 REFERENCES [dbo].[especialidades] ([id])
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla [dbo].[pacientes]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+/****** Object:  Table [dbo].[pacientes]    Script Date: 29/10/2022 20:28:36 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[pacientes](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idPersona] [int] NOT NULL,
+	[dni] [varchar](8) NOT NULL,
+	[fechaNacimiento] [date] NOT NULL,
+	[direccion] [varchar](100) NOT NULL,
+	[telefono] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[dni] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[idPersona] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[pacientes]  WITH CHECK ADD FOREIGN KEY([idPersona])
+REFERENCES [dbo].[personas] ([id])
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -375,6 +415,9 @@ GO
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[estados]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
 
 SELECT e.[id]
       ,e.[descripcion] 
@@ -384,6 +427,9 @@ GO
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[especialidades]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
 
 SELECT e.[id]
       ,e.[nombre]
@@ -391,9 +437,23 @@ SELECT e.[id]
 
 GO
 
+-- --------------------------------------------------------------------------------------------------------------------
+--  Buscar con id
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT e.[id]
+      ,e.[nombre]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
+	   WHERE e.[id] = 1;
+
+GO
+
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[horarios]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
 
 SELECT h.[id]
       ,h.[rango]
@@ -405,6 +465,9 @@ GO
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[usuarios]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
 
 SELECT u.[id]
       ,u.[nombre]
@@ -414,48 +477,83 @@ SELECT u.[id]
 
 GO
 
+-- --------------------------------------------------------------------------------------------------------------------
+--  Buscar con id
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT u.[id]
+      ,u.[nombre]
+      ,u.[contrasenia]
+      ,u.[perfil]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK)
+	   WHERE u.[id] = 1;
+
+GO
+
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[personas]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
 
 SELECT p.[id]
       ,p.[nombre]
       ,p.[apellido]
       ,p.[email]
       ,p.[idUsuario]
-	  ,u.[nombre] AS 'usuario'
-      ,u.[contrasenia]
-      ,u.[perfil]
-       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
-	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK)
-			      ON p.[idUsuario] = U.[id];
-
-
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---  CRUDs [dbo].[medicos] !!!Imcompleto¡¡¡
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-SELECT m.[id]
-      ,m.[idpersona]
-	  ,p.[nombre]
-      ,p.[apellido]
-      ,p.[email]
-      ,m.[idEspecialidad]
-	  ,e.[nombre] AS 'especialidad'
-       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
-	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
-			      ON m.[idpersona] = p.[id]
-		    INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
-			      ON m.[idEspecialidad] = e.[id];
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK);
 
 GO
 
+-- --------------------------------------------------------------------------------------------------------------------
+--  Buscar con id
+-- --------------------------------------------------------------------------------------------------------------------
 
+SELECT p.[id]
+      ,p.[nombre]
+      ,p.[apellido]
+      ,p.[email]
+      ,p.[idUsuario]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
+	   WHERE p.[id] = 1;
+
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  CRUDs [dbo].[medicos]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT m.[id]
+      ,m.[idpersona]
+      ,m.[idEspecialidad]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK);
+
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  CRUDs [dbo].[pacientes]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listado
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT p.[id]
+      ,p.[idPersona]
+      ,p.[dni]
+      ,p.[fechaNacimiento]
+      ,p.[direccion]
+      ,p.[telefono]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS p WITH (NOLOCK);
+
+GO
 
 -- ====================================================================================================================
 --  Fin Querys y nonquerys para los CRUDs
 -- ####################################################################################################################
-
 
 
 
@@ -502,10 +600,17 @@ create table turnos(
 );
 go
 
+
 create table pacientes(
-	id int not null identity(1,1) primary key
+	id int not null identity(1,1) primary key,
+	idPersona int not null foreign key references personas(id) unique,
+	nombre varchar(8) not null unique,
+	fecha date not null,
+	direccion varchar(100) not null ,
+	telefono varchar(20) not null
 );
 go
+
 
 create table personas(
 	id int not null identity(1,1) primary key

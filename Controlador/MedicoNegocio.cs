@@ -18,16 +18,30 @@ namespace Controlador
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT e.[id], e.[nombre] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH(NOLOCK);");
+                Conexion.setearConsulta("SELECT m.[id], m.[idpersona], m.[idEspecialidad] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK);");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())
                 {
                     medico = new Medico();
-                    medico.Id = (Int32)Conexion.Lector["id"];
-                    medico.especialidad = new Especialidad();
-                    medico.especialidad.Id = (Int32)Conexion.Lector["idEspecialidad"];
-                    medico.especialidad.Nombre = (string)Conexion.Lector["especialidad"];
+                    medico.IdMedico = (Int32)Conexion.Lector["id"];
+                    if (!(Conexion.Lector["idPersona"] is DBNull))
+                    {
+                        PersonaNegocio personaNegocio = new PersonaNegocio();
+                        Persona persona = new Persona();
+                        persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
+                        medico.Nombre = persona.Nombre;
+                        medico.Apellido = persona.Apellido;
+                        medico.Email = persona.Email;
+                        medico.usuario = persona.usuario;
+                    }
+                    if (!(Conexion.Lector["idEspecialidad"] is DBNull))
+                    {
+                        EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                        medico.especialidad = new Especialidad();
+                        medico.especialidad = especialidadNegocio.buscar_con_id((Int32)Conexion.Lector["idEspecialidad"]);
+                    }
+
 
                     listaMedicos.Add(medico);
                 }
@@ -42,7 +56,6 @@ namespace Controlador
             {
                 Conexion.cerrar();
             }
-
         }
     }
 }
