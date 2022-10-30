@@ -248,7 +248,7 @@ CREATE TABLE [dbo].[personas](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[nombre] [varchar](60) NOT NULL,
 	[apellido] [varchar](60) NOT NULL,
-	[email] [varchar](20) NOT NULL,
+	[email] [varchar](100) NOT NULL,
 	[idUsuario] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
@@ -410,6 +410,131 @@ GO
 -- ####################################################################################################################
 
 -- ####################################################################################################################
+--  Set de datos basicos
+-- ====================================================================================================================
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[estados]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] ([descripcion])
+       VALUES ('Nuevo'), 
+	          ('Reprogramado'), 
+			  ('Cancelado'), 
+			  ('Asistió'), 
+			  ('Cerrado');
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[especialidades]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] ([nombre])
+       VALUES ('Neurofisiología'),
+              ('Neurología'),
+              ('Obstetricia'),
+              ('Odontología'),
+              ('Oftalmología'),
+              ('Otorrinolaringología'),
+              ('Pediatría'),
+              ('Podología'),
+              ('Psicología'),
+              ('Psiquiatría'),
+              ('Radiología'),
+              ('Rehabilitación'),
+              ('Traumatología'),
+              ('Urología'),
+              ('Venereología'),
+              ('Aparato Digestivo'),
+              ('Alergología'),
+              ('Cardiología'),
+              ('Cirugía Vascular'),
+              ('Cirugía General'),
+              ('Dermatología Clínica'),
+              ('Dermatología Estética'),
+              ('Enfermería'),
+              ('Fisioterapia'),
+              ('Ginecología'),
+              ('Medicina Estétic'),
+              ('Medicina Familiar y Comunitaria'),
+              ('Medicina Interna'),
+              ('Médico Rehabilitador'),
+              ('Neumología');
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[horarios]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[usuario]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] ([nombre], [contrasenia], [perfil])
+       VALUES ('nruiz', 'Nruiz1234', 'Administrador'),
+	          ('mvalenzuela', 'Mvalenzuela1234', 'Administrador'),
+	          ('mfernandez', 'Mfernandez1234', 'Administrador'),
+	          ('rgoncalves', 'Rgoncalves1234', 'Administrador'),
+	          ('ykikuchi', 'Ykikuchi1234', 'Medico'),
+	          ('kannHu', 'KannHu1234', 'Medico'),
+	          ('salexander', 'Salexander1234', 'Medico'),
+	          ('ksackhoff', 'Ksackhoff1234', 'Medico'),
+	          ('avikander', 'Avikander1234', 'Recepcionista'),
+	          ('ocockburn', 'Ocockburn1234', 'Recepcionista'),
+	          ('kstewart ', 'Kstewart 1234', 'Recepcionista'),
+	          ('kscodelario', 'Kscodelario1234', 'Recepcionista');
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[personas]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] ([nombre], [apellido], [email], [idUsuario])
+       VALUES ('Norman', 'Ruiz', 'norman.ruiz@outlook.com.ar', 1),
+	          ('Macarena Aldana', 'Valenzuela', 'correo1@hotmail.com', 2),
+			  ('Maximiliano', 'Sar Fernandez', 'correo2@hotmail.com', 3),
+			  ('Regina', 'Laurentino Goncalves', 'correo3@hotmail.com', 4),
+			  ('Yuriko', 'Kikuchi', 'correo4@hotmail.com', 5),
+			  ('Kelly', 'Ann Hu', 'correo5@hotmail.com', 6),
+			  ('Sasha', 'Alexander', 'correo6@hotmail.com', 7),
+			  ('Kathryn Ann', 'Sackhoff', 'correo7@hotmail.com', 8),
+			  ('Alicia Amanda', 'Vikander', 'correo8@hotmail.com', 9),
+			  ('Olivia Jane', 'Cockburn', 'correo9@hotmail.com', 10),
+			  ('Kristen Jaymes', 'Stewart', 'correo10@hotmail.com', 11),
+			  ('Kaya Rose', 'Humphrey Scodelario', 'correo11@hotmail.com', 12),
+			  ('Emily Olivia', 'Leah Blunt', 'correo12@hotmail.com', null),
+			  ('Koyuki', 'Kato', 'correo13@hotmail.com', null),
+			  ('Sophie Daniele', 'Sylvie Maupu', 'correo14@hotmail.com', null),
+			  ('Amy Lou', 'Adams', 'correo15@hotmail.com', null);
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[medicos]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] ([idPersona], [idEspecialidad])
+       VALUES (5, 2),
+	          (6, 4),
+	          (7, 8),
+	          (8, 12);
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[pacientes]
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] ([idPersona], [dni], [fechaNacimiento], [direccion], [telefono])
+       VALUES (13, '11111111', '1983-02-23', 'Reino Unido', 'N/D'),
+	          (14, '22222222', '1976-12-18', 'Japon', 'N/D'),
+	          (15, '33333333', '1966-11-17', 'Francia', 'N/D'),
+	          (16, '44444444', '1974-08-20', 'EEUU', 'N/D');
+GO
+
+
+-- ====================================================================================================================
+--  Fin script creacion base de datos Trabajo Practico Cuatrimestral Valenzuela Ruiz
+-- ####################################################################################################################
+
+-- ####################################################################################################################
 --  Querys y nonquerys para los CRUDs
 -- ====================================================================================================================
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -554,88 +679,3 @@ GO
 -- ====================================================================================================================
 --  Fin Querys y nonquerys para los CRUDs
 -- ####################################################################################################################
-
-
-
-
-/*
-
-create table personas(
-	id int not null identity(1,1) primary key,
-	nombre varchar(60) not null unique,
-	apellido varchar(60) not null,
-	email varchar(20) not null unique,
-	idUsuario int foreign key references usuarios(id),
-);
-go
-
-
-create table usuarios(
-	id int not null identity(1,1) primary key,
-	nombre varchar(60) not null unique,
-	contrasenia varchar(60) not null,
-	perfil varchar(20) not null,
-);
-go
-
-create table horarios(
-	id int not null identity(1,1) primary key,
-	rango varchar(40) not null ,
-	fecha date not null ,
-	asignado bit not null default 0,
-	unique(rango, fecha)
-);
-go
-
-create table turnos(
-	id int not null identity(1,1) primary key,
-	ipPaciente int not null foreign key references pacientes(id),
-	idEspecialidad int not null foreign key references especialidades(id),
-	idHorario int not null foreign key references horarios(id),
-	idMedico int not null foreign key references medicos(id),
-	idEstado int not null foreign key references estados(id),
-	fechaCreacion datetime not null
-	unique(ipPaciente,idHorario),
-	unique(idMedico, idHorario)
-);
-go
-
-
-create table pacientes(
-	id int not null identity(1,1) primary key,
-	idPersona int not null foreign key references personas(id) unique,
-	nombre varchar(8) not null unique,
-	fecha date not null,
-	direccion varchar(100) not null ,
-	telefono varchar(20) not null
-);
-go
-
-
-create table personas(
-	id int not null identity(1,1) primary key
-);
-go
-
-create table medicos(
-	id int not null identity(1,1) primary key,
-	idpersona int not null foreign key references personas(id) unique
-);
-go
-
-
-
-
-create table especialidades(
-	id int not null identity(1,1) primary key,
-	nombre varchar(40) not null unique
-);
-go
-
-create table estados(
-	id int not null identity(1,1) primary key,
-	descripcion varchar(40) not null unique
-);
-go
-
-/*
