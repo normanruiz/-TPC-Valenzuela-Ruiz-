@@ -27,13 +27,16 @@
                 </div>
             </div>
             <p class="fw-semibold" style="font-size: 30px">Mis turnos</p>
-            <asp:GridView ID="dgvTurnosMedico" runat="server" CssClass="alert-dark">
-                <%--<asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                        <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
-                        <asp:BoundField HeaderText="Precio" DataField="Precio" />
-                        <asp:ImageField HeaderText="Imagen" DataImageUrlField="ImagenUrl" ControlStyle-Width="20%" />
-                        <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Accion" />--%>
-            </asp:GridView>
+            <%--<asp:GridView ID="dgvTurnosMedico" runat="server" DataKeyNames="Numero" OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged" CssClass="table table-bordered table-light" AutoGenerateColumns="false">
+                    <Columns>
+                        <asp:BoundField HeaderText="Nombre del paciente" DataField="Paciente.Nombre" />
+                        <asp:BoundField HeaderText="Especialidad" DataField="Especialidad" />
+                        <asp:BoundField HeaderText="Horario" DataField="Horario.Fecha" />
+                        <asp:BoundField HeaderText="Observaciones" DataField="Observaciones" />
+                        <asp:BoundField HeaderText="Fecha de Creacion" DataField="FechaCreacion" />
+                        <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Accion" />
+                    </Columns>
+                </asp:GridView>--%>
         </div>
     </form>
 </body>
