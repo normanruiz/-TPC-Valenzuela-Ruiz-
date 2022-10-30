@@ -59,7 +59,7 @@ namespace Controlador
             try
             {
                 conexion.conectar();
-                conexion.setearConsulta("SELECT u.[id], u.[nombre], u.[contrasenia], u.[perfil] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH(NOLOCK) WHERE u.[id] = @id;");
+                conexion.setearConsulta("SELECT p.[id], p.[nombre], p.[apellido], p.[email], p.[idUsuario] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK) WHERE p.[id] = @id;");
                 conexion.setearParametro("@id", id);
                 conexion.ejecutarLectura();
 
