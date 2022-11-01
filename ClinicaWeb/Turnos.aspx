@@ -1,14 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="ClinicaWeb.Turnos" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%--<ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="Turnos.aspx">Turnos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Turnos.aspx">Pacientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Turnos.aspx">Médicos</a>
-            </li>
-        </ul>--%>
+﻿<%@ Page Title="Turnos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="ClinicaWeb.Turnos" %>
+
+<asp:Content ID="abmTurnos" ContentPlaceHolderID="MainContent" runat="server">
+    <hr />
+    <hr />
+         
+    <div>
+        <a  href="Medico.aspx" style="width: 40%">Nuevo médico</a>
+        <a  href="Paciente.aspx" style="width: 40%">Nuevo paciente</a>
+    </div>
+
+
 </asp:Content>

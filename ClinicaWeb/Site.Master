@@ -44,6 +44,7 @@
                 <a class="navbar-brand" runat="server">ADMINISTRAR TURNOS</a>
             </div>
         </div>
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
