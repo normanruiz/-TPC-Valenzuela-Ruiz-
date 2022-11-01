@@ -7,27 +7,33 @@ using System.Web.UI.WebControls;
 using Modelo;
 using Controlador;
 
+
 namespace ClinicaWeb
 {
-    public partial class Medico : System.Web.UI.Page
+    public partial class Persona : System.Web.UI.Page
     {
-        public List<Modelo.Medico> listaMedicos { get; set; }
+        public List<Modelo.Persona> listaPersonas { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            MedicoNegocio medicoNegocio = new MedicoNegocio();
+            PersonaNegocio personaNegocio = new PersonaNegocio();
 
             try
             {
-                listaMedicos = medicoNegocio.listar();
-                dgvMedicos.DataSource = listaMedicos;
-                dgvMedicos.DataBind();
+                listaPersonas = personaNegocio.listar();
+                dgvPersonas.DataSource = listaPersonas;
+                dgvPersonas.DataBind();
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("pagOrigen", "Persona.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+        protected void dgvPersonas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

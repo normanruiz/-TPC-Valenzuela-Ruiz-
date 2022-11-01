@@ -11,7 +11,7 @@ namespace ClinicaWeb
 {
 
 
-    public partial class Medico
+    public partial class Persona
     {
 
         /// <summary>
@@ -24,12 +24,12 @@ namespace ClinicaWeb
         protected global::System.Web.UI.WebControls.Button btnNuevo;
 
         /// <summary>
-        /// Control dgvMedicos.
+        /// Control dgvPersonas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvMedicos;
+        protected global::System.Web.UI.WebControls.GridView dgvPersonas;
     }
 }
