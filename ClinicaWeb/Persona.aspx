@@ -28,7 +28,7 @@
 
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administracion de Personas</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary"/>
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click"/>
         <asp:GridView ID="dgvPersonas" runat="server" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvPersonas_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField HeaderText="ID" DataField="IdPersona"/>
