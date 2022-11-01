@@ -1,12 +1,41 @@
 ﻿<%@ Page Title="ABM Médico" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Medico.aspx.cs" Inherits="ClinicaWeb.Medico" %>
 
-<asp:Content ID="abmMedicos" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="contentHeaderMedico" ContentPlaceHolderID="cphHeader" runat="server">
 
-        <div class="container text-center">
-            <p class="fw-semibold" style="font-size: 30px">Administracion de Medicos</p>
-            <asp:GridView ID="dgvMedicos" runat="server" CssClass="table table-bordered table-light" >
-
-            </asp:GridView>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <a class="navbar-brand" runat="server">ADMINIASTRACION DE MEDICOS</a>
         </div>
+    </div>
+    <br />
+    <br />
+    <hr />
+    <div>
+        <a  href="Turnos.aspx" style="width: 40%">Administrar Turnos</a>
+        <a  href="Medico.aspx" style="width: 40%">Administrar Medicos</a>
+        <a  href="Paciente.aspx" style="width: 40%">Administrar Pacientes</a>
+    </div>
+    <hr />
+
+</asp:Content>
+
+
+<asp:Content ID="contentBodyMedico" ContentPlaceHolderID="cphBody" runat="server">
+
+    <div class="container text-center">
+        <p class="fw-semibold" style="font-size: 30px">Administracion de Medicos</p>
+        <asp:GridView ID="dgvMedicos" runat="server" CssClass="table table-bordered table-light" >
+        </asp:GridView>
+    </div>
+    <hr />
+
+</asp:Content>
+
+<asp:Content ID="contentFooterMedico" ContentPlaceHolderID="cphFooter" runat="server">
+
+    <footer>
+        <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
+    </footer>
+    <hr />
 
 </asp:Content>

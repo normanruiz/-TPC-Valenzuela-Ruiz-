@@ -28,6 +28,6 @@ namespace ClinicaWeb
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
-}
+        }
     }
 }

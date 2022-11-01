@@ -1,5 +1,47 @@
 ﻿<%@ Page Title="Nuevo Paciente" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Paciente.aspx.cs" Inherits="ClinicaWeb.Paciente" %>
-<asp:Content ID="abmPaciente" ContentPlaceHolderID="MainContent" runat="server">
+
+
+<asp:Content ID="contentHeaderPacientes" ContentPlaceHolderID="cphHeader" runat="server">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <a class="navbar-brand" runat="server">ADMINIASTRACION DE PACIENTES</a>
+        </div>
+    </div>
+    <br />
+    <br />
+    <hr />
+    <div>
+        <a  href="Turnos.aspx" style="width: 40%">Administrar Turnos</a>
+        <a  href="Medico.aspx" style="width: 40%">Administrar Medicos</a>
+        <a  href="Paciente.aspx" style="width: 40%">Administrar Pacientes</a>
+    </div>
+    <hr />
+
+</asp:Content>
+
+<asp:Content ID="contentBodyPacientes" ContentPlaceHolderID="cphBody" runat="server">
+
+    <div class="container text-center">
+        <p class="fw-semibold" style="font-size: 30px">Administracion de Pacientes</p>
+        <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-bordered table-light" >
+        </asp:GridView>
+    </div>
+    <hr />
+
+</asp:Content>
+
+<asp:Content ID="contentFooterPacientes" ContentPlaceHolderID="cphFooter" runat="server">
+
+    <footer>
+        <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
+    </footer>
+    <hr />
+
+</asp:Content>
+
+<%--<asp:Content ID="abmPaciente" ContentPlaceHolderID="MainContent" runat="server">
+
     <hr />
     <hr />
     <h1>Nuevo paciente</h1>
@@ -25,4 +67,4 @@
     </div>
 
     
-</asp:Content>
+</asp:Content>--%>

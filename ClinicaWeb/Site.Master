@@ -39,20 +39,26 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <a class="navbar-brand" runat="server">ADMINISTRAR TURNOS</a>
-            </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="cphHeader" runat="server">
+
+            </asp:ContentPlaceHolder>
+  
         </div>
 
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            <asp:ContentPlaceHolder ID="cphBody" runat="server">
+
             </asp:ContentPlaceHolder>
-            <hr />
+
         </div>
-        <%--<footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
-            </footer>--%>
+
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="cphFooter" runat="server">
+
+            </asp:ContentPlaceHolder>
+        </div>
+
     </form>
 </body>
 </html>
