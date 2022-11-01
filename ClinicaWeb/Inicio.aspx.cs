@@ -13,5 +13,17 @@ namespace ClinicaWeb
         {
 
         }
+
+        protected void btnIniciar_Click(object sender, EventArgs e)
+        {
+            /*
+             * Aca va la magia que cuando el usuario ingrese sus credenciales determine por medio de su perfin al donde sera redirigido* 
+             * algo asi como:
+             * Verificamos qu usuario y contraseña sean correctos, con una funcion que valla a base de datos y devuelva un objeto usuario
+             * si existe  para la tupla usuario contrasela que fueron enviados
+             * entonces si tenemos un usuario con un case verificamos su perfil y redirigimos a donde corresponda
+             */
+            Response.Redirect("Turnos.aspx", false);
+        }
     }
 }
