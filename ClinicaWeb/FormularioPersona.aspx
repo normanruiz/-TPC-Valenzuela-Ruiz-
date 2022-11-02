@@ -4,7 +4,7 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" runat="server">Alta/Modificacion de Persona</a>
+            <a class="navbar-brand" runat="server">Alta/Modificación de Persona</a>
         </div>
     </div>
     <br />
@@ -17,7 +17,7 @@
 <asp:Content ID="contentBodyPersona" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Alta/Modificacion de Personas</p>
+        <p class="fw-semibold" style="font-size: 30px">Alta/Modificación de Personas</p>
         <div class="row">
             <div class="col-6">
                 <%-- Aca arranca la carga de la persona --%>

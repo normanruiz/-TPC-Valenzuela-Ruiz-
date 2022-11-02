@@ -11,25 +11,25 @@ namespace ClinicaWeb
 {
 
 
-    public partial class Medico
+    public partial class Horarios
     {
 
         /// <summary>
-        /// btnNuevo control.
+        /// btnGuardarHorario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::System.Web.UI.WebControls.Button btnGuardarHorario;
 
         /// <summary>
-        /// dgvMedicos control.
+        /// gdvHorarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvMedicos;
+        protected global::System.Web.UI.WebControls.GridView gdvHorarios;
     }
 }

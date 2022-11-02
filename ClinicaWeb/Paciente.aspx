@@ -18,7 +18,7 @@
         <a  href="Persona.aspx" style="width: 40%">Administrar Personas</a>
         <a  href="Usuario.aspx" style="width: 40%">Administrar Usuarios</a>
         <a  href="Especialidad.aspx" style="width: 40%">Administrar Especialidades</a>
-        <a  href="Horario.aspx" style="width: 40%">Administrar Horarios</a>
+        <a  href="Horarios.aspx" style="width: 40%">Administrar Horarios</a>
     </div>
     <hr />
 
@@ -27,7 +27,7 @@
 <asp:Content ID="contentBodyPacientes" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container text-center">
-        <p class="fw-semibold" style="font-size: 30px">Administracion de Pacientes</p>
+        <p class="fw-semibold" style="font-size: 30px">Administración de Pacientes</p>
         <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-bordered table-light" >
         </asp:GridView>
     </div>
