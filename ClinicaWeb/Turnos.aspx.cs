@@ -13,5 +13,10 @@ namespace ClinicaWeb
         {
 
         }
+
+        protected void ButtonNuevoTurno_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormularioTurno.aspx");
+        }
     }
 }

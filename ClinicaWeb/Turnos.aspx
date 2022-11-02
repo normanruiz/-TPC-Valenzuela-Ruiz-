@@ -32,7 +32,7 @@
     <hr />
     <asp:GridView ID="gdvTurnos" runat="server">
     </asp:GridView>
-    <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" href="FormularioTurno.aspx"/>
+    <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn"/>
 </asp:Content>
 
 <asp:Content ID="contentFooterTurnos" ContentPlaceHolderID="cphFooter" runat="server">
