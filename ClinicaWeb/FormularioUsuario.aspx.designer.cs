@@ -11,25 +11,25 @@ namespace ClinicaWeb
 {
 
 
-    public partial class Usuario
+    public partial class FormularioUsuario
     {
 
         /// <summary>
-        /// Control btnNuevo.
+        /// Control btnGuardarUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::System.Web.UI.WebControls.Button btnGuardarUsuario;
 
         /// <summary>
-        /// Control dgvUsuario.
+        /// Control btnCancelarUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvUsuario;
+        protected global::System.Web.UI.WebControls.Button btnCancelarUsuario;
     }
 }
