@@ -126,6 +126,7 @@
     <Content Include="Especialidades.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="FormularioEspecialidad.aspx" />
     <Content Include="FormularioPersona.aspx" />
     <Content Include="FormularioTurno.aspx" />
     <Content Include="FormularioUsuario.aspx" />
@@ -191,6 +192,13 @@
     </Compile>
     <Compile Include="Especialidades.aspx.designer.cs">
       <DependentUpon>Especialidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioEspecialidad.aspx.cs">
+      <DependentUpon>FormularioEspecialidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioEspecialidad.aspx.designer.cs">
+      <DependentUpon>FormularioEspecialidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioPersona.aspx.cs">
       <DependentUpon>FormularioPersona.aspx</DependentUpon>

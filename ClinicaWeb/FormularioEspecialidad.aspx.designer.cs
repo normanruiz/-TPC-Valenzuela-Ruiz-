@@ -11,25 +11,25 @@ namespace ClinicaWeb
 {
 
 
-    public partial class Medico
+    public partial class FormularioEspecialidad
     {
 
         /// <summary>
-        /// Control btnNuevo.
+        /// Control btnGuardarEspecialidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::System.Web.UI.WebControls.Button btnGuardarEspecialidad;
 
         /// <summary>
-        /// Control dgvMedicos.
+        /// Control btnCancelarEspecialidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvMedicos;
+        protected global::System.Web.UI.WebControls.Button btnCancelarEspecialidad;
     }
 }

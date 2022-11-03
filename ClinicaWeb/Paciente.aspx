@@ -17,7 +17,7 @@
         <a  href="Paciente.aspx" style="width: 40%">Administrar Pacientes</a>
         <a  href="Persona.aspx" style="width: 40%">Administrar Personas</a>
         <a  href="Usuario.aspx" style="width: 40%">Administrar Usuarios</a>
-        <a  href="Especialidad.aspx" style="width: 40%">Administrar Especialidades</a>
+        <a  href="Especialidades.aspx" style="width: 40%">Administrar Especialidades</a>
         <a  href="Horarios.aspx" style="width: 40%">Administrar Horarios</a>
     </div>
     <hr />
