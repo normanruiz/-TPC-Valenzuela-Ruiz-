@@ -27,12 +27,13 @@
 
     <div class="container text-center">
         <p class="fw-semibold" style="font-size: 30px">Administración de Turnos</p>
+        <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn btn-primary"/>
+        <asp:GridView ID="gdvTurnos" runat="server">
+        </asp:GridView>
 
     </div>
     <hr />
-    <asp:GridView ID="gdvTurnos" runat="server">
-    </asp:GridView>
-    <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn"/>
+
 </asp:Content>
 
 <asp:Content ID="contentFooterTurnos" ContentPlaceHolderID="cphFooter" runat="server">

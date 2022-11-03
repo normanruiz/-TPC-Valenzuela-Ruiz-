@@ -13,5 +13,15 @@ namespace ClinicaWeb
         {
 
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Turnos.aspx", false);
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Turnos.aspx", false);
+        }
     }
 }

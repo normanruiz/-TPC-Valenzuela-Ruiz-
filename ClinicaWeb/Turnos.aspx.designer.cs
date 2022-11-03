@@ -15,15 +15,6 @@ namespace ClinicaWeb
     {
 
         /// <summary>
-        /// Control gdvTurnos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gdvTurnos;
-
-        /// <summary>
         /// Control ButtonNuevoTurno.
         /// </summary>
         /// <remarks>
@@ -31,5 +22,14 @@ namespace ClinicaWeb
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonNuevoTurno;
+
+        /// <summary>
+        /// Control gdvTurnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gdvTurnos;
     }
 }
