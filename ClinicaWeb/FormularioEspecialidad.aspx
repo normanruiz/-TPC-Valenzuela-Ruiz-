@@ -4,7 +4,7 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" runat="server">Alta/Modificación de Especialidad</a>
+            <h1 class="navbar-brand" runat="server">ADMINISTRACION DE ESPECIALIDADES </h1>
         </div>
     </div>
     <br />
@@ -17,12 +17,11 @@
 <asp:Content ID="contentBodyEspecialidad" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Alta/Modificación de Especialidad</p>
         <div class="row">
             <div class="col-6">
-                <h1>Nueva especialidad</h1>
+                <h2><%= tituloFormulario %></h2>
                 <div class="mb-3">
-                    <label for="tbxEspecilidadNombre" class="form-label">Especialidad</label>
+                    <label for="tbxEspecilidadNombre" class="form-label">Nombre de la especialidad</label>
                     <asp:TextBox ID="tbxEspecilidadNombre" runat="server" cssclass="form-control"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnGuardarEspecialidad" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarEspecialidad_Click"/>
