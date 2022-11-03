@@ -32,7 +32,21 @@ namespace ClinicaWeb
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("FormularioEspecialidad.aspx", false);
+            try
+            {
+                Response.Redirect("FormularioEspecialidad.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Especialidades.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void dgvEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

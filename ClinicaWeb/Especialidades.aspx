@@ -26,7 +26,13 @@
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administración de Especialidad</p>
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click"/>
-        <asp:GridView ID="dgvEspecialidad" runat="server" CssClass="table table-bordered table-light">
+        <asp:GridView ID="dgvEspecialidad" runat="server" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvEspecialidad_SelectedIndexChanged">
+            <Columns>
+                <asp:BoundField HeaderText="ID" DataField="Id"/>
+                <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                <asp:CommandField ShowSelectButton="true" SelectText="Modificar" HeaderText="" />
+                <asp:CommandField ShowSelectButton="true" SelectText="Eliminar" HeaderText="" />
+            </Columns>
         </asp:GridView>
     </div>
     <hr />

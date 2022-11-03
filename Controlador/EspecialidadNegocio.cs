@@ -76,5 +76,26 @@ namespace Controlador
                 conexion.cerrar();
             }
         }
+
+        public void crear(Especialidad especialidad)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] ([nombre]) VALUES(@nombre);";
+                conexion.setearParametro("@nombre", especialidad.Nombre);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
     }
 }

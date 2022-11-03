@@ -22,8 +22,8 @@
             <div class="col-6">
                 <h1>Nueva especialidad</h1>
                 <div class="mb-3">
-                    <label for="InputEspecialidad" class="form-label">Especialidad</label>
-                    <input type="text" class="form-control" id="InputEmailEspecialidad">
+                    <label for="tbxEspecilidadNombre" class="form-label">Especialidad</label>
+                    <asp:TextBox ID="tbxEspecilidadNombre" runat="server" cssclass="form-control"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnGuardarEspecialidad" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarEspecialidad_Click"/>
                 <asp:Button ID="btnCancelarEspecialidad" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelarEspecialidad_Click"/>
