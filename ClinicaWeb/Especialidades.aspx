@@ -3,7 +3,7 @@
 <asp:Content ID="ContentHeaderEspecialidades" ContentPlaceHolderID="cphHeader" runat="server">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE USUARIOS</a>
+            <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE ESPECIALIDADES</a>
         </div>
     </div>
     <br />
@@ -16,7 +16,7 @@
         <a href="Persona.aspx" style="width: 40%">Administrar Personas</a>
         <a href="Usuario.aspx" style="width: 40%">Administrar Usuarios</a>
         <a href="Especialidades.aspx" style="width: 40%">Administrar Especialidades</a>
-        <a href="Horario.aspx" style="width: 40%">Administrar Horarios</a>
+        <a href="Horarios.aspx" style="width: 40%">Administrar Horarios</a>
     </div>
     <hr />
 </asp:Content>

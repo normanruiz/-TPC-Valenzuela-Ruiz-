@@ -11,25 +11,25 @@ namespace ClinicaWeb
 {
 
 
-    public partial class Horarios
+    public partial class FormularioHorario
     {
 
         /// <summary>
-        /// Control btnNuevo.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
 
         /// <summary>
-        /// Control dgvHorarios.
+        /// Control btnCancelar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvHorarios;
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
     }
 }
