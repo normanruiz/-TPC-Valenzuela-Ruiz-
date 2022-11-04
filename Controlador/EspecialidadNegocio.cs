@@ -119,5 +119,26 @@ namespace Controlador
                 conexion.cerrar();
             }
         }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] WHERE [id] = @id;";
+                conexion.setearConsulta(consulta);
+                conexion.setearParametro("@id", id);
+                conexion.conectar();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
     }
 }

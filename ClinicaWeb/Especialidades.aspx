@@ -25,15 +25,19 @@
 
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administración de Especialidad</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click"/>
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
         <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
             <Columns>
-                <asp:BoundField HeaderText="ID" DataField="Id"/>
+                <asp:BoundField HeaderText="ID" DataField="Id" />
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                <asp:buttonfield buttontype="Button" commandname="Modificar" headertext="Modificar" text="Modificar" ControlStyle-CssClass="btn btn-primary"/>
-                <asp:buttonfield buttontype="Button" commandname="Eliminar" headertext="Eliminar" text="Eliminar" ControlStyle-CssClass="btn btn-primary"/>
+                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-primary" />
             </Columns>
         </asp:GridView>
+
+
+
+
     </div>
     <hr />
 

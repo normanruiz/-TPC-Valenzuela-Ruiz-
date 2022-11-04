@@ -569,7 +569,7 @@ GO
 SELECT e.[id]
       ,e.[nombre]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
-	   WHERE e.[id] = 1;
+	   WHERE e.[id] = 31;
 
 GO
 
@@ -589,7 +589,13 @@ UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades]
        WHERE [id] = 31;
 GO
 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Baja
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades]
+       WHERE [id] = 31;
+GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[horarios]
