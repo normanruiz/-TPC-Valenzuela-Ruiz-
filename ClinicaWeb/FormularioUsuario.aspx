@@ -36,7 +36,8 @@
         <input type="password" class="form-control" id="InputContraseniaUsuario2">
     </div>
     <div class="mb-3">
-        <label for="inputPerfil" class="form-label">Tipo de perfil</label>
+        <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
+        <asp:DropDownList ID="ddlPerfil" runat="server"></asp:DropDownList>
         <select id="inputPerfil" class="form-select">
             <option selected>Recepcionista</option>
             <option>Administrador</option>
