@@ -162,7 +162,7 @@ CREATE TABLE [dbo].[usuarios](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[nombre] [varchar](60) NOT NULL,
 	[contrasenia] [varchar](60) NOT NULL,
-	[perfil] [varchar](20) NOT NULL,
+	[idPerfil] int NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
@@ -172,6 +172,9 @@ UNIQUE NONCLUSTERED
 	[nombre] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+
+ALTER TABLE [dbo].[usuarios]  WITH CHECK ADD FOREIGN KEY([idPerfil])
+REFERENCES [dbo].[perfiles] ([id])
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -510,19 +513,19 @@ GO
 --  Datos [dbo].[usuario]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] ([nombre], [contrasenia], [perfil])
-       VALUES ('nruiz', 'Nruiz1234', 'Administrador'),
-	          ('mvalenzuela', 'Mvalenzuela1234', 'Administrador'),
-	          ('mfernandez', 'Mfernandez1234', 'Administrador'),
-	          ('rgoncalves', 'Rgoncalves1234', 'Administrador'),
-	          ('ykikuchi', 'Ykikuchi1234', 'Medico'),
-	          ('kannHu', 'KannHu1234', 'Medico'),
-	          ('salexander', 'Salexander1234', 'Medico'),
-	          ('ksackhoff', 'Ksackhoff1234', 'Medico'),
-	          ('avikander', 'Avikander1234', 'Recepcionista'),
-	          ('ocockburn', 'Ocockburn1234', 'Recepcionista'),
-	          ('kstewart ', 'Kstewart 1234', 'Recepcionista'),
-	          ('kscodelario', 'Kscodelario1234', 'Recepcionista');
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] ([nombre], [contrasenia], [idPerfil])
+       VALUES ('nruiz', 'Nruiz1234', 1),
+	          ('mvalenzuela', 'Mvalenzuela1234', 1),
+	          ('mfernandez', 'Mfernandez1234', 1),
+	          ('rgoncalves', 'Rgoncalves1234', 1),
+	          ('ykikuchi', 'Ykikuchi1234', 3),
+	          ('kannHu', 'KannHu1234', 3),
+	          ('salexander', 'Salexander1234', 3),
+	          ('ksackhoff', 'Ksackhoff1234', 3),
+	          ('avikander', 'Avikander1234', 2),
+	          ('ocockburn', 'Ocockburn1234', 2),
+	          ('kstewart ', 'Kstewart 1234', 2),
+	          ('kscodelario', 'Kscodelario1234', 2);
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -569,7 +572,6 @@ INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] ([idPersona], [dni],
 	          (15, '33333333', '1966-11-17', 'Francia', 'N/D'),
 	          (16, '44444444', '1974-08-20', 'EEUU', 'N/D');
 GO
-
 
 -- ====================================================================================================================
 --  Fin script creacion base de datos Trabajo Practico Cuatrimestral Valenzuela Ruiz
@@ -636,25 +638,25 @@ SELECT e.[id]
 
 GO
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 --  Alta
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] ([nombre])
        VALUES ('Pruebas alta');
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 --  Modificacion
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 
 UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades]
        SET [nombre] = 'Pruebas modificacion'
        WHERE [id] = 31;
 GO
 
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 --  Baja
--- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- --------------------------------------------------------------------------------------------------------------------
 
 DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades]
        WHERE [id] = 31;
@@ -684,9 +686,8 @@ GO
 SELECT u.[id]
       ,u.[nombre]
       ,u.[contrasenia]
-      ,u.[perfil]
+      ,u.[idPerfil]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK);
-
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -696,10 +697,36 @@ GO
 SELECT u.[id]
       ,u.[nombre]
       ,u.[contrasenia]
-      ,u.[perfil]
+      ,u.[idPerfil]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK)
 	   WHERE u.[id] = 1;
+GO
 
+-- --------------------------------------------------------------------------------------------------------------------
+--  Alta
+-- --------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] ([nombre], [contrasenia], [IdPerfil])
+       VALUES ('Pruebas insert', 'Pruebas insert', 3);
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Modificacion
+-- --------------------------------------------------------------------------------------------------------------------
+
+UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios]
+       SET [nombre] = 'Pruebas modificacion'
+          ,[contrasenia] = 'Pruebas modificacion'
+          ,[idPerfil] = 3
+       WHERE [id] = 13;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Baja
+-- --------------------------------------------------------------------------------------------------------------------
+
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios]
+       WHERE [id] = 13;
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -766,8 +793,3 @@ GO
 -- ====================================================================================================================
 --  Fin Querys y nonquerys para los CRUDs
 -- ####################################################################################################################
-
-create table perfiles (
-	id int not null identity(1, 1) primary key,
-	tipo varchar(40) not null unique
-);

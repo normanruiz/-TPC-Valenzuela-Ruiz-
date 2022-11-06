@@ -15,6 +15,33 @@ namespace ClinicaWeb
     {
 
         /// <summary>
+        /// Control tbxNombreUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxNombreUsuario;
+
+        /// <summary>
+        /// Control tbxContraseñaUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxContraseñaUsuario;
+
+        /// <summary>
+        /// Control tbxConfirmarContraseñaUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbxConfirmarContraseñaUsuario;
+
+        /// <summary>
         /// Control ddlPerfil.
         /// </summary>
         /// <remarks>

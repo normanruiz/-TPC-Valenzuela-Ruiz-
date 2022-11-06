@@ -19,33 +19,24 @@
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Alta/Modificación de Usuario</p>
 
-    <div class="mb-3">
-        <label for="InputEmailUsuario" class="form-label">Email</label>
-        <input type="email" class="form-control" id="InputEmailUsuario" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-        <label for="InputNombreUsuario" class="form-label">Nombre de Usuario</label>
-        <input type="text" class="form-control" id="InputNombreUsuario">
-    </div>
-    <div class="mb-3">
-        <label for="InputContraseniaUsuario1" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="InputContraseniaUsuario1">
-    </div>
-    <div class="mb-3">
-        <label for="InputContraseniaUsuario2" class="form-label">Repita la contraseña</label>
-        <input type="password" class="form-control" id="InputContraseniaUsuario2">
-    </div>
-    <div class="mb-3">
-        <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
-        <asp:DropDownList ID="ddlPerfil" runat="server"></asp:DropDownList>
-        <select id="inputPerfil" class="form-select">
-            <option selected>Recepcionista</option>
-            <option>Administrador</option>
-            <option>Médico</option>
-        </select>
-    </div>
-    <asp:Button ID="btnGuardarUsuario" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarUsuario_Click"/>
-            <asp:Button ID="btnCancelarUsuario" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelarUsuario_Click"/>
+        <div class="mb-3">
+            <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
+            <asp:TextBox ID="tbxNombreUsuario" runat="server" cssclass="form-control"></asp:TextBox>
+        </div>
+        <div class="mb-3">
+            <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
+            <asp:TextBox ID="tbxContraseñaUsuario" runat="server" cssclass="form-control"></asp:TextBox>
+        </div>
+        <div class="mb-3">
+            <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
+            <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" cssclass="form-control"></asp:TextBox>
+        </div>
+        <div class="mb-3">
+            <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
+            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select"></asp:DropDownList>
+        </div>
+        <asp:Button ID="btnGuardarUsuario" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardarUsuario_Click" />
+        <asp:Button ID="btnCancelarUsuario" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelarUsuario_Click" />
 
     </div>
     <hr />

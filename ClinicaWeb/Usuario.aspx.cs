@@ -34,5 +34,10 @@ namespace ClinicaWeb
         {
             Response.Redirect("FormularioUsuario.aspx", false);
         }
+
+        protected void dgvUsuario_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
     }
 }
