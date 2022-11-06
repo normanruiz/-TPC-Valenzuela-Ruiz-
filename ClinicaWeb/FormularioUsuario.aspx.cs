@@ -16,10 +16,18 @@ namespace ClinicaWeb
         public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            PerfilNegocio perfilNegocio = new PerfilNegocio();
+            PerfilNegocio perfilNegocio;
             UsuarioNegocio usuarioNegocio; ;
             try
             {
+                perfilNegocio = new PerfilNegocio();
+                listaPerfiles = perfilNegocio.listar();
+
+                ddlPerfil.DataSource = listaPerfiles;
+                ddlPerfil.DataTextField = "Tipo";
+                ddlPerfil.DataValueField = "Id";
+                ddlPerfil.DataBind();
+
                 if (!(Session["usuarioModificar"] is null))
                 {
                     tituloFormulario = "Modificacion de usuario";
@@ -31,6 +39,7 @@ namespace ClinicaWeb
                         tbxNombreUsuario.Text = usuarioModificar.Nombre;
                         tbxContraseñaUsuario.Text = usuarioModificar.Contrasenia;
                         tbxConfirmarContraseñaUsuario.Text = usuarioModificar.Contrasenia;
+                        ddlPerfil.SelectedValue = usuarioModificar.perfil.Id.ToString();
                     }
                 }
                 else
@@ -38,12 +47,7 @@ namespace ClinicaWeb
                     tituloFormulario = "Alta de usuario";
                 }
 
-                listaPerfiles = perfilNegocio.listar();
 
-                ddlPerfil.DataSource = listaPerfiles;
-                ddlPerfil.DataTextField = "Tipo";
-                ddlPerfil.DataValueField = "Id";
-                ddlPerfil.DataBind();
             }
             catch (Exception excepcion)
             {
@@ -61,12 +65,15 @@ namespace ClinicaWeb
             {
                 if (!(Session["usuarioModificar"] is null))
                 {
-                    //usuario.Nombre = tbxNombreUsuario.Text;
+                    if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                    {
+                        usuarioModificar.Nombre = tbxNombreUsuario.Text;
+                        usuarioModificar.Contrasenia = tbxContraseñaUsuario.Text;
+                        usuarioModificar.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
 
-                    //especialidadNegocio = new EspecialidadNegocio();
-                    //especialidadNegocio.actualizar(especialidadModificar);
-                    //Session.Remove("especialidadesModificar");
-                    //Response.Redirect("Especialidades.aspx", false);
+                        Session.Remove("usuarioModificar");
+                        Response.Redirect("FormularioUsuario.aspx", false);
+                    }
                 }
                 else
                 {
@@ -97,7 +104,16 @@ namespace ClinicaWeb
 
         protected void btnCancelarUsuario_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Usuario.aspx", false);
+            try
+            {
+                Response.Redirect("Usuario.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioUsuario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Controlador
             try
             {
                 conexion.conectar();
-                conexion.setearConsulta("SELECT u.[id], u.[nombre], u.[contrasenia], u.[perfil] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH(NOLOCK) WHERE u.[id] = @id;");
+                conexion.setearConsulta("SELECT u.[id], u.[nombre], u.[contrasenia], u.[idPerfil] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK) WHERE u.[id] = @id;");
                 conexion.setearParametro("@id", id);
                 conexion.ejecutarLectura();
 
@@ -112,14 +112,15 @@ namespace Controlador
             }
         }
 
-        public void actualizar(Especialidad especialidad)
+        public void actualizar(Usuario usuario)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
-                string consulta = "";
-                conexion.setearParametro("@id", especialidad.Id);
-                conexion.setearParametro("@nombre", especialidad.Nombre);
+                string consulta = "UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] SET [nombre] = @usuario, [contrasenia] = @contraseña, [idPerfil] = @idPerfil WHERE [id] = @id;";
+                conexion.setearParametro("@usuario", usuario.Nombre);
+                conexion.setearParametro("@contraseña", usuario.Contrasenia);
+                conexion.setearParametro("@perfil", usuario.perfil.Id);
                 conexion.conectar();
                 conexion.setearConsulta(consulta);
                 conexion.ejecutarAccion();
@@ -139,7 +140,7 @@ namespace Controlador
             AccesoDatos conexion = new AccesoDatos();
             try
             {
-                string consulta = "";
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] WHERE [id] = @id;";
                 conexion.setearConsulta(consulta);
                 conexion.setearParametro("@id", id);
                 conexion.conectar();

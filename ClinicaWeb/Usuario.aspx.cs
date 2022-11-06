@@ -32,12 +32,50 @@ namespace ClinicaWeb
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("FormularioUsuario.aspx", false);
+            try
+            {
+                Response.Redirect("FormularioUsuario.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Usuario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+            
         }
 
         protected void dgvUsuario_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            try
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = dgvUsuario.Rows[index];
+                TableCell contactName = selectedRow.Cells[0];
+                int id = Convert.ToInt32(contactName.Text);
 
+                if (e.CommandName == "Modificar")
+                {
+                    Session.Add("usuarioModificar", id);
+                    Response.Redirect("FormularioUsuario.aspx", false);
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+
+                    UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+
+
+                    usuarioNegocio.Eliminar(id);
+
+                    Response.Redirect("Usuario.aspx", false);
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Usuario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
