@@ -29,13 +29,14 @@
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administracion de Personas</p>
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click"/>
-        <asp:GridView ID="dgvPersonas" runat="server" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnSelectedIndexChanged="dgvPersonas_SelectedIndexChanged">
+        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
             <Columns>
-                <asp:BoundField HeaderText="ID" DataField="IdPersona"/>
+                <asp:BoundField HeaderText="Id." DataField="IdPersona"/>
+                <asp:BoundField HeaderText="DNI" DataField="DNI"/>
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
-                <asp:CommandField ShowSelectButton="true" SelectText="Modificar" HeaderText="" />
-                <asp:CommandField ShowSelectButton="true" SelectText="Eliminar" HeaderText="" />
+                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-primary" />
             </Columns>
         </asp:GridView>
     </div>

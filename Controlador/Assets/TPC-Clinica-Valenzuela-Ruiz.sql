@@ -270,7 +270,7 @@ GO
 USE [TPC-Clinica-Valenzuela-Ruiz]
 GO
 
-/****** Object:  Table [dbo].[personas]    Script Date: 29/10/2022 14:51:43 ******/
+/****** Object:  Table [dbo].[personas]    Script Date: 7/11/2022 10:14:57 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -279,17 +279,14 @@ GO
 
 CREATE TABLE [dbo].[personas](
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[dni] [varchar](10) NOT NULL,
 	[nombre] [varchar](60) NOT NULL,
 	[apellido] [varchar](60) NOT NULL,
 	[email] [varchar](100) NOT NULL,
 	[idUsuario] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[nombre] ASC
+	[dni] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
 UNIQUE NONCLUSTERED 
 (
@@ -532,23 +529,23 @@ GO
 --  Datos [dbo].[personas]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] ([nombre], [apellido], [email], [idUsuario])
-       VALUES ('Norman', 'Ruiz', 'norman.ruiz@outlook.com.ar', 1),
-	          ('Macarena Aldana', 'Valenzuela', 'correo1@hotmail.com', 2),
-			  ('Maximiliano', 'Sar Fernandez', 'correo2@hotmail.com', 3),
-			  ('Regina', 'Laurentino Goncalves', 'correo3@hotmail.com', 4),
-			  ('Yuriko', 'Kikuchi', 'correo4@hotmail.com', 5),
-			  ('Kelly', 'Ann Hu', 'correo5@hotmail.com', 6),
-			  ('Sasha', 'Alexander', 'correo6@hotmail.com', 7),
-			  ('Kathryn Ann', 'Sackhoff', 'correo7@hotmail.com', 8),
-			  ('Alicia Amanda', 'Vikander', 'correo8@hotmail.com', 9),
-			  ('Olivia Jane', 'Cockburn', 'correo9@hotmail.com', 10),
-			  ('Kristen Jaymes', 'Stewart', 'correo10@hotmail.com', 11),
-			  ('Kaya Rose', 'Humphrey Scodelario', 'correo11@hotmail.com', 12),
-			  ('Emily Olivia', 'Leah Blunt', 'correo12@hotmail.com', null),
-			  ('Koyuki', 'Kato', 'correo13@hotmail.com', null),
-			  ('Sophie Daniele', 'Sylvie Maupu', 'correo14@hotmail.com', null),
-			  ('Amy Lou', 'Adams', 'correo15@hotmail.com', null);
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] ([dni], [nombre], [apellido], [email], [idUsuario])
+       VALUES ('27846268', 'Norman', 'Ruiz', 'norman.ruiz@outlook.com.ar', 1),
+	          ('99999901', 'Macarena Aldana', 'Valenzuela', 'correo1@hotmail.com', 2),
+			  ('99999902', 'Maximiliano', 'Sar Fernandez', 'correo2@hotmail.com', 3),
+			  ('99999903', 'Regina', 'Laurentino Goncalves', 'correo3@hotmail.com', 4),
+			  ('99999904', 'Yuriko', 'Kikuchi', 'correo4@hotmail.com', 5),
+			  ('99999905', 'Kelly', 'Ann Hu', 'correo5@hotmail.com', 6),
+			  ('99999906', 'Sasha', 'Alexander', 'correo6@hotmail.com', 7),
+			  ('99999907', 'Kathryn Ann', 'Sackhoff', 'correo7@hotmail.com', 8),
+			  ('99999908', 'Alicia Amanda', 'Vikander', 'correo8@hotmail.com', 9),
+			  ('99999909', 'Olivia Jane', 'Cockburn', 'correo9@hotmail.com', 10),
+			  ('99999910', 'Kristen Jaymes', 'Stewart', 'correo10@hotmail.com', 11),
+			  ('99999911', 'Kaya Rose', 'Humphrey Scodelario', 'correo11@hotmail.com', 12),
+			  ('99999912', 'Emily Olivia', 'Leah Blunt', 'correo12@hotmail.com', null),
+			  ('99999913', 'Koyuki', 'Kato', 'correo13@hotmail.com', null),
+			  ('99999914', 'Sophie Daniele', 'Sylvie Maupu', 'correo14@hotmail.com', null),
+			  ('99999915', 'Amy Lou', 'Adams', 'correo15@hotmail.com', null);
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -703,6 +700,18 @@ SELECT u.[id]
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
+--  Buscar con nombre
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT u.[id]
+     , u.[nombre]
+     , u.[contrasenia]
+     , u.[idPerfil] 
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK) 
+	   WHERE u.[nombre] = 'nruiz';
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
 --  Alta
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -737,12 +746,12 @@ GO
 -- --------------------------------------------------------------------------------------------------------------------
 
 SELECT p.[id]
+	  ,p.[dni]
       ,p.[nombre]
       ,p.[apellido]
       ,p.[email]
       ,p.[idUsuario]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK);
-
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -750,13 +759,42 @@ GO
 -- --------------------------------------------------------------------------------------------------------------------
 
 SELECT p.[id]
+      ,p.[dni]
       ,p.[nombre]
       ,p.[apellido]
       ,p.[email]
       ,p.[idUsuario]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
 	   WHERE p.[id] = 1;
+GO
 
+-- --------------------------------------------------------------------------------------------------------------------
+--  Alta
+-- --------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] ([dni], [nombre], [apellido], [email], [idUsuario])
+       VALUES ('987654321', 'Pruebas insert', 'Pruebas insert', 'pruebasinsert@yahoo.com.ar', NULL);
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Modificacion
+-- --------------------------------------------------------------------------------------------------------------------
+
+UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas]
+       SET [dni] = '123456789'
+	      ,[nombre] = 'Pruebas update'
+          ,[apellido] = 'Pruebas update'
+          ,[email] = 'pruebasupdate@hotmail.com.ar'
+          ,[idUsuario] = NULL
+       WHERE [id] = 17;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Baja
+-- --------------------------------------------------------------------------------------------------------------------
+
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas]
+       WHERE [id] = 17;
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -766,12 +804,7 @@ GO
 --  Listado
 -- --------------------------------------------------------------------------------------------------------------------
 
-SELECT m.[id]
-      ,m.[idpersona]
-      ,m.[idEspecialidad]
-       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK);
 
-GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[pacientes]

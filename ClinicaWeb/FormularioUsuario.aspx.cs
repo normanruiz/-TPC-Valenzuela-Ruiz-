@@ -104,7 +104,6 @@ namespace ClinicaWeb
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
-            Response.Redirect("Usuario.aspx", false);
         }
 
         protected void btnCancelarUsuario_Click(object sender, EventArgs e)

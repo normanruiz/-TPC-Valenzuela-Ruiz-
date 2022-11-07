@@ -20,8 +20,8 @@ namespace ClinicaWeb
             try
             {
                 listaPersonas = personaNegocio.listar();
-                dgvPersonas.DataSource = listaPersonas;
-                dgvPersonas.DataBind();
+                dgvPersona.DataSource = listaPersonas;
+                dgvPersona.DataBind();
             }
             catch (Exception excepcion)
             {
@@ -31,14 +31,46 @@ namespace ClinicaWeb
             }
         }
 
-        protected void dgvPersonas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("FormularioPersona.aspx", false);
+
+            try
+            {
+                Response.Redirect("FormularioPersona.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void dgvPersona_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = dgvPersona.Rows[index];
+                TableCell contactName = selectedRow.Cells[0];
+                int id = Convert.ToInt32(contactName.Text);
+
+                if (e.CommandName == "Modificar")
+                {
+                    Session.Add("personaModificar", id);
+                    Response.Redirect("FormularioPersona.aspx", false);
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+                    Response.Redirect("Persona.aspx", false);
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
