@@ -118,9 +118,10 @@ namespace Controlador
             try
             {
                 string consulta = "UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] SET [nombre] = @usuario, [contrasenia] = @contraseña, [idPerfil] = @idPerfil WHERE [id] = @id;";
+                conexion.setearParametro("@id", usuario.Id);
                 conexion.setearParametro("@usuario", usuario.Nombre);
                 conexion.setearParametro("@contraseña", usuario.Contrasenia);
-                conexion.setearParametro("@perfil", usuario.perfil.Id);
+                conexion.setearParametro("@idPerfil", usuario.perfil.Id);
                 conexion.conectar();
                 conexion.setearConsulta(consulta);
                 conexion.ejecutarAccion();

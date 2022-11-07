@@ -20,13 +20,15 @@ namespace ClinicaWeb
             UsuarioNegocio usuarioNegocio; ;
             try
             {
-                perfilNegocio = new PerfilNegocio();
-                listaPerfiles = perfilNegocio.listar();
-
-                ddlPerfil.DataSource = listaPerfiles;
-                ddlPerfil.DataTextField = "Tipo";
-                ddlPerfil.DataValueField = "Id";
-                ddlPerfil.DataBind();
+                if (!IsPostBack)
+                {
+                    perfilNegocio = new PerfilNegocio();
+                    listaPerfiles = perfilNegocio.listar();
+                    ddlPerfil.DataSource = listaPerfiles;
+                    ddlPerfil.DataTextField = "Tipo";
+                    ddlPerfil.DataValueField = "Id";
+                    ddlPerfil.DataBind();
+                }
 
                 if (!(Session["usuarioModificar"] is null))
                 {
@@ -71,8 +73,11 @@ namespace ClinicaWeb
                         usuarioModificar.Contrasenia = tbxContraseñaUsuario.Text;
                         usuarioModificar.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
 
+                        usuarioNegocio = new UsuarioNegocio();
+                        usuarioNegocio.actualizar(usuarioModificar);
+
                         Session.Remove("usuarioModificar");
-                        Response.Redirect("FormularioUsuario.aspx", false);
+                        Response.Redirect("Usuario.aspx", false);
                     }
                 }
                 else
@@ -89,7 +94,7 @@ namespace ClinicaWeb
                         usuarioNegocio.crear(usuario);
 
                         Session.Remove("usuarioModificar");
-                        Response.Redirect("FormularioUsuario.aspx", false);
+                        Response.Redirect("Usuario.aspx", false);
                     }
                 }
             }
