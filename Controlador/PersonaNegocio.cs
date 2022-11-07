@@ -29,7 +29,11 @@ namespace Controlador
                     persona.Nombre = (string)Conexion.Lector["nombre"];
                     persona.Apellido = (string)Conexion.Lector["apellido"];
                     persona.Email = (string)Conexion.Lector["email"];
-                    if (!(Conexion.Lector["idUsuario"] is DBNull))
+                    if (Conexion.Lector["idUsuario"] is DBNull)
+                    {
+                        persona.usuario = null;
+                    }
+                    else
                     {
                         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                         persona.usuario = new Usuario();
@@ -72,7 +76,11 @@ namespace Controlador
                     persona.Nombre = (string)conexion.Lector["nombre"];
                     persona.Apellido = (string)conexion.Lector["apellido"];
                     persona.Email = (string)conexion.Lector["email"];
-                    if (!(conexion.Lector["idUsuario"] is DBNull))
+                    if (conexion.Lector["idUsuario"] is DBNull)
+                    {
+                        persona.usuario = null;
+                    }
+                    else
                     {
                         UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
                         persona.usuario = new Usuario();
@@ -144,7 +152,14 @@ namespace Controlador
                 conexion.setearParametro("@nombre", persona.Nombre);
                 conexion.setearParametro("@apellido", persona.Apellido);
                 conexion.setearParametro("@email", persona.Email);
-                conexion.setearParametro("@idUsuario", persona.usuario.Id);
+                if (persona.usuario is null)
+                {
+                    conexion.setearParametro("@idUsuario", DBNull.Value);
+                }
+                else
+                {
+                    conexion.setearParametro("@idUsuario", persona.usuario.Id);
+                }
                 conexion.conectar();
                 conexion.setearConsulta(consulta);
                 conexion.ejecutarAccion();
