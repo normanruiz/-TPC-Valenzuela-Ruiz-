@@ -58,7 +58,9 @@ namespace ClinicaWeb
                 }
                 else if (e.CommandName == "Eliminar")
                 {
-
+                    EstadoNegocio estadoNegocio = new EstadoNegocio();
+                    estadoNegocio.Eliminar(id);
+                    Response.Redirect("Estados.aspx", false);
                 }
             }
             catch (Exception excepcion)
