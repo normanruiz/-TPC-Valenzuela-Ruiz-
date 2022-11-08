@@ -40,6 +40,104 @@ namespace Controlador
                 Conexion.cerrar();
             }
         }
+
+        public Estado buscar_con_id(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Estado estado;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT e.[id], e.[descripcion] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] AS e WITH (NOLOCK) WHERE e.[id] = @id;");
+                conexion.setearParametro("@id", id);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    estado = new Estado();
+                    estado.Id = (Int32)conexion.Lector["id"];
+                    estado.Descripcion = (string)conexion.Lector["descripcion"];
+                }
+                else
+                {
+                    estado = null;
+                }
+                return estado;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void crear(Estado estado)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] ([descripcion]) VALUES (@descripcion);";
+                conexion.setearParametro("@descripcion", estado.Descripcion);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void actualizar(Estado estado)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] SET [descripcion] = @descripcion WHERE [id] = @id;";
+                conexion.setearParametro("@id", estado.Id);
+                conexion.setearParametro("@descripcion", estado.Descripcion);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] WHERE [id] = @id;";
+                conexion.setearConsulta(consulta);
+                conexion.setearParametro("@id", id);
+                conexion.conectar();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
     }
 }
 

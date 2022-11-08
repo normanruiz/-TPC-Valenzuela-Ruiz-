@@ -1,0 +1,274 @@
+[33mcommit 166f81a44f5956ac2fb794c9400804d621a6cab5[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31mgithub/main[m[33m)[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Mon Nov 7 22:06:03 2022 -0300
+
+    Abm Persona,agrego funcionalidad Baja.
+
+[33mcommit f99094f9a44243228f65da67fa3c2407efcf39d2[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Mon Nov 7 16:52:03 2022 -0300
+
+    Abm Persona,agrego funcionalidad modificacion.
+
+[33mcommit 7de03dffa3c2ab98f369563d46713dc3984682bf[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Mon Nov 7 14:23:01 2022 -0300
+
+    Abm Persona,agrego funcionalidad alta.
+
+[33mcommit b6bf82be17ebe798464bf5256ca99bf83e70b136[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sun Nov 6 22:07:04 2022 -0300
+
+    Abm Usuario, agrego funcionalidad Modificacion.
+
+[33mcommit 50fb4611b93ea3123f0f688ff80808cdb1ce726f[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sun Nov 6 20:46:31 2022 -0300
+
+    Abm Usuario, agrego funcionalidad Baja.
+
+[33mcommit e50b4a7e455978f6ffe1bd4d436076eb7a545725[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sun Nov 6 19:29:07 2022 -0300
+
+    Abm Usuario, agrego funcionalidad alta, realizo correcciones y agregados en la pantalla de administracion de Usuarios.
+
+[33mcommit 5644bc9873b3cb79c447eec680457d44875f7ea8[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Nov 5 15:42:33 2022 -0300
+
+    Agrego Modelo Perfil, Contrlador PerfilNegocio.
+
+[33mcommit 10a107da0f04050391e129a5167b62408cfa0a17[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Thu Nov 3 22:06:04 2022 -0300
+
+    Abm Epecialidades, agrego funcionalidad baja.
+
+[33mcommit 11522823503e531ab6d8cb43426838691655c1c7[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Thu Nov 3 20:27:05 2022 -0300
+
+    Abm Epecialidades, agrego funcionalidad modificacion.
+
+[33mcommit ddab4d08f83155b7120823fcbd9e2222713a06b3[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Thu Nov 3 12:44:06 2022 -0300
+
+    Abm Epecialidades, agrego funcionalidad alta.
+
+[33mcommit 34d1697a5b8210f3231ca14a8dee392a8b27ee3d[m[33m ([m[1;33mtag: Etapa1.0[m[33m)[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Wed Nov 2 22:47:25 2022 -0300
+
+    Realizo ajustes en formulario de carga de turnos y su pagina de administracion.
+
+[33mcommit d28851756bb5614c986427aad5a41bfd0ea7e659[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Wed Nov 2 22:19:53 2022 -0300
+
+    Realizo ajustes en formulario de carga de horarios, y agrego la carga de datos en la pantalla de administracion de horarios.
+
+[33mcommit f8de366c71e72ea07bdf204cbe43e3e0de26b045[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Wed Nov 2 22:02:46 2022 -0300
+
+    Realizo ajustes en formulario de carga de especialidades, y agrego la carga de datos en la pantalla de administracion de especialidades.
+
+[33mcommit 2c0cc35a3f1e148e7e6e76348b2d3497c64d598e[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Wed Nov 2 21:13:38 2022 -0300
+
+    Realizo ajustes en formulario de carga de usuario, y agrego la carga de datos en la pantalla de administracion de usuarios.
+
+[33mcommit b0f9894dc3d35f8c5e76235fbbc2cc33e5368ba8[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Tue Nov 1 21:19:03 2022 -0300
+
+    abm Turnos redirecciona a Formulario de nuevo turno
+
+[33mcommit f6abc941c635a4b9a7ed0ce5d9d09745f2e2344d[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Tue Nov 1 21:11:36 2022 -0300
+
+    Creacion alta de turno, abm Usuario, abm Horarios.
+
+[33mcommit c6ad2597a9e28a9b1e0f1be83958a5a41be9a340[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Nov 1 17:07:19 2022 -0300
+
+    Agrego pagina formulario de carga para personas.
+
+[33mcommit 8013674e6508b803a7a04e83955d219ec0e6fadc[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Nov 1 14:33:08 2022 -0300
+
+    Actualizo bootstrap a version 5.2.2, agrego pagina Horarios sin carga de datos.
+
+[33mcommit 0850e21e91d929053ca93dd31f73a3c9cdd15dd2[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Nov 1 13:47:49 2022 -0300
+
+    Agrego pagina Persona, y su carga de datos.
+
+[33mcommit 7984294652f54a33518fee57ea74b95d7f3be917[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Nov 1 11:02:45 2022 -0300
+
+    Agrego retoques en master page, agrego retoques en paginas turno medico y paciente, y agrego logica de carga de datos en pagina paciente.
+
+[33mcommit d79e450c74047622635ae95f6229be4494c20055[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Nov 1 09:32:43 2022 -0300
+
+    Modifico Inicio, agrego boton asp y redireccion a primnera pantalla.
+
+[33mcommit 364bb9f77896fd03a18c2c310e6a4f104c05307a[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Tue Nov 1 00:03:35 2022 -0300
+
+    Creación de páginas Nuevo paciente y Error.
+
+[33mcommit 12b2de27bf8c4a95184335156e74ae5947f6824c[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sun Oct 30 00:23:07 2022 -0300
+
+    Agrego carga de datos en pagina medicos.
+
+[33mcommit cd59782884d17b8ffbac99d856836fc60cd14613[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Sat Oct 29 23:52:21 2022 -0300
+
+    Organizacion de pagina Master
+
+[33mcommit b8582f06f67e88e96a6a3427b9fa7a8023b6f13e[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 23:35:49 2022 -0300
+
+    Agrego set de datos de pruebas al script de creacion de base de datos.
+
+[33mcommit 756d0dbb264215e8e0749e199047c772a5b986ee[m
+Merge: d3623d1 48f0a90
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Sat Oct 29 23:16:58 2022 -0300
+
+    Merge branch 'main' of https://github.com/normanruiz/-TPC-Valenzuela-Ruiz-
+
+[33mcommit d3623d10b45abb4434cb44e36759245ff5af0faa[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Sat Oct 29 23:16:22 2022 -0300
+
+    Avances en el GridView
+
+[33mcommit 48f0a9078b6fa10eb1cb089d16cd1eea65e502ae[m
+Merge: caaf920 1848344
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 21:15:11 2022 -0300
+
+    Merge branch 'main' of https://github.com/normanruiz/-TPC-Valenzuela-Ruiz-
+
+[33mcommit caaf920b350ba20b67308ab65f928fb4ad8130e6[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 21:14:47 2022 -0300
+
+    Agrego a la capa controlador la funcionalidad de listar en PacienteNegocio, y agrego funcionalidad buscar por id en EspecialidadNegocio, PersonaNegocio y UsuarioNegocio.
+
+[33mcommit 18483446844bb85c256b1a3fd9e70b9ca9711b55[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Sat Oct 29 21:04:05 2022 -0300
+
+    Perfil de Medico con gridview. Pagina de inicio sin MasterPage
+
+[33mcommit 9f12b9ef0ecdd16cf38c5f4fecf0f87941565f29[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 16:02:33 2022 -0300
+
+    Agrego a la capa controlador la funcionalidad de listar en HorarioNegocio.
+
+[33mcommit 69e67fd6688763ace3404bd20e33faece0cce7b8[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 15:29:58 2022 -0300
+
+    Agrego a la capa controlador la funcionalidad de listar en UsuarioNegocio.
+
+[33mcommit 7dea5c3c2904cd089ee5e299128acddda1367ff4[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Sat Oct 29 14:19:05 2022 -0300
+
+    Agrego a la capa controlador la funcionalidad de listar en EspecilidadNegocio, MedicoNegocio y PersonaNegocio.
+
+[33mcommit 1e92e597e660d8b5a38f4add04981788ea211a1b[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Sat Oct 29 01:11:02 2022 -0300
+
+    Cereación de MisEstilos.css, desarrollo de la página de Inicio.
+
+[33mcommit 9ba650acc01a0273e84f207ceb6c9c296a053f1a[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Fri Oct 28 01:13:58 2022 -0300
+
+    Master page y página Inicio en CSS
+
+[33mcommit 64f362b63ff9e29d98adef81a66d3173a59037b7[m
+Merge: 44b189b e016409
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Thu Oct 27 20:36:01 2022 -0300
+
+    Merge branch 'main' of https://github.com/normanruiz/-TPC-Valenzuela-Ruiz-
+
+[33mcommit 44b189b0310e5ceb2de3c9d9d91df14eca4e96d0[m
+Author: VacaMalenzuela <macarenavalenz@gmail.com>
+Date:   Thu Oct 27 20:35:49 2022 -0300
+
+    Creación clases Persona, Paciente y Usuario
+
+[33mcommit e0164099cf73613f8b73bb81776759c09f51e772[m
+Author: Macarena Valenzuela <90021468+VacaMalenzuela@users.noreply.github.com>
+Date:   Thu Oct 27 20:34:24 2022 -0300
+
+    Correción de Readme
+    
+    Se desarrolla la propuesta de Clínica Médica.
+
+[33mcommit 5e551a6fd3d9c5fadf35f4755e1c9b19af5c9d0c[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Thu Oct 27 19:34:34 2022 -0300
+
+    Agrego a la capa controlador las clases AccesoDatos y EstadoNegocio.
+
+[33mcommit 0ee82ef2b9aa02acddb8264b318e27f07e172a25[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Thu Oct 27 09:18:44 2022 -0300
+
+    Agregados en clase de modelo Medico y Turno, agrego script para generacion de base de datos.
+
+[33mcommit 27ebc56bfe8a9b04e8302f5f017a26f36e5424a6[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Wed Oct 26 19:20:21 2022 -0300
+
+    Agrego al modelo clases Especialidad, Estado, Horario, Medico y Turno.
+
+[33mcommit f57ac07ac63931580c12dcbbb2d2e1f33c555999[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Oct 25 21:54:58 2022 -0300
+
+    Agrego archivo README.md
+
+[33mcommit 2a773876bed5e6028b7e28de911688e26fbf9d58[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Oct 25 21:31:59 2022 -0300
+
+    Agrego capa controlador.
+
+[33mcommit b7ac00fc554ee33ae82edaa1c21f9e3c1650359a[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Oct 25 21:29:10 2022 -0300
+
+    Agrego capa modelo.
+
+[33mcommit 7bf8ba287bcbf167a8ee85cca9ebb9f50574493c[m
+Author: Norman Ruiz <norman.ruiz@outlook.com.ar>
+Date:   Tue Oct 25 21:27:39 2022 -0300
+
+    Creo proyecto, incluye capa web.

@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Especialidades.aspx.cs" Inherits="ClinicaWeb.Especialidades" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Estados.aspx.cs" Inherits="ClinicaWeb.Estados" %>
 
-<asp:Content ID="ContentHeaderEspecialidades" ContentPlaceHolderID="cphHeader" runat="server">
+<asp:Content ID="ContentHeaderEstados" ContentPlaceHolderID="cphHeader" runat="server">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE ESPECIALIDADES</a>
+            <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE ESTADOS</a>
         </div>
     </div>
     <br />
@@ -25,26 +25,22 @@
 <asp:Content ID="ContentBodyEspecialidades" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Administración de Especialidad</p>
+        <p class="fw-semibold" style="font-size: 30px">Administración de Estados</p>
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
-        <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
+        <asp:GridView ID="dgvEstados" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEstados_RowCommand">
             <Columns>
-                <asp:BoundField HeaderText="ID" DataField="Id" />
-                <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                <asp:BoundField HeaderText="Id." DataField="Id" />
+                <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-primary" />
                 <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-primary" />
             </Columns>
         </asp:GridView>
-
-
-
-
     </div>
     <hr />
 
 </asp:Content>
 
-<asp:Content ID="ContentFooterEspecialidades" ContentPlaceHolderID="cphFooter" runat="server">
+<asp:Content ID="ContentFooterEstados" ContentPlaceHolderID="cphFooter" runat="server">
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
     </footer>
