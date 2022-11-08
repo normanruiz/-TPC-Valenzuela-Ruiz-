@@ -4,23 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Modelo;
-using Controlador;
 
 namespace ClinicaWeb
 {
-    public partial class Paciente : System.Web.UI.Page
+    public partial class FormularioPaciente : System.Web.UI.Page
     {
-        public List<Modelo.Paciente> listaPacientes { get; set; }
+        public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            PacienteNegocio pacienteNegocio = new PacienteNegocio();
-
             try
             {
-                listaPacientes = pacienteNegocio.listar();
-                dgvPacientes.DataSource = listaPacientes;
-                dgvPacientes.DataBind();
+                if (!(Session["pacienteModificar"] is null))
+                {
+                    tituloFormulario = "Modificacion de paciente";
+                }
+                else
+                {
+                    tituloFormulario = "Alta de paciente";
+                }
             }
             catch (Exception excepcion)
             {
@@ -30,7 +31,7 @@ namespace ClinicaWeb
             }
         }
 
-        protected void dgvPacientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -44,11 +45,11 @@ namespace ClinicaWeb
             }
         }
 
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        protected void btnCancelar_Click(object sender, EventArgs e)
         {
             try
             {
-                Response.Redirect("FormularioPaciente.aspx", false);
+                Response.Redirect("Paciente.aspx", false);
             }
             catch (Exception excepcion)
             {

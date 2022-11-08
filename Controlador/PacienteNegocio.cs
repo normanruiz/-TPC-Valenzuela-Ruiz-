@@ -29,6 +29,7 @@ namespace Controlador
                     PersonaNegocio personaNegocio = new PersonaNegocio();
                     Persona persona = new Persona();
                     persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
+                    paciente.IdPersona = persona.IdPersona;
                     paciente.DNI = persona.DNI;
                     paciente.Nombre = persona.Nombre;
                     paciente.Apellido = persona.Apellido;

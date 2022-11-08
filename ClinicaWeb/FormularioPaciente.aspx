@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioPersona.aspx.cs" Inherits="ClinicaWeb.FormularioPersona" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioPaciente.aspx.cs" Inherits="ClinicaWeb.FormularioPaciente" %>
 
-<asp:Content ID="contentHeaderPersona" ContentPlaceHolderID="cphHeader" runat="server">
+<asp:Content ID="contentHeaderPaciente" ContentPlaceHolderID="cphHeader" runat="server">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACION DE PERSONAS</a>
+            <a class="navbar-brand" runat="server">ADMINISTRACION DE PACIENTES</a>
         </div>
     </div>
     <br />
@@ -14,7 +14,7 @@
 </asp:Content>
 
 
-<asp:Content ID="contentBodyPersona" ContentPlaceHolderID="cphBody" runat="server">
+<asp:Content ID="contentBodyPaciente" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px"><%= tituloFormulario %></p>
@@ -37,32 +37,20 @@
                     <label for="tbxEmail" class="form-label">Email</label>
                     <asp:TextBox ID="tbxEmail" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <%-- aca arranca la carga del usuario --%>
-
+                <%-- aca arranca la carga del paciente --%>
                 <div class="mb-3">
-                    <div class="form-check">
-                        <asp:CheckBox ID="ckbUsuario" runat="server" CssClass="form-check-input" />
-                        <label class="form-check-label" for="ckbUsuario">Requiere ususario</label>
-                    </div>
+                    <label for="cldFechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                    <asp:Calendar ID="cldFechaNacimiento" runat="server"></asp:Calendar>
                 </div>
                 <div class="mb-3">
-                    <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
-                    <asp:TextBox ID="tbxNombreUsuario" runat="server" CssClass="form-control"></asp:TextBox>
+                    <label for="tbxTelefono" class="form-label">Telefono</label>
+                    <asp:TextBox ID="tbxTelefono" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="mb-3">
-                    <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
-                    <asp:TextBox ID="tbxContraseñaUsuario" runat="server" CssClass="form-control"></asp:TextBox>
+                    <label for="tbxDireccion" class="form-label">Direccion</label>
+                    <asp:TextBox ID="tbxDireccion" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <div class="mb-3">
-                    <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
-                    <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" CssClass="form-control"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
-                    <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select"></asp:DropDownList>
-                </div>
-                <%-- aca los botones para guardar o cancelar --%>
-                <%-- Acordate que al guardra debe cuardar el usuario asignar el id a la personba y guardar la persona --%>
+                <%-- acordate de mandar el usuario en null --%>
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
             </div>
@@ -72,7 +60,7 @@
 
 </asp:Content>
 
-<asp:Content ID="contentFooterPersona" ContentPlaceHolderID="cphFooter" runat="server">
+<asp:Content ID="contentFooterPaciente" ContentPlaceHolderID="cphFooter" runat="server">
 
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
