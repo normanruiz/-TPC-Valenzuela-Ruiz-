@@ -18,24 +18,23 @@ namespace Controlador
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT p.[id], p.[idPersona], p.[dni], p.[fechaNacimiento], p.[direccion], p.[telefono] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS p WITH(NOLOCK);");
+                Conexion.setearConsulta("SELECT p.[id], p.[idPersona], p.[fechaNacimiento], p.[direccion], p.[telefono] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS p WITH(NOLOCK);");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())
                 {
                     paciente = new Paciente();
                     paciente.IdPaciente = (Int32)Conexion.Lector["id"];
-                    if (!(Conexion.Lector["idPersona"] is DBNull))
-                    {
-                        PersonaNegocio personaNegocio = new PersonaNegocio();
-                        Persona persona = new Persona();
-                        persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
-                        paciente.Nombre = persona.Nombre;
-                        paciente.Apellido = persona.Apellido;
-                        paciente.Email = persona.Email;
-                        paciente.usuario = persona.usuario;
-                    }
-                    paciente.Dni = (string)Conexion.Lector["dni"];
+
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    Persona persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
+                    paciente.DNI = persona.DNI;
+                    paciente.Nombre = persona.Nombre;
+                    paciente.Apellido = persona.Apellido;
+                    paciente.Email = persona.Email;
+                    paciente.usuario = persona.usuario;
+
                     paciente.FechaNacimiento = (DateTime)Conexion.Lector["fechaNacimiento"];
                     paciente.Direccion = (string)Conexion.Lector["direccion"];
                     paciente.Telefono = (string)Conexion.Lector["telefono"];

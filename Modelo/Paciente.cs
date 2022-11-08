@@ -9,7 +9,6 @@ namespace Modelo
     public class Paciente : Persona
     {
         public int IdPaciente { get; set; }
-        public string Dni { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }

@@ -29,5 +29,15 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void dgvPacientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

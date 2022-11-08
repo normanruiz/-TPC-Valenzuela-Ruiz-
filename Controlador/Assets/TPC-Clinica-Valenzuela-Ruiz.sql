@@ -270,7 +270,7 @@ GO
 USE [TPC-Clinica-Valenzuela-Ruiz]
 GO
 
-/****** Object:  Table [dbo].[personas]    Script Date: 7/11/2022 10:14:57 ******/
+/****** Object:  Table [dbo].[personas]    Script Date: 8/11/2022 09:14:09 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -286,11 +286,11 @@ CREATE TABLE [dbo].[personas](
 	[idUsuario] [int] NULL,
 PRIMARY KEY CLUSTERED 
 (
-	[dni] ASC
+	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
 UNIQUE NONCLUSTERED 
 (
-	[email] ASC
+	[dni] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -353,7 +353,6 @@ GO
 CREATE TABLE [dbo].[pacientes](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[idPersona] [int] NOT NULL,
-	[dni] [varchar](8) NOT NULL,
 	[fechaNacimiento] [date] NOT NULL,
 	[direccion] [varchar](100) NOT NULL,
 	[telefono] [varchar](20) NOT NULL,
@@ -361,11 +360,7 @@ PRIMARY KEY CLUSTERED
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[dni] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
+UNIQUE NONCLUSTERED  
 (
 	[idPersona] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -563,11 +558,11 @@ GO
 --  Datos [dbo].[pacientes]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] ([idPersona], [dni], [fechaNacimiento], [direccion], [telefono])
-       VALUES (13, '11111111', '1983-02-23', 'Reino Unido', 'N/D'),
-	          (14, '22222222', '1976-12-18', 'Japon', 'N/D'),
-	          (15, '33333333', '1966-11-17', 'Francia', 'N/D'),
-	          (16, '44444444', '1974-08-20', 'EEUU', 'N/D');
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] ([idPersona], [fechaNacimiento], [direccion], [telefono])
+       VALUES (13, '1983-02-23', 'Reino Unido', 'N/D'),
+	          (14, '1976-12-18', 'Japon', 'N/D'),
+	          (15, '1966-11-17', 'Francia', 'N/D'),
+	          (16, '1974-08-20', 'EEUU', 'N/D');
 GO
 
 -- ====================================================================================================================
@@ -850,7 +845,6 @@ GO
 
 SELECT p.[id]
       ,p.[idPersona]
-      ,p.[dni]
       ,p.[fechaNacimiento]
       ,p.[direccion]
       ,p.[telefono]
