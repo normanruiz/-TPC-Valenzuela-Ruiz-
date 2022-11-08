@@ -62,6 +62,15 @@ namespace ClinicaWeb
                 }
                 else if (e.CommandName == "Eliminar")
                 {
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    Modelo.Persona auxPersona = new Modelo.Persona();
+                    auxPersona = personaNegocio.buscar_con_id(id);
+                    personaNegocio.Eliminar(id);
+                    if(!(auxPersona.usuario is null))
+                    {
+                        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                        usuarioNegocio.Eliminar(auxPersona.usuario.Id);
+                    }
                     Response.Redirect("Persona.aspx", false);
                 }
             }
