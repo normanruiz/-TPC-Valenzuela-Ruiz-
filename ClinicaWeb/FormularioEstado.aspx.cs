@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Modelo;
+using Controlador;
 
 namespace ClinicaWeb
 {
@@ -12,14 +14,43 @@ namespace ClinicaWeb
         public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            tituloFormulario = "Por ahora nada";
+            try
+            {
+                if (Session["estadoModificar"] is null)
+                {
+                    tituloFormulario = "Alta de Estado";
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioEstado.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnGuardarEstado_Click(object sender, EventArgs e)
         {
+            EstadoNegocio estadoNegocio;
+            Estado estado;
             try
             {
-                Response.Redirect("Estados.aspx", false);
+                if (Session["estadoModificar"] is null)
+                {
+                    estado = new Estado();
+                    estado.Descripcion = tbxEstadoDescripcion.Text;
+                    estadoNegocio = new EstadoNegocio();
+                    estadoNegocio.crear(estado);
+                    Response.Redirect("Estados.aspx", false);
+                }
+                else
+                {
+
+                }
             }
             catch (Exception excepcion)
             {
