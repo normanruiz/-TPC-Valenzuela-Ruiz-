@@ -128,6 +128,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="FormularioEspecialidad.aspx" />
+    <Content Include="FormularioEstado.aspx" />
     <Content Include="FormularioHorario.aspx" />
     <Content Include="FormularioPersona.aspx" />
     <Content Include="FormularioTurno.aspx" />
@@ -208,6 +209,13 @@
     </Compile>
     <Compile Include="FormularioEspecialidad.aspx.designer.cs">
       <DependentUpon>FormularioEspecialidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioEstado.aspx.cs">
+      <DependentUpon>FormularioEstado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioEstado.aspx.designer.cs">
+      <DependentUpon>FormularioEstado.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioHorario.aspx.cs">
       <DependentUpon>FormularioHorario.aspx</DependentUpon>

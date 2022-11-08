@@ -4,48 +4,43 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Modelo;
-using Controlador;
 
 namespace ClinicaWeb
 {
-    public partial class Estados : System.Web.UI.Page
+    public partial class FormularioEstado : System.Web.UI.Page
     {
-        public List<Estado> listaEstados { get; set; }
+        public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            EstadoNegocio estadoNegocio = new EstadoNegocio();
+            tituloFormulario = "Por ahora nada";
+        }
+
+        protected void btnGuardarEstado_Click(object sender, EventArgs e)
+        {
             try
             {
-                listaEstados = estadoNegocio.listar();
-                dgvEstados.DataSource = listaEstados;
-                dgvEstados.DataBind();
+                Response.Redirect("Estados.aspx", false);
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("pagOrigen", "FormularioEstado.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
         }
 
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        protected void btnCancelarEstado_Click(object sender, EventArgs e)
         {
             try
             {
-                Response.Redirect("FormularioEstado.aspx", false);
+                Response.Redirect("Estados.aspx", false);
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("pagOrigen", "FormularioEstado.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
-        }
-
-        protected void dgvEstados_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
         }
     }
 }
