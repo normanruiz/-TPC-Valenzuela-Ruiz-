@@ -23,7 +23,7 @@
                 <%-- Aca arranca la carga de la persona --%>
                 <div class="mb-3">
                     <label for="tbxDNI" class="form-label">Documento Nacional de Identidad</label>
-                    <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control" OnTextChanged="tbxDNI_TextChanged" AutoPostBack="true"></asp:TextBox>
                 </div>
                 <div class="mb-3">
                     <label for="tbxNombre" class="form-label">Nombre</label>
@@ -39,8 +39,8 @@
                 </div>
                 <%-- aca arranca la carga del paciente --%>
                 <div class="mb-3">
-                    <label for="cldFechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <asp:Calendar ID="cldFechaNacimiento" runat="server"></asp:Calendar>
+                    <label for="tbxFechaNacimiento" class="form-label" >Fecha de Nacimiento</label>
+                    <asp:TextBox ID="tbxFechaNacimiento" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="mb-3">
                     <label for="tbxTelefono" class="form-label">Telefono</label>

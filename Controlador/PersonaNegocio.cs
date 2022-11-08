@@ -102,6 +102,53 @@ namespace Controlador
                 conexion.cerrar();
             }
         }
+        public Persona buscar_con_dni(string dni)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Persona persona;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT p.[id], p.[dni], p.[nombre], p.[apellido], p.[email], p.[idUsuario] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK) WHERE p.[dni] = @dni;");
+                conexion.setearParametro("@dni", dni);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    persona = new Persona();
+                    persona.IdPersona = (Int32)conexion.Lector["id"];
+                    persona.DNI = (string)conexion.Lector["dni"];
+                    persona.Nombre = (string)conexion.Lector["nombre"];
+                    persona.Apellido = (string)conexion.Lector["apellido"];
+                    persona.Email = (string)conexion.Lector["email"];
+                    if (conexion.Lector["idUsuario"] is DBNull)
+                    {
+                        persona.usuario = null;
+                    }
+                    else
+                    {
+                        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                        persona.usuario = new Usuario();
+                        persona.usuario = usuarioNegocio.buscar_con_id((Int32)conexion.Lector["idUsuario"]);
+                    }
+                }
+                else
+                {
+                    persona = null;
+                }
+                return persona;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
 
         public void crear(Persona persona)
         {
