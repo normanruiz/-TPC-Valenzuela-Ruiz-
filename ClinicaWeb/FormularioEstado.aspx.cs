@@ -12,8 +12,10 @@ namespace ClinicaWeb
     public partial class FormularioEstado : System.Web.UI.Page
     {
         public string tituloFormulario { get; set; }
+        public Estado estadoModificar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            EstadoNegocio estadoNegocio;
             try
             {
                 if (Session["estadoModificar"] is null)
@@ -22,7 +24,14 @@ namespace ClinicaWeb
                 }
                 else
                 {
-
+                    tituloFormulario = "Modificacion de Estado";
+                    int id = (int)Session["estadoModificar"];
+                    estadoNegocio = new EstadoNegocio();
+                    estadoModificar = estadoNegocio.buscar_con_id(id);
+                    if (!IsPostBack)
+                    {
+                        tbxEstadoDescripcion.Text = estadoModificar.Descripcion;
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -49,7 +58,11 @@ namespace ClinicaWeb
                 }
                 else
                 {
-
+                    estadoModificar.Descripcion = tbxEstadoDescripcion.Text;
+                    estadoNegocio = new EstadoNegocio();
+                    estadoNegocio.actualizar(estadoModificar);
+                    Session.Remove("estadoModificar");
+                    Response.Redirect("Estados.aspx", false);
                 }
             }
             catch (Exception excepcion)

@@ -45,7 +45,28 @@ namespace ClinicaWeb
 
         protected void dgvEstados_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            try
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = dgvEstados.Rows[index];
+                TableCell contactName = selectedRow.Cells[0];
+                int id = Convert.ToInt32(contactName.Text);
+                if (e.CommandName == "Modificar")
+                {
+                    Session.Add("estadoModificar", id);
+                    Response.Redirect("FormularioEstado.aspx", false);
+                }
+                else if (e.CommandName == "Eliminar")
+                {
 
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
