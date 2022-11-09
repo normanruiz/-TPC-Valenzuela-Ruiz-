@@ -13,17 +13,34 @@ namespace ClinicaWeb
     {
         public string tituloFormulario { get; set; }
         public Modelo.Persona persona { get; set; }
+        public Modelo.Paciente pacienteModificar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            PacienteNegocio pacienteNegocio;
             try
             {
-                if (!(Session["pacienteModificar"] is null))
+                if (Session["pacienteModificar"] is null)
                 {
-                    tituloFormulario = "Modificacion de paciente";
+                    tituloFormulario = "Alta de paciente";
                 }
                 else
                 {
-                    tituloFormulario = "Alta de paciente";
+                    tituloFormulario = "Modificacion de paciente";
+                    int id = (int)Session["pacienteModificar"];
+                    pacienteNegocio = new PacienteNegocio();
+                    pacienteModificar = pacienteNegocio.buscar_con_id(id);
+                    if (!IsPostBack)
+                    {
+                        tbxDNI.Text = pacienteModificar.DNI;
+                        tbxNombre.Text = pacienteModificar.Nombre;
+                        tbxApellido.Text = pacienteModificar.Apellido;
+                        tbxEmail.Text = pacienteModificar.Email;
+
+                        tbxFechaNacimiento.Text = pacienteModificar.FechaNacimiento.ToString("yyyy-MM-dd");
+                        tbxDireccion.Text = pacienteModificar.Direccion;
+                        tbxTelefono.Text = pacienteModificar.Telefono;
+                    }
+
                 }
             }
             catch (Exception excepcion)
@@ -43,7 +60,7 @@ namespace ClinicaWeb
             try
             {
                 if (Session["pacienteModificar"] is null)
-                {
+                { // OJO !!!!!!! aca va crear salame
                     personaNegocio = new PersonaNegocio();
                     persona = new Modelo.Persona();
                     personaAux = (Modelo.Persona)Session["personaAux"];
@@ -52,11 +69,13 @@ namespace ClinicaWeb
                     persona.Nombre = tbxNombre.Text;
                     persona.Apellido = tbxApellido.Text;
                     persona.Email = tbxEmail.Text;
-                    
-                    if(personaAux is null)
+
+                    if (personaAux is null)
                     {
+                        persona.usuario = null;
                         personaNegocio.crear(persona);
                         persona = personaNegocio.buscar_con_dni(persona.DNI);
+
                     }
                     else
                     {
@@ -64,7 +83,7 @@ namespace ClinicaWeb
                         persona.usuario = personaAux.usuario;
                         personaNegocio.actualizar(persona);
                     }
-                    
+
                     paciente = new Modelo.Paciente();
                     paciente.IdPersona = persona.IdPersona;
                     paciente.FechaNacimiento = DateTime.Parse(tbxFechaNacimiento.Text);
@@ -74,6 +93,60 @@ namespace ClinicaWeb
                     pacienteNegocio.crear(paciente);
 
                     Session.Remove("personaAux");
+                    Response.Redirect("Paciente.aspx", false);
+                }
+                else
+                { // OJO !!!!!!! aca va actualizar tremendo salame
+                    personaNegocio = new PersonaNegocio();
+                    personaAux = (Modelo.Persona)Session["personaAux"];
+
+                    if (personaAux is null)
+                    {
+                        if (pacienteModificar.DNI != tbxDNI.Text)
+                        {
+                            persona = new Modelo.Persona();
+                            persona.DNI = tbxDNI.Text;
+                            persona.Nombre = tbxNombre.Text;
+                            persona.Apellido = tbxApellido.Text;
+                            persona.Email = tbxEmail.Text;
+                            persona.usuario = null;
+                            personaNegocio.crear(persona);
+                            persona = personaNegocio.buscar_con_dni(persona.DNI);
+                        }
+                        else
+                        {
+                            persona = new Modelo.Persona();
+                            persona.IdPersona = pacienteModificar.IdPersona;
+                            persona.DNI = pacienteModificar.DNI;
+                            persona.Nombre = tbxNombre.Text;
+                            persona.Apellido = tbxApellido.Text;
+                            persona.Email = tbxEmail.Text;
+                            persona.usuario = pacienteModificar.usuario;
+                            personaNegocio.actualizar(persona);
+                        }
+                    }
+                    else
+                    {
+                        persona.IdPersona = personaAux.IdPersona;
+                        persona.DNI = tbxDNI.Text;
+                        persona.Nombre = tbxNombre.Text;
+                        persona.Apellido = tbxApellido.Text;
+                        persona.Email = tbxEmail.Text;
+                        persona.usuario = personaAux.usuario;
+                        personaNegocio.actualizar(personaAux);
+
+                    }
+
+                    pacienteModificar.IdPersona = persona.IdPersona;
+                    pacienteModificar.FechaNacimiento = DateTime.Parse(tbxFechaNacimiento.Text);
+                    pacienteModificar.Direccion = tbxDireccion.Text; ;
+                    pacienteModificar.Telefono = tbxTelefono.Text;
+
+                    pacienteNegocio = new PacienteNegocio();
+                    pacienteNegocio.actualizar(pacienteModificar);
+
+                    Session.Remove("personaAux");
+                    Session.Remove("pacienteModificar");
                     Response.Redirect("Paciente.aspx", false);
                 }
             }
@@ -89,6 +162,7 @@ namespace ClinicaWeb
         {
             try
             {
+                Session.Remove("pacienteModificar");
                 Response.Redirect("Paciente.aspx", false);
             }
             catch (Exception excepcion)
@@ -111,19 +185,19 @@ namespace ClinicaWeb
                     persona = new Modelo.Persona();
                     personaNegocio = new PersonaNegocio();
                     persona = personaNegocio.buscar_con_dni(dniAux);
-                    if (!(persona is null))
-                    {
-                        Session.Add("personaAux", persona);
-                        tbxNombre.Text = persona.Nombre;
-                        tbxApellido.Text = persona.Apellido;
-                        tbxEmail.Text = persona.Email;
-                    }
-                    else
+                    if (persona is null)
                     {
                         tbxNombre.Text = "";
                         tbxApellido.Text = "";
                         tbxEmail.Text = "";
                         Session.Remove("personaAux");
+                    }
+                    else
+                    {
+                        Session.Add("personaAux", persona);
+                        tbxNombre.Text = persona.Nombre;
+                        tbxApellido.Text = persona.Apellido;
+                        tbxEmail.Text = persona.Email;
                     }
                 }
                 else

@@ -76,6 +76,7 @@ namespace ClinicaWeb
         {
             try
             {
+                Session.Remove("personaModificar");
                 Response.Redirect("Persona.aspx", false);
             }
             catch (Exception excepcion)

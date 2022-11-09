@@ -131,7 +131,7 @@ namespace Controlador
             AccesoDatos conexion = new AccesoDatos();
             try
             {
-                string consulta = "";
+                string consulta = "UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] SET [idPersona] = @idPersona, [fechaNacimiento] = @fechaNacimiento, [direccion] = @direccion, [telefono] = @telefono WHERE [id] = @id;";
                 conexion.setearParametro("@id", paciente.IdPaciente);
                 conexion.setearParametro("@idPersona", paciente.IdPersona);
                 conexion.setearParametro("@fechaNacimiento", paciente.FechaNacimiento);
