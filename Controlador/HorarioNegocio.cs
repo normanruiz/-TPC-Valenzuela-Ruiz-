@@ -43,5 +43,109 @@ namespace Controlador
                 Conexion.cerrar();
             }
         }
+
+        public Horario buscar_con_id(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Horario horario;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK) WHERE h.[id] = @id;");
+                conexion.setearParametro("@id", id);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    horario = new Horario();
+                    horario.Id = (Int32)conexion.Lector["id"];
+                    horario.Dia = (string)conexion.Lector["dia"];
+                    horario.HoraInicio = (int)conexion.Lector["horaInicio"];
+                    horario.HoraFin = (int)conexion.Lector["horaFin"];
+                }
+                else
+                {
+                    horario = null;
+                }
+                return horario;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void crear(Horario horario)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] ([dia], [horaInicio], [horaFin]) VALUES (@dia, @horaInicio, @horaFin);";
+                conexion.setearParametro("@dia", horario.Dia);
+                conexion.setearParametro("@horaInicio", horario.HoraInicio);
+                conexion.setearParametro("@horaFin", horario.HoraFin);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void actualizar(Horario horario)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] SET [dia] = @dia, [horaInicio] = @horaInicio, [horaFin] = @horaFin WHERE [id] = @id;";
+                conexion.setearParametro("@id", horario.Id);
+                conexion.setearParametro("@dia", horario.Dia);
+                conexion.setearParametro("@horaInicio", horario.HoraInicio);
+                conexion.setearParametro("@horaFin", horario.HoraFin);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] WHERE [id] = 7;";
+                conexion.setearConsulta(consulta);
+                conexion.setearParametro("@id", id);
+                conexion.conectar();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
     }
 }

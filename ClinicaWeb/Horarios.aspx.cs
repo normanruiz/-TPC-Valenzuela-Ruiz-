@@ -43,7 +43,7 @@ namespace ClinicaWeb
         {
             try
             {
-
+                Response.Redirect("FormularioHorario.aspx", false);
             }
             catch (Exception excepcion)
             {

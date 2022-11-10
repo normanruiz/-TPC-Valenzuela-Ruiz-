@@ -9,19 +9,61 @@ namespace ClinicaWeb
 {
     public partial class FormularioHorario : System.Web.UI.Page
     {
+        public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (Session["horariosModificar"] is null)
+                {
+                    tituloFormulario = "Alta de Horario";
+                }
+                else
+                {
+                    tituloFormulario = "Modificacion de Horario";
+                    //int id = (int)Session["especialidadesModificar"];
+                    //especialidadNegocio = new EspecialidadNegocio();
+                    //especialidadModificar = especialidadNegocio.buscar_con_id(id);
+                    //if (!IsPostBack)
+                    //{
+                    //    tbxEspecilidadNombre.Text = especialidadModificar.Nombre;
+                    //}
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioHorario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnGuardarEspecialidad_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Horarios.aspx", false);
+            try
+            {
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioHorario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void btnCancelarEspecialidad_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Horarios.aspx", false);
+            try
+            {
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioHorario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
