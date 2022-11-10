@@ -29,5 +29,33 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void dgvMedicos_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

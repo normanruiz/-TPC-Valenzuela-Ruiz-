@@ -14,34 +14,29 @@ namespace Controlador
             List<Medico> listaMedicos = new List<Medico>();
             AccesoDatos Conexion = new AccesoDatos();
             Medico medico;
+            Persona persona;
 
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT m.[id], m.[idpersona], m.[idEspecialidad] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK);");
+                Conexion.setearConsulta("SELECT m.[id], m.[idPersona] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK);");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())
                 {
                     medico = new Medico();
                     medico.IdMedico = (Int32)Conexion.Lector["id"];
-                    if (!(Conexion.Lector["idPersona"] is DBNull))
-                    {
-                        PersonaNegocio personaNegocio = new PersonaNegocio();
-                        Persona persona = new Persona();
-                        persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
-                        medico.Nombre = persona.Nombre;
-                        medico.Apellido = persona.Apellido;
-                        medico.Email = persona.Email;
-                        medico.usuario = persona.usuario;
-                    }
-                    if (!(Conexion.Lector["idEspecialidad"] is DBNull))
-                    {
-                        //EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-                        //medico.especialidad = new Especialidad();
-                        //medico.especialidad = especialidadNegocio.buscar_con_id((Int32)Conexion.Lector["idEspecialidad"]);
-                    }
+                    medico.IdPersona = (Int32)Conexion.Lector["idPersona"];
 
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)Conexion.Lector["idPersona"]);
+
+                    medico.DNI = persona.DNI;
+                    medico.Nombre = persona.Nombre;
+                    medico.Apellido = persona.Apellido;
+                    medico.Email = persona.Email;
+                    medico.usuario = persona.usuario;
 
                     listaMedicos.Add(medico);
                 }
