@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Modelo;
+using Controlador;
 
 namespace ClinicaWeb
 {
@@ -40,9 +42,31 @@ namespace ClinicaWeb
 
         protected void btnGuardarEspecialidad_Click(object sender, EventArgs e)
         {
+            Horario horario;
+            HorarioNegocio horarioNegocio;
+
             try
             {
+                if (Session["horarioModificar"] is null)
+                {
+                    horario = new Horario();
+                    horario.Dia = ddlHorarioDia.SelectedValue;
+                    horario.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                    horario.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
 
+                    horarioNegocio = new HorarioNegocio();
+                    horarioNegocio.crear(horario);
+                    Session.Remove("horarioModificar");
+                    Response.Redirect("Horarios.aspx", false);
+                }
+                else
+                {
+                    //especialidadModificar.Nombre = tbxEspecilidadNombre.Text;
+                    //especialidadNegocio = new EspecialidadNegocio();
+                    //especialidadNegocio.actualizar(especialidadModificar);
+                    //Session.Remove("especialidadesModificar");
+                    //Response.Redirect("Especialidades.aspx", false);
+                }
             }
             catch (Exception excepcion)
             {
@@ -56,7 +80,8 @@ namespace ClinicaWeb
         {
             try
             {
-
+                Session.Remove("horarioModificar");
+                Response.Redirect("Horarios.aspx", false);
             }
             catch (Exception excepcion)
             {
