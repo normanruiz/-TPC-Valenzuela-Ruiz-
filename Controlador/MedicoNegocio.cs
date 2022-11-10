@@ -37,9 +37,9 @@ namespace Controlador
                     }
                     if (!(Conexion.Lector["idEspecialidad"] is DBNull))
                     {
-                        EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-                        medico.especialidad = new Especialidad();
-                        medico.especialidad = especialidadNegocio.buscar_con_id((Int32)Conexion.Lector["idEspecialidad"]);
+                        //EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                        //medico.especialidad = new Especialidad();
+                        //medico.especialidad = especialidadNegocio.buscar_con_id((Int32)Conexion.Lector["idEspecialidad"]);
                     }
 
 

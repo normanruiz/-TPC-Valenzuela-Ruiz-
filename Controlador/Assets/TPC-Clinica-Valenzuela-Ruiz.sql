@@ -240,7 +240,7 @@ GO
 USE [TPC-Clinica-Valenzuela-Ruiz]
 GO
 
-/****** Object:  Table [dbo].[horarios]    Script Date: 27/10/2022 09:14:05 ******/
+/****** Object:  Table [dbo].[horarios]    Script Date: 10/11/2022 15:50:08 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -249,16 +249,12 @@ GO
 
 CREATE TABLE [dbo].[horarios](
 	[id] [int] IDENTITY(1,1) NOT NULL,
-	[rango] [varchar](40) NOT NULL,
-	[fecha] [date] NOT NULL,
+	[dia] varchar(9) NOT NULL,
+	[horaInicio] [int] NOT NULL,
+	[horaFin] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[rango] ASC,
-	[fecha] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -438,7 +434,7 @@ GO
 --  Set de datos basicos
 -- ====================================================================================================================
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---  Datos [dbo].[estados]
+--  Datos [dbo].[perfiles]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[perfiles] ([tipo])
@@ -446,7 +442,6 @@ INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[perfiles] ([tipo])
 	          ('Recepcionista'),
 	          ('Medico');
 GO
-
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Datos [dbo].[estados]
@@ -500,6 +495,15 @@ GO
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Datos [dbo].[horarios]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] ([dia], [horaInicio], [horaFin])
+       VALUES ('Lunes', 13, 22),
+	          ('Martes', 08, 13),
+	          ('Miercoles', 13, 22),
+	          ('Jueves', 08, 13),
+	          ('Viernes', 13, 22);
+GO
+
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Datos [dbo].[usuario]
@@ -697,10 +701,10 @@ GO
 -- --------------------------------------------------------------------------------------------------------------------
 
 SELECT h.[id]
-      ,h.[rango]
-      ,h.[fecha]
+      ,h.[dia]
+      ,h.[horaInicio]
+	  ,h.[horaFin]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK);
-
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

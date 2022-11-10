@@ -9,7 +9,8 @@ namespace Modelo
     public class Medico : Persona
     {
         public int IdMedico { get; set; }
-        public Especialidad especialidad { get; set; }
+        public List<Especialidad> Especialidades { get; set; }
+        public List<Horario> Horarios { get; set; }
 
     }
 }

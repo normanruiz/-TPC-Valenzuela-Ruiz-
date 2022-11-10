@@ -18,15 +18,16 @@ namespace Controlador
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT h.[id], h.[rango], h.[fecha] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK);");
+                Conexion.setearConsulta("SELECT h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK);");
                 Conexion.ejecutarLectura();
 
                 while (Conexion.Lector.Read())
                 {
                     horario = new Horario();
                     horario.Id = (Int32)Conexion.Lector["id"];
-                    horario.Rango = (string)Conexion.Lector["rango"];
-                    horario.Fecha = (DateTime)Conexion.Lector["fecha"];
+                    horario.Dia = (string)Conexion.Lector["dia"];
+                    horario.HoraInicio = (int)Conexion.Lector["horaInicio"];
+                    horario.HoraFin = (int)Conexion.Lector["horaFin"];
 
                     listaHorarios.Add(horario);
                 }
