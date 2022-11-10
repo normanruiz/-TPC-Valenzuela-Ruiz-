@@ -46,7 +46,12 @@ namespace ClinicaWeb
                 }
                 else if (e.CommandName == "Eliminar")
                 {
+                    PacienteNegocio pacienteNegocio = new PacienteNegocio();
+                    Modelo.Paciente paciente = new Modelo.Paciente();
+                    paciente = pacienteNegocio.buscar_con_id(id);
+                    pacienteNegocio.Eliminar(id);
 
+                    Response.Redirect("Paciente.aspx", false);
                 }
             }
             catch (Exception excepcion)
