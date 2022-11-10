@@ -69,9 +69,9 @@ namespace ClinicaWeb
                 }
                 else if (e.CommandName == "Eliminar")
                 {
-                    //EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-                    //especialidadNegocio.Eliminar(id);
-                    //Response.Redirect("Especialidades.aspx", false);
+                    HorarioNegocio horarioNegocio = new HorarioNegocio();
+                    horarioNegocio.Eliminar(id);
+                    Response.Redirect("Horarios.aspx", false);
                 }
             }
             catch (Exception excepcion)

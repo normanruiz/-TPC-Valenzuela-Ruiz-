@@ -132,7 +132,7 @@ namespace Controlador
             AccesoDatos conexion = new AccesoDatos();
             try
             {
-                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] WHERE [id] = 7;";
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] WHERE [id] = @id;";
                 conexion.setearConsulta(consulta);
                 conexion.setearParametro("@id", id);
                 conexion.conectar();
