@@ -57,7 +57,22 @@ namespace ClinicaWeb
         {
             try
             {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = dgvHorarios.Rows[index];
+                TableCell contactName = selectedRow.Cells[0];
+                int id = Convert.ToInt32(contactName.Text);
 
+                if (e.CommandName == "Modificar")
+                {
+                    Session.Add("horarioModificar", id);
+                    Response.Redirect("FormularioHorario.aspx", false);
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+                    //EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                    //especialidadNegocio.Eliminar(id);
+                    //Response.Redirect("Especialidades.aspx", false);
+                }
             }
             catch (Exception excepcion)
             {

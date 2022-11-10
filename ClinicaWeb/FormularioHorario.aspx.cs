@@ -11,25 +11,30 @@ namespace ClinicaWeb
 {
     public partial class FormularioHorario : System.Web.UI.Page
     {
+        public Horario horarioModificar { get; set; }
         public string tituloFormulario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            HorarioNegocio horarioNegocio;
             try
             {
-                if (Session["horariosModificar"] is null)
+                if (Session["horarioModificar"] is null)
                 {
                     tituloFormulario = "Alta de Horario";
                 }
                 else
                 {
                     tituloFormulario = "Modificacion de Horario";
-                    //int id = (int)Session["especialidadesModificar"];
-                    //especialidadNegocio = new EspecialidadNegocio();
-                    //especialidadModificar = especialidadNegocio.buscar_con_id(id);
-                    //if (!IsPostBack)
-                    //{
-                    //    tbxEspecilidadNombre.Text = especialidadModificar.Nombre;
-                    //}
+                    int id = (int)Session["horarioModificar"];
+                    horarioNegocio = new HorarioNegocio();
+                    horarioModificar = horarioNegocio.buscar_con_id(id);
+                    if (!IsPostBack)
+                    {
+                        ddlHorarioDia.SelectedValue = horarioModificar.Dia;
+                        ddlHorarioInicio.SelectedValue = horarioModificar.HoraInicio.ToString();
+                        ddlHorarioFin.SelectedValue = horarioModificar.HoraFin.ToString();
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -61,11 +66,14 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    //especialidadModificar.Nombre = tbxEspecilidadNombre.Text;
-                    //especialidadNegocio = new EspecialidadNegocio();
-                    //especialidadNegocio.actualizar(especialidadModificar);
-                    //Session.Remove("especialidadesModificar");
-                    //Response.Redirect("Especialidades.aspx", false);
+                    horarioModificar.Dia = ddlHorarioDia.SelectedValue;
+                    horarioModificar.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                    horarioModificar.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
+
+                    horarioNegocio = new HorarioNegocio();
+                    horarioNegocio.actualizar(horarioModificar);
+                    Session.Remove("horarioModificar");
+                    Response.Redirect("Horarios.aspx", false);
                 }
             }
             catch (Exception excepcion)
