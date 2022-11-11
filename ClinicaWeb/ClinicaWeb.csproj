@@ -130,6 +130,7 @@
     <Content Include="FormularioEspecialidad.aspx" />
     <Content Include="FormularioEstado.aspx" />
     <Content Include="FormularioHorario.aspx" />
+    <Content Include="FormularioMedico.aspx" />
     <Content Include="FormularioPaciente.aspx" />
     <Content Include="FormularioPersona.aspx" />
     <Content Include="FormularioTurno.aspx" />
@@ -224,6 +225,13 @@
     </Compile>
     <Compile Include="FormularioHorario.aspx.designer.cs">
       <DependentUpon>FormularioHorario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormularioMedico.aspx.cs">
+      <DependentUpon>FormularioMedico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormularioMedico.aspx.designer.cs">
+      <DependentUpon>FormularioMedico.aspx</DependentUpon>
     </Compile>
     <Compile Include="FormularioPaciente.aspx.cs">
       <DependentUpon>FormularioPaciente.aspx</DependentUpon>

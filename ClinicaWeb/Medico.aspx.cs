@@ -34,7 +34,7 @@ namespace ClinicaWeb
         {
             try
             {
-
+                Response.Redirect("FormularioMedico.aspx", false);
             }
             catch (Exception excepcion)
             {
