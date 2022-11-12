@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Turnos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Turnos.aspx.cs" Inherits="ClinicaWeb.Turnos" %>
 
-<asp:Content ID="contentHeaderTurnos" ContentPlaceHolderID="cphHeader" runat="server">
+<%--<asp:Content ID="contentHeaderTurnos" ContentPlaceHolderID="cphHeader" runat="server">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -22,7 +22,7 @@
     </div>
     <hr />
 
-</asp:Content>
+</asp:Content>--%>
 
 <asp:Content ID="contentBodyTurnos" ContentPlaceHolderID="cphBody" runat="server">
 

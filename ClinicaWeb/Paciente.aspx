@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Nuevo Paciente" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Paciente.aspx.cs" Inherits="ClinicaWeb.Paciente" %>
 
-<asp:Content ID="contentHeaderPacientes" ContentPlaceHolderID="cphHeader" runat="server">
+<%--<asp:Content ID="contentHeaderPacientes" ContentPlaceHolderID="cphHeader" runat="server">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -22,7 +22,7 @@
     </div>
     <hr />
 
-</asp:Content>
+</asp:Content>--%>
 
 <asp:Content ID="ContentBodyPacientes" ContentPlaceHolderID="cphBody" runat="server">
 

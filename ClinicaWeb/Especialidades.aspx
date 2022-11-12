@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Especialidades.aspx.cs" Inherits="ClinicaWeb.Especialidades" %>
 
-<asp:Content ID="ContentHeaderEspecialidades" ContentPlaceHolderID="cphHeader" runat="server">
+<%--<asp:Content ID="ContentHeaderEspecialidades" ContentPlaceHolderID="cphHeader" runat="server">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE ESPECIALIDADES</a>
@@ -20,7 +20,7 @@
         <a href="Estados.aspx" style="width: 40%">Administrar Estados</a>
     </div>
     <hr />
-</asp:Content>
+</asp:Content>--%>
 
 <asp:Content ID="ContentBodyEspecialidades" ContentPlaceHolderID="cphBody" runat="server">
 
