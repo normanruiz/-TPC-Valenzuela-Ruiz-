@@ -44,6 +44,42 @@ namespace Controlador
             }
         }
 
+        public List<Horario> listar_con_medico(int idMedico)
+        {
+            List<Horario> listaHorarios = new List<Horario>();
+            AccesoDatos conexion = new AccesoDatos();
+            Horario horario;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) ON h.[id] = mxh.[idHorario] AND mxh.[idMedico] = @idMedico;");
+                conexion.setearParametro("@idMedico", idMedico.ToString());
+                conexion.ejecutarLectura();
+
+                while (conexion.Lector.Read())
+                {
+                    horario = new Horario();
+                    horario.Id = (Int32)conexion.Lector["id"];
+                    horario.Dia = (string)conexion.Lector["dia"];
+                    horario.HoraInicio = (int)conexion.Lector["horaInicio"];
+                    horario.HoraFin = (int)conexion.Lector["horaFin"];
+
+                    listaHorarios.Add(horario);
+                }
+
+                return listaHorarios;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public Horario buscar_con_id(int id)
         {
             AccesoDatos conexion = new AccesoDatos();

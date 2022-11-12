@@ -421,6 +421,74 @@ ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([ipPaciente])
 REFERENCES [dbo].[pacientes] ([id])
 GO
 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla intermnedia [dbo].[MedicoXEspecialidad] 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+/****** Object:  Table [dbo].[MedicoXEspecialidad]    Script Date: 11/11/2022 11:24:11 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MedicoXEspecialidad](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idMedico] [int] NOT NULL,
+	[idEspecialidad] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idMedico] ASC,
+	[idEspecialidad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[MedicoXEspecialidad]  WITH CHECK ADD FOREIGN KEY([idEspecialidad])
+REFERENCES [dbo].[especialidades] ([id])
+GO
+
+ALTER TABLE [dbo].[MedicoXEspecialidad]  WITH CHECK ADD FOREIGN KEY([idMedico])
+REFERENCES [dbo].[medicos] ([id])
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla intermnedia [dbo].[MedicoXHorario] 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+/****** Object:  Table [dbo].[MedicoXHorario]    Script Date: 11/11/2022 11:25:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[MedicoXHorario](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idMedico] [int] NOT NULL,
+	[idHorario] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[idMedico] ASC,
+	[idHorario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[MedicoXHorario]  WITH CHECK ADD FOREIGN KEY([idHorario])
+REFERENCES [dbo].[horarios] ([id])
+GO
+
+ALTER TABLE [dbo].[MedicoXHorario]  WITH CHECK ADD FOREIGN KEY([idMedico])
+REFERENCES [dbo].[medicos] ([id])
+GO
+
 -- ====================================================================================================================
 --  Fin script creacion base de datos Trabajo Practico Cuatrimestral Valenzuela Ruiz
 -- ####################################################################################################################
@@ -564,6 +632,27 @@ INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] ([idPersona], [fecha
 	          (16, '1974-08-20', 'EEUU', 'N/D');
 GO
 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[MedicoXEspecialidad] 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] ([idMedico], [idEspecialidad])
+     VALUES (1, 2),
+	        (2, 4),
+	        (3, 6),
+	        (4, 8);
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Datos [dbo].[MedicoXHorario] 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] ([idMedico], [idHorario])
+       VALUES (1, 8),
+	          (1, 3),
+	          (1, 9);
+GO
+
 -- ====================================================================================================================
 --  Fin script creacion base de datos Trabajo Practico Cuatrimestral Valenzuela Ruiz
 -- ####################################################################################################################
@@ -654,6 +743,18 @@ SELECT e.[id]
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
+--  Listar con medico
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT e.[id]
+      ,e.[nombre]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
+			INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK)
+			      ON e.[id] = mxe.[idEspecialidad]
+	   WHERE mxe.[idMedico] = 1005;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
 --  Buscar con id
 -- --------------------------------------------------------------------------------------------------------------------
 
@@ -712,6 +813,20 @@ SELECT h.[id]
 	  ,h.[horaFin]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK)
 	   WHERE h.[id] = 1;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Listar con medico
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT h.[id]
+      ,h.[dia]
+      ,h.[horaInicio]
+	  ,h.[horaFin]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK)
+			INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK)
+			      ON h.[id] = mxh.[idHorario]
+				     AND mxH.[idMedico] = 1;
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -895,6 +1010,24 @@ GO
 --  Buscar con id
 -- --------------------------------------------------------------------------------------------------------------------
 
+SELECT m.[id]
+      ,m.[idPersona]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
+	   WHERE m.[id] = 1;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Buscar con dni
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT m.[id]
+      ,m.[idPersona]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[PERSONAS] AS P WITH (NOLOCK)
+			      ON m.[idPersona] = p.[id]
+	   WHERE p.[dni] = '27846268';
+GO
+
 -- --------------------------------------------------------------------------------------------------------------------
 --  Buscar Especialidades
 -- --------------------------------------------------------------------------------------------------------------------
@@ -907,13 +1040,53 @@ GO
 --  Alta
 -- --------------------------------------------------------------------------------------------------------------------
 
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] ([idPersona])
+       VALUES (1);
+GO
+
 -- --------------------------------------------------------------------------------------------------------------------
 --  Baja
 -- --------------------------------------------------------------------------------------------------------------------
 
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos]
+       WHERE [id] = 1005;
+GO
+
 -- --------------------------------------------------------------------------------------------------------------------
 --  Modificacion
 -- --------------------------------------------------------------------------------------------------------------------
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Agregar especialidad
+-- --------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] ([idMedico], [idEspecialidad])
+       VALUES (1, 2);
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Quitar especialidad
+-- --------------------------------------------------------------------------------------------------------------------
+
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] 
+       WHERE [idMedico] = 1 AND [idEspecialidad] = 2;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Agregar horario
+-- --------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] ([idMedico], [idHorario])
+       VALUES (1, 2);
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+--  Quitar horario
+-- --------------------------------------------------------------------------------------------------------------------
+
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario]
+       WHERE [idMedico] = 1 AND [idHorario] = 2;
+GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  CRUDs [dbo].[pacientes]
