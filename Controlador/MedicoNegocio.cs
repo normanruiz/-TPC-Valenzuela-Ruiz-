@@ -225,7 +225,7 @@ namespace Controlador
                 {
                     if(!(listaNueva.Contains(especialidad)))
                     {
-                        quitar_especialidad(medico, especialidad);
+                        desasignar_especialidad(medico, especialidad);
                         listaOriginal.Remove(especialidad);
                     }
                 }
@@ -234,7 +234,7 @@ namespace Controlador
                 {
                     if (!(listaOriginal.Contains(especialidad)))
                     {
-                        agregar_especialidad(medico, especialidad);
+                        asignar_especialidad(medico, especialidad);
                     }
                 }
 
@@ -246,7 +246,7 @@ namespace Controlador
 
         }
 
-        private void quitar_especialidad(Medico medico, Especialidad especialidad)
+        private void desasignar_especialidad(Medico medico, Especialidad especialidad)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -268,7 +268,7 @@ namespace Controlador
             }
         }
 
-        private void agregar_especialidad(Medico medico, Especialidad especialidad)
+        private void asignar_especialidad(Medico medico, Especialidad especialidad)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -315,7 +315,7 @@ namespace Controlador
                 {
                     if (!(listaNueva.Contains(horario)))
                     {
-                        quitar_horario(medico, horario);
+                        desasignar_horario(medico, horario);
                         listaOriginal.Remove(horario);
                     }
                 }
@@ -324,7 +324,7 @@ namespace Controlador
                 {
                     if (!(listaOriginal.Contains(horario)))
                     {
-                        agregar_horario(medico, horario);
+                        asignar_horario(medico, horario);
                     }
                 }
 
@@ -335,7 +335,7 @@ namespace Controlador
             }
         }
 
-        private void quitar_horario(Medico medico, Horario horario)
+        private void desasignar_horario(Medico medico, Horario horario)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -357,7 +357,7 @@ namespace Controlador
             }
         }
 
-        private void agregar_horario(Medico medico, Horario horario)
+        private void asignar_horario(Medico medico, Horario horario)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
@@ -366,6 +366,48 @@ namespace Controlador
                 conexion.setearConsulta(consulta);
                 conexion.setearParametro("@idMedico", medico.IdMedico);
                 conexion.setearParametro("@idHorario", horario.Id);
+                conexion.conectar();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void quitar_especialidades(int idmedico)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] WHERE [idMedico] = @idMedico;";
+                conexion.setearConsulta(consulta);
+                conexion.setearParametro("@idMedico", idmedico);
+                conexion.conectar();
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void quitar_horarios(int idmedico)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] WHERE [idMedico] = @idMedico;";
+                conexion.setearConsulta(consulta);
+                conexion.setearParametro("@idMedico", idmedico);
                 conexion.conectar();
                 conexion.ejecutarAccion();
             }

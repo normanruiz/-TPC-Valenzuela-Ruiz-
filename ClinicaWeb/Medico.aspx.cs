@@ -48,7 +48,24 @@ namespace ClinicaWeb
         {
             try
             {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = dgvMedicos.Rows[index];
+                TableCell contactName = selectedRow.Cells[0];
+                int id = Convert.ToInt32(contactName.Text);
 
+                if (e.CommandName == "Modificar")
+                {
+                    Session.Add("medicoModificar", id);
+                    Response.Redirect("FormularioMedico.aspx", false);
+                }
+                else if (e.CommandName == "Eliminar")
+                {
+                    MedicoNegocio MedicoNegocio = new MedicoNegocio();
+                    MedicoNegocio.quitar_especialidades(id);
+                    MedicoNegocio.quitar_horarios(id);
+                    MedicoNegocio.Eliminar(id);
+                    Response.Redirect("Medico.aspx", false);
+                }
             }
             catch (Exception excepcion)
             {
