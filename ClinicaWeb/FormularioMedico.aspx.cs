@@ -292,7 +292,51 @@ namespace ClinicaWeb
                     }
                     else
                     {
+                        if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                        {
+                            personaAux = (Modelo.Persona)Session["personaAux"];
+                            if(personaAux.usuario is null)
+                            {
+                                usuarioAux = new Modelo.Usuario();
+                                usuarioAux.Nombre = tbxNombreUsuario.Text;
+                                usuarioAux.Contrasenia = tbxContraseñaUsuario.Text;
 
+                                perfilNegocio = new PerfilNegocio();
+                                perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                                usuarioAux.perfil = perfilAux;
+                                personaAux.usuario = usuarioAux;
+                            }
+                            else
+                            {
+                                personaAux.usuario.Nombre = tbxNombreUsuario.Text;
+                                personaAux.usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                                perfilNegocio = new PerfilNegocio();
+                                personaAux.usuario.perfil = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                            }
+
+                            personaAux.DNI = tbxDNI.Text;
+                            personaAux.Nombre = tbxNombre.Text;
+                            personaAux.Apellido = tbxApellido.Text;
+                            personaAux.Email = tbxEmail.Text;
+
+
+                            personaNegocio.actualizar(personaAux);
+                            personaAux = personaNegocio.buscar_con_dni(personaAux.DNI);
+
+                            medicoAux = new Modelo.Medico();
+                            medicoAux.IdPersona = personaAux.IdPersona;
+                            medicoAux.DNI = personaAux.DNI;
+
+                            medicoNegocio = new MedicoNegocio();
+                            medicoNegocio.crear(medicoAux);
+                            medicoAux = medicoNegocio.buscar_con_dni(medicoAux.DNI);
+
+                            medicoNegocio.establecer_especialidades(medicoAux, listaEspecialidades);
+
+                            medicoNegocio.establecer_horarios(medicoAux, listaHorarios);
+
+                            Response.Redirect("Medico.aspx", false);
+                        }
                     }
 
                 }
