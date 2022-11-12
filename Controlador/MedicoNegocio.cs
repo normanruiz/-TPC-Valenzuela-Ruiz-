@@ -53,41 +53,50 @@ namespace Controlador
             }
         }
 
-        //public Horario buscar_con_id(int id)
-        //{
-        //    AccesoDatos conexion = new AccesoDatos();
-        //    Horario horario;
+        public Medico buscar_con_id(int id)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Medico medico;
+            Persona persona;
 
-        //    try
-        //    {
-        //        conexion.conectar();
-        //        conexion.setearConsulta("");
-        //        conexion.setearParametro("@id", id);
-        //        conexion.ejecutarLectura();
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT m.[id], m.[idPersona] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK) WHERE m.[id] = @id;");
+                conexion.setearParametro("@id", id);
+                conexion.ejecutarLectura();
 
-        //        if (conexion.Lector.Read())
-        //        {
-        //            horario = new Horario();
-        //            horario.Id = (Int32)conexion.Lector["id"];
-        //            horario.Dia = (string)conexion.Lector["dia"];
-        //            horario.HoraInicio = (int)conexion.Lector["horaInicio"];
-        //            horario.HoraFin = (int)conexion.Lector["horaFin"];
-        //        }
-        //        else
-        //        {
-        //            horario = null;
-        //        }
-        //        return horario;
-        //    }
-        //    catch (Exception excepcion)
-        //    {
-        //        throw excepcion;
-        //    }
-        //    finally
-        //    {
-        //        conexion.cerrar();
-        //    }
-        //}
+                if (conexion.Lector.Read())
+                {
+                    medico = new Medico();
+                    medico.IdMedico = (Int32)conexion.Lector["id"];
+                    medico.IdPersona = (Int32)conexion.Lector["idPersona"];
+
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)conexion.Lector["idPersona"]);
+
+                    medico.DNI = persona.DNI;
+                    medico.Nombre = persona.Nombre;
+                    medico.Apellido = persona.Apellido;
+                    medico.Email = persona.Email;
+                    medico.usuario = persona.usuario;
+                }
+                else
+                {
+                    medico = null;
+                }
+                return medico;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
 
         public Medico buscar_con_dni(string dni)
         {

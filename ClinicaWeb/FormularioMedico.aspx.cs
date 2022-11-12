@@ -21,6 +21,10 @@ namespace ClinicaWeb
             PerfilNegocio perfilNegocio;
             EspecialidadNegocio especialidadNegocio;
             HorarioNegocio horarioNegocio;
+            MedicoNegocio medicoNegocio;
+            Modelo.Medico medicoModificar;
+
+
             try
             {
                 if (!IsPostBack)
@@ -46,20 +50,17 @@ namespace ClinicaWeb
                     ddlHorario.DataValueField = "Id";
                     ddlHorario.DataBind();
 
-                    if (Session["MedicoModificar"] is null)
-                    {
-                    }
-                    else
-                    {
+                    //if (Session["MedicoModificar"] is null)
+                    //{
+                    //}
+                    //else
+                    //{
 
-                        //listaEspecialidades = especialidadNegocio.listar_con_medico(medico);
-                        //dgvEspecialidad.DataSource = listaEspecialidades;
-                        //dgvEspecialidad.DataBind();
+                    //    //listaEspecialidades = especialidadNegocio.listar_con_medico(medico);
+                    //    //dgvEspecialidad.DataSource = listaEspecialidades;
+                    //    //dgvEspecialidad.DataBind();
 
-                    }
-
-
-
+                    //}
 
                 }
                 if (Session["MedicoModificar"] is null)
@@ -85,15 +86,53 @@ namespace ClinicaWeb
                 else
                 {
                     tituloFormulario = "Modificacion de Medico";
-                    //int id = (int)Session["horarioModificar"];
-                    //horarioNegocio = new HorarioNegocio();
-                    //horarioModificar = horarioNegocio.buscar_con_id(id);
-                    //if (!IsPostBack)
-                    //{
-                    //    ddlHorarioDia.SelectedValue = horarioModificar.Dia;
-                    //    ddlHorarioInicio.SelectedValue = horarioModificar.HoraInicio.ToString();
-                    //    ddlHorarioFin.SelectedValue = horarioModificar.HoraFin.ToString();
-                    //}
+
+                    medicoNegocio = new MedicoNegocio();
+                    medicoModificar = medicoNegocio.buscar_con_id((Int32)Session["MedicoModificar"]);
+                    if (!IsPostBack)
+                    {
+                        //cargar usuario
+                        if (medicoModificar.usuario is null)
+                        {
+                            tbxNombreUsuario.Text = "";
+                            tbxContraseñaUsuario.Text = "";
+                            tbxConfirmarContraseñaUsuario.Text = "";
+                            ddlPerfil.SelectedValue = "3";
+                        }
+                        else
+                        {
+                            tbxNombreUsuario.Text = medicoModificar.usuario.Nombre;
+                            tbxContraseñaUsuario.Text = medicoModificar.usuario.Contrasenia;
+                            tbxConfirmarContraseñaUsuario.Text = medicoModificar.usuario.Contrasenia;
+                            ddlPerfil.SelectedValue = medicoModificar.usuario.perfil.Id.ToString();
+                        }
+                        //cargar persona
+                        tbxDNI.Text = medicoModificar.DNI;
+                        tbxNombre.Text = medicoModificar.Nombre;
+                        tbxApellido.Text = medicoModificar.Apellido;
+                        tbxEmail.Text = medicoModificar.Email;
+
+                        //cargar medico
+
+                        //cargar especialidades
+                        especialidadNegocio = new EspecialidadNegocio();
+                        listaEspecialidades = especialidadNegocio.listar_con_medico(medicoModificar.IdMedico);
+                        Session["listaEspecialidades"] = listaEspecialidades;
+                        dgvEspecialidad.DataSource = listaEspecialidades;
+                        dgvEspecialidad.DataBind();
+
+
+                        //cargar horarios
+                        horarioNegocio = new HorarioNegocio();
+                        listaHorarios = horarioNegocio.listar_con_medico(medicoModificar.IdMedico);
+                        Session["listaHorarios"] = listaHorarios;
+                        dgvHorario.DataSource = listaHorarios;
+                        dgvHorario.DataBind();
+                    }
+
+                        //bloqueo dni y usuario
+                        tbxDNI.ReadOnly = true;
+                        tbxNombreUsuario.ReadOnly = true;
                 }
             }
             catch (Exception excepcion)
@@ -120,6 +159,7 @@ namespace ClinicaWeb
                 especialidad = especialidadNegocio.buscar_con_id(id);
 
                 List<Especialidad> listaEspecialidadesAux = new List<Especialidad>();// desde aca
+                listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
                 foreach (Especialidad aux in listaEspecialidades)
                 {
                     listaEspecialidadesAux.Add(aux);
@@ -163,6 +203,7 @@ namespace ClinicaWeb
                 horario = horarioNegocio.buscar_con_id(id);
 
                 List<Horario> listaHorarioAux = new List<Horario>();// desde aca
+                listaHorarios = (List<Horario>)Session["listaHorarios"];
                 foreach (Horario aux in listaHorarios)
                 {
                     listaHorarioAux.Add(aux);
@@ -199,6 +240,7 @@ namespace ClinicaWeb
                 especialidadNegocio = new EspecialidadNegocio();
                 especialidad = new Especialidad();
                 especialidad = especialidadNegocio.buscar_con_id(Int32.Parse(ddlEspecialidad.SelectedValue));
+                listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
                 listaEspecialidades.Add(especialidad);
                 Session["listaEspecialidades"] = listaEspecialidades;
                 dgvEspecialidad.DataSource = listaEspecialidades;
@@ -221,6 +263,7 @@ namespace ClinicaWeb
                 horarioNegocio = new HorarioNegocio();
                 horario = new Horario();
                 horario = horarioNegocio.buscar_con_id(Int32.Parse(ddlHorario.SelectedValue));
+                listaHorarios = (List<Horario>)Session["listaHorarios"];
                 listaHorarios.Add(horario);
                 Session["listaHorarios"] = listaHorarios;
                 dgvHorario.DataSource = listaHorarios;
@@ -238,11 +281,13 @@ namespace ClinicaWeb
         {
             PerfilNegocio perfilNegocio;
             Perfil perfilAux;
+            UsuarioNegocio usuarioNegocio;
             Modelo.Usuario usuarioAux;
             PersonaNegocio personaNegocio;
             Modelo.Persona personaAux;
             MedicoNegocio medicoNegocio;
             Modelo.Medico medicoAux;
+            Modelo.Medico medicoModificar;
 
             try
             {
@@ -286,6 +331,8 @@ namespace ClinicaWeb
 
                             medicoNegocio.establecer_horarios(medicoAux, listaHorarios);
 
+                            Session.Remove("listaHorarios");
+                            Session.Remove("listaEspecialidades");
                             Response.Redirect("Medico.aspx", false);
                         }
 
@@ -295,7 +342,7 @@ namespace ClinicaWeb
                         if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
                         {
                             personaAux = (Modelo.Persona)Session["personaAux"];
-                            if(personaAux.usuario is null)
+                            if (personaAux.usuario is null)
                             {
                                 usuarioAux = new Modelo.Usuario();
                                 usuarioAux.Nombre = tbxNombreUsuario.Text;
@@ -335,6 +382,8 @@ namespace ClinicaWeb
 
                             medicoNegocio.establecer_horarios(medicoAux, listaHorarios);
 
+                            Session.Remove("listaHorarios");
+                            Session.Remove("listaEspecialidades");
                             Response.Redirect("Medico.aspx", false);
                         }
                     }
@@ -343,12 +392,51 @@ namespace ClinicaWeb
                 else
                 { // OJO !!!!!!! aca va actualizar tremendo salame
 
+                    medicoNegocio = new MedicoNegocio();
+                    medicoModificar = medicoNegocio.buscar_con_id((Int32)Session["medicoModificar"]);
+                    if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                    {
+
+                        //actualizar usuario
+                        medicoModificar.usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                        perfilNegocio = new PerfilNegocio();
+                        perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                        medicoModificar.usuario.perfil = perfilAux;
+                        usuarioNegocio = new UsuarioNegocio();
+                        usuarioNegocio.actualizar(medicoModificar.usuario);
+
+                        //actualizar persona
+                        personaAux = new Modelo.Persona();
+                        personaAux.IdPersona = medicoModificar.IdPersona;
+                        personaAux.DNI = medicoModificar.DNI;
+                        personaAux.Nombre = tbxNombre.Text;
+                        personaAux.Apellido = tbxApellido.Text;
+                        personaAux.Email = tbxEmail.Text;
+                        personaAux.usuario = medicoModificar.usuario;
+                        personaNegocio = new PersonaNegocio();
+                        personaNegocio.actualizar(personaAux);
+
+                        //actualizar medico
+
+
+                        //actualizar especialidades
+                        listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                        medicoNegocio.establecer_especialidades(medicoModificar, listaEspecialidades);
+
+                        //actulizar horarios
+                        listaHorarios = (List<Horario>)Session["listaHorarios"];
+                        medicoNegocio.establecer_horarios(medicoModificar, listaHorarios);
+
+                    }
+
+                    Session.Remove("listaHorarios");
+                    Session.Remove("listaEspecialidades");
+                    Session.Remove("medicoModificar");
+                    Response.Redirect("Medico.aspx", false);
+
                 }
 
-                //Session.Remove("listaHorarios");
-                //Session.Remove("listaEspecialidades");
-                //Session.Remove("medicoModificar");
-                //Response.Redirect("Medico.aspx", false);
+
             }
             catch (Exception excepcion)
             {
