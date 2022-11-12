@@ -40,7 +40,40 @@ namespace Controlador
             {
                 Conexion.cerrar();
             }
+        }
 
+        public List<Especialidad> listar_con_medico(int idMedico)
+        {
+            List<Especialidad> listaEspecialidades = new List<Especialidad>();
+            AccesoDatos conexion = new AccesoDatos();
+            Especialidad especialidad;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT e.[id], e.[nombre] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK) ON e.[id] = mxe.[idEspecialidad] WHERE mxe.[idMedico] = @idMedico;");
+                conexion.setearParametro("@idMedico", idMedico.ToString());
+                conexion.ejecutarLectura();
+
+                while (conexion.Lector.Read())
+                {
+                    especialidad = new Especialidad();
+                    especialidad.Id = (Int32)conexion.Lector["id"];
+                    especialidad.Nombre = (string)conexion.Lector["nombre"];
+
+                    listaEspecialidades.Add(especialidad);
+                }
+
+                return listaEspecialidades;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
         }
 
         public Especialidad buscar_con_id(int id)
