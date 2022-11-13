@@ -39,23 +39,50 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="container body-content">
+        <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Turnos.aspx">Administrar Turnos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Medico.aspx">Administrar Médicos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Paciente.aspx">Administrar Pacientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Persona.aspx">Administrar Personas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Usuario.aspx">Administrar Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Especialidades.aspx">Administrar Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Horarios.aspx">Administrar Horarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Estados.aspx">Administrar Estados</a>
+                    </li>
+                </ul>
+
+        <%--<div class="container body-content">
             <asp:ContentPlaceHolder ID="cphHeader" runat="server">
 
+                
+
             </asp:ContentPlaceHolder>
-  
-        </div>
+
+        </div>--%>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="cphBody" runat="server">
-
             </asp:ContentPlaceHolder>
 
         </div>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="cphFooter" runat="server">
-
             </asp:ContentPlaceHolder>
         </div>
 

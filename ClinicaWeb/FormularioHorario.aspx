@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioHorario.aspx.cs" Inherits="ClinicaWeb.FormularioHorario" %>
 
-<asp:Content ID="contentHeaderHorario" ContentPlaceHolderID="cphHeader" runat="server">
+<%--<asp:Content ID="contentHeaderHorario" ContentPlaceHolderID="cphHeader" runat="server">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -11,7 +11,7 @@
     <br />
     <hr />
 
-</asp:Content>
+</asp:Content>--%>
 
 <asp:Content ID="ContentbodyHorarios" ContentPlaceHolderID="cphBody" runat="server">
 
