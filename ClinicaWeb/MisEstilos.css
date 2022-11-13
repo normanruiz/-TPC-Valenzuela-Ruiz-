@@ -60,14 +60,15 @@ form .username {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    background: white;
+    background: none;
+    color: black;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
 }
 
     .error p {
         text-align: center;
-        font-family: 'Agency FB';
+        font-family: Calibri;
         font-size: 15px;
         align-items: center;
     }

@@ -48,11 +48,11 @@
 
 </asp:Content>
 
-<asp:Content ID="contentFooterHorarios" ContentPlaceHolderID="cphFooter" runat="server">
+<%--<asp:Content ID="contentFooterHorarios" ContentPlaceHolderID="cphFooter" runat="server">
 
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
     </footer>
     <hr />
 
-</asp:Content>
+</asp:Content>--%>

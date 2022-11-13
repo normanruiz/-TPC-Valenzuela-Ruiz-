@@ -29,15 +29,15 @@
 
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administracion de Personas</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
-        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-light" OnClick="btnNuevo_Click" />
+        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="Id." DataField="IdPersona" />
                 <asp:BoundField HeaderText="DNI" DataField="DNI" />
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
-                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-primary" />
-                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-light" />
+                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-light" />
             </Columns>
         </asp:GridView>
     </div>
@@ -45,11 +45,11 @@
 
 </asp:Content>
 
-<asp:Content ID="contentFooterPersona" ContentPlaceHolderID="cphFooter" runat="server">
+<%--<asp:Content ID="contentFooterPersona" ContentPlaceHolderID="cphFooter" runat="server">
 
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
     </footer>
     <hr />
 
-</asp:Content>
+</asp:Content>--%>
