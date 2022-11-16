@@ -1,17 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioPersona.aspx.cs" Inherits="ClinicaWeb.FormularioPersona" %>
 
-<%--<asp:Content ID="contentHeaderPersona" ContentPlaceHolderID="cphHeader" runat="server">
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACION DE PERSONAS</a>
-        </div>
-    </div>
-    <br />
-    <br />
-    <hr />
-
-</asp:Content>--%>
 
 
 <asp:Content ID="contentBodyPersona" ContentPlaceHolderID="cphBody" runat="server">
@@ -63,8 +51,8 @@
                 </div>
                 <%-- aca los botones para guardar o cancelar --%>
                 <%-- Acordate que al guardra debe cuardar el usuario asignar el id a la personba y guardar la persona --%>
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClick="btnGuardar_Click" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
             </div>
         </div>
     </div>
@@ -72,11 +60,3 @@
 
 </asp:Content>
 
-<%--<asp:Content ID="contentFooterPersona" ContentPlaceHolderID="cphFooter" runat="server">
-
-    <footer>
-        <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
-    </footer>
-    <hr />
-
-</asp:Content>--%>

@@ -1,26 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Especialidades.aspx.cs" Inherits="ClinicaWeb.Especialidades" %>
 
-<%--<asp:Content ID="ContentHeaderEspecialidades" ContentPlaceHolderID="cphHeader" runat="server">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACIÓN DE ESPECIALIDADES</a>
-        </div>
-    </div>
-    <br />
-    <br />
-    <hr />
-    <div>
-        <a href="Turnos.aspx" style="width: 40%">Administrar Turnos</a>
-        <a href="Medico.aspx" style="width: 40%">Administrar Médicos</a>
-        <a href="Paciente.aspx" style="width: 40%">Administrar Pacientes</a>
-        <a href="Persona.aspx" style="width: 40%">Administrar Personas</a>
-        <a href="Usuario.aspx" style="width: 40%">Administrar Usuarios</a>
-        <a href="Especialidades.aspx" style="width: 40%">Administrar Especialidades</a>
-        <a href="Horarios.aspx" style="width: 40%">Administrar Horarios</a>
-        <a href="Estados.aspx" style="width: 40%">Administrar Estados</a>
-    </div>
-    <hr />
-</asp:Content>--%>
 
 <asp:Content ID="ContentBodyEspecialidades" ContentPlaceHolderID="cphBody" runat="server">
 
@@ -31,8 +10,8 @@
             <Columns>
                 <asp:BoundField HeaderText="ID" DataField="Id" />
                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-primary" />
-                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="boton" />
+                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="boton" />
             </Columns>
         </asp:GridView>
 

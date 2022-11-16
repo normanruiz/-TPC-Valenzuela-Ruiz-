@@ -41,9 +41,10 @@
 
         <header>
             <h1>Clinica Medica</h1> 
+
         </header>
 
-        <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link" href="Turnos.aspx">Administrar Turnos</a>
             </li>

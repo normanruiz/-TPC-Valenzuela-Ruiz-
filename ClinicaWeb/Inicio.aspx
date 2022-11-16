@@ -32,7 +32,7 @@
                     </div>
                     <%--<div class="recordar">¿Olvidó su contraseña?</div>--%>
                     <%--<button type="submit" href="Turnos.aspx" >Iniciar</button>--%>
-                    <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="btn"/>
+                    <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="boton"/>
                 </form>
             </div>
         </form>

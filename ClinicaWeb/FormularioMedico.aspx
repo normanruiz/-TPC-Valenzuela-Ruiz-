@@ -1,17 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioMedico.aspx.cs" Inherits="ClinicaWeb.FormularioMedico" %>
 
-<%--<asp:Content ID="contentHeaderMedicos" ContentPlaceHolderID="cphHeader" runat="server">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" runat="server">ADMINISTRACION DE MEDICOS</a>
-        </div>
-    </div>
-    <br />
-    <br />
-    <hr />
-
-</asp:Content>--%>
 
 
 <asp:Content ID="contentBodyMedicos" ContentPlaceHolderID="cphBody" runat="server">
@@ -64,7 +53,7 @@
                 <div class="mb-3">
                     <label for="ddlEspecialidad" class="form-label">Especialidad</label>
                     <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select"></asp:DropDownList>
-                    <asp:Button ID="btnEspecialidadAsignar" runat="server" Text="Asignar" CssClass="btn btn-primary" OnClick="btnEspecialidadAsignar_Click" />
+                    <asp:Button ID="btnEspecialidadAsignar" runat="server" Text="Asignar" CssClass="boton" OnClick="btnEspecialidadAsignar_Click" />
                 </div>
                 <div class="mb-3">
                     <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
@@ -75,15 +64,15 @@
                         </Columns>
                     </asp:GridView>
                 </div>
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClick="btnGuardar_Click" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
             </div>
             <div class="col-6">
                 <%-- aca arranca la carga del horario --%>
                 <div class="mb-3">
                     <label for="ddlHorario" class="form-label">Horarrio</label>
                     <asp:DropDownList ID="ddlHorario" runat="server" CssClass="form-select"></asp:DropDownList>
-                    <asp:Button ID="btnHorarioAsignar" runat="server" Text="Asignar" CssClass="btn btn-primary" OnClick="btnHorarioAsignar_Click" />
+                    <asp:Button ID="btnHorarioAsignar" runat="server" Text="Asignar" CssClass="boton" OnClick="btnHorarioAsignar_Click" />
                 </div>
                 <div class="mb-3">
                     <asp:GridView ID="dgvHorario" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvHorario_RowCommand">
@@ -102,13 +91,4 @@
     <hr />
 
 </asp:Content>
-
-<%--<asp:Content ID="contentFooterMedicos" ContentPlaceHolderID="cphFooter" runat="server">
-
-    <footer>
-        <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
-    </footer>
-    <hr />
-
-</asp:Content>--%>
 

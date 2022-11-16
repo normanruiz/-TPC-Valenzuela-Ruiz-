@@ -1,17 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormularioTurno.aspx.cs" Inherits="ClinicaWeb.FormularioTurno" %>
 
-<%--<asp:Content ID="contentHeaderTurno" ContentPlaceHolderID="cphHeader" runat="server">
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" runat="server">Alta/Modificación de Turnos</a>
-        </div>
-    </div>
-    <br />
-    <br />
-    <hr />
-
-</asp:Content>--%>
 
 <asp:Content ID="contentBodyTurno" ContentPlaceHolderID="cphBody" runat="server">
     <hr />
@@ -43,16 +32,9 @@
     <p>///Data list con los horarios disponibles///</p>
     <button class="btn btn-outline-success" type="button">Elegir Turno</button>
 
-    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
-    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" />
+    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClick="btnGuardar_Click" />
+    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
 
 </asp:Content>
 
-<%--<asp:Content ID="ContentFooterTurno" ContentPlaceHolderID="cphFooter" runat="server">
 
-    <footer>
-        <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
-    </footer>
-    <hr />
-
-</asp:Content>--%>
