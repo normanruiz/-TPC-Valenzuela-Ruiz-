@@ -2,9 +2,25 @@
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI';
-    background: linear-gradient(150deg, #cc99ff, #99ffb3);
+    background: linear-gradient(150deg, #ececec, #9fd3c7);
     height: 100vh;
+    color: dimgrey
 }
+
+header {
+    background-color: #142d4c;
+    font-family: Palatino;
+    font-weight: bold;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    color:azure
+}
+
+    header.h1 {
+        color: lightpink;
+        font-weight: bold
+    }
+
 
 .formulario {
     position: absolute;
@@ -64,20 +80,25 @@ form .username {
     color: black;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
+    text-align: center;
 }
 
     .error p {
-        text-align: center;
         font-family: Calibri;
         font-size: 15px;
         align-items: center;
     }
 
     .error h1 {
-        text-align: center;
         padding: 0 0 20px 0;
         border-bottom: 1px solid silver
     }
+
+    .error a {
+        color: #99ffb3
+    }
+
+
 
 button[type="submit"] {
     width: 100%;
@@ -118,8 +139,7 @@ button[type="submit"] {
 }
 
 
-
-/*button[type="button"] {
+.boton {
     width: 20%;
     height: 50px;
     border: 1px solid;
@@ -130,4 +150,4 @@ button[type="submit"] {
     cursor: pointer;
     outline: none;
     padding:10px 10px 10px 10px;
-}*/
+}

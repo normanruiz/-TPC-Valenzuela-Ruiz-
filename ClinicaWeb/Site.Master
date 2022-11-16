@@ -39,9 +39,13 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <header>
+            <h1>Clinica Medica</h1> 
+        </header>
+
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="Turnos.aspx">Administrar Turnos</a>
+                <a class="nav-link" href="Turnos.aspx">Administrar Turnos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="Medico.aspx">Administrar Médicos</a>
@@ -65,15 +69,6 @@
                 <a class="nav-link" href="Estados.aspx">Administrar Estados</a>
             </li>
         </ul>
-
-        <%--<div class="container body-content">
-            <asp:ContentPlaceHolder ID="cphHeader" runat="server">
-
-                
-
-            </asp:ContentPlaceHolder>
-
-        </div>--%>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="cphBody" runat="server">

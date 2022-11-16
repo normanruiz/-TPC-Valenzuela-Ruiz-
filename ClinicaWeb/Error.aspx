@@ -20,10 +20,11 @@
 <body>
     <form id="form1" runat="server">
         <%--<div class="error">--%>
-        <div class="formulario">
+        <div class="error">
             <h1>ERROR 404</h1>
             <p>En este momento la página no se encuentra disponible. Por favor intenta en otro momento.</p>
             <a href="Inicio.aspx">Volver al inicio</a>
+            <%--<asp:Button ID="btnError" runat="server" Text="Volver al inicio" CssClass="boton" />--%>
         </div>
     </form>
 </body>
