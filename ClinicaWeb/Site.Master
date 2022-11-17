@@ -40,36 +40,39 @@
         </asp:ScriptManager>
 
         <header>
-            <h1>Clinica Medica</h1> 
+            <h1>Clinica Medica</h1>
 
         </header>
 
+        <div class="tab-content">
             <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link" href="Turnos.aspx">Administrar Turnos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Medico.aspx">Administrar Médicos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Paciente.aspx">Administrar Pacientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Persona.aspx">Administrar Personas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Usuario.aspx">Administrar Usuarios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Especialidades.aspx">Administrar Especialidades</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Horarios.aspx">Administrar Horarios</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="Estados.aspx">Administrar Estados</a>
-            </li>
-        </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="Turnos.aspx">Administrar Turnos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Medico.aspx">Administrar Médicos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Paciente.aspx">Administrar Pacientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Persona.aspx">Administrar Personas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Usuario.aspx">Administrar Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Especialidades.aspx">Administrar Especialidades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Horarios.aspx">Administrar Horarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Estados.aspx">Administrar Estados</a>
+                </li>
+            </ul>
+        </div>
+
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="cphBody" runat="server">

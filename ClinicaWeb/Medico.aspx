@@ -6,7 +6,7 @@
 
     <div class="container">
         <p class="fw-semibold" style="font-size: 30px">Administración de Medicos</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="boton" OnClick="btnNuevo_Click" />
         <asp:GridView ID="dgvMedicos" runat="server" DataKeyNames="IdMedico" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvMedicos_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="Id." DataField="IdMedico" />
