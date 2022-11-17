@@ -3,16 +3,38 @@
 
 <asp:Content ID="contentBodyEstado" ContentPlaceHolderID="cphBody" runat="server">
 
+    <script>
+
+        function Validar() {
+            let estadoDescripcion = document.getElementById("tbxEstadoDescripcion").value;
+            if (estadoDescripcion === "") {
+                document.getElementById("tbxEstadoDescripcion").className = "form-control is-invalid";
+                document.getElementById("lblEstadoDescripcion").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblEstadoDescripcion").className = "form-label invalid-feedback";
+
+                return false;
+            }
+            else {
+                document.getElementById("tbxEstadoDescripcion").className = "";
+                document.getElementById("tbxEstadoDescripcion").className += "form-control is-valid";
+                document.getElementById("tbxEstadoDescripcion").innerText = "";
+                return true;
+            }
+        }
+
+    </script>
+
     <div class="container">
         <div class="row">
             <div class="col-6">
                 <h2><%= tituloFormulario %></h2>
                 <div class="mb-3">
                     <label for="tbxEstadoDescripcion" class="form-label">Nombre del estado</label>
-                    <asp:TextBox ID="tbxEstadoDescripcion" runat="server" cssclass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="tbxEstadoDescripcion" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                    <asp:Label ID="lblEstadoDescripcion" for="tbxEstadoDescripcion" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                 </div>
-                <asp:Button ID="btnGuardarEstado" runat="server" Text="Guardar" CssClass="boton" OnClick="btnGuardarEstado_Click"/>
-                <asp:Button ID="btnCancelarEstado" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelarEstado_Click"/>
+                <asp:Button ID="btnGuardarEstado" runat="server" Text="Guardar" CssClass="boton" OnClientClick="return Validar()" OnClick="btnGuardarEstado_Click" />
+                <asp:Button ID="btnCancelarEstado" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelarEstado_Click" />
             </div>
         </div>
     </div>

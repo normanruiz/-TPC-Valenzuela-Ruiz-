@@ -75,6 +75,40 @@ namespace Controlador
             }
         }
 
+        public Estado buscar_con_descripcion(string descripcion)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Estado estado;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT e.[id], e.[descripcion] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[estados] AS e WITH (NOLOCK) WHERE e.[descripcion] = @descripcion;");
+                conexion.setearParametro("@descripcion", descripcion);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    estado = new Estado();
+                    estado.Id = (Int32)conexion.Lector["id"];
+                    estado.Descripcion = (string)conexion.Lector["descripcion"];
+                }
+                else
+                {
+                    estado = null;
+                }
+                return estado;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public void crear(Estado estado)
         {
             AccesoDatos conexion = new AccesoDatos();

@@ -48,21 +48,30 @@ namespace ClinicaWeb
             Estado estado;
             try
             {
-                if (Session["estadoModificar"] is null)
+                estadoNegocio = new EstadoNegocio();
+                if (estadoNegocio.buscar_con_descripcion(tbxEstadoDescripcion.Text) is null)
                 {
-                    estado = new Estado();
-                    estado.Descripcion = tbxEstadoDescripcion.Text;
-                    estadoNegocio = new EstadoNegocio();
-                    estadoNegocio.crear(estado);
-                    Response.Redirect("Estados.aspx", false);
+                    if (Session["estadoModificar"] is null)
+                    {
+
+                        estado = new Estado();
+                        estado.Descripcion = tbxEstadoDescripcion.Text;
+                        estadoNegocio.crear(estado);
+                        Response.Redirect("Estados.aspx", false);
+                    }
+                    else
+                    {
+                        estadoModificar.Descripcion = tbxEstadoDescripcion.Text;
+                        estadoNegocio.actualizar(estadoModificar);
+                        Session.Remove("estadoModificar");
+                        Response.Redirect("Estados.aspx", false);
+                    }
                 }
                 else
                 {
-                    estadoModificar.Descripcion = tbxEstadoDescripcion.Text;
-                    estadoNegocio = new EstadoNegocio();
-                    estadoNegocio.actualizar(estadoModificar);
-                    Session.Remove("estadoModificar");
-                    Response.Redirect("Estados.aspx", false);
+                    tbxEstadoDescripcion.CssClass = "form-control is-invalid";
+                    lblEstadoDescripcion.CssClass = "form-label invalid-feedback";
+                    lblEstadoDescripcion.Text = "El campo que intenta ingresar ya existe.";
                 }
             }
             catch (Exception excepcion)
