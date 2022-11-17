@@ -58,6 +58,8 @@ namespace ClinicaWeb
                             ddlPerfil.SelectedValue = personaModificar.usuario.perfil.Id.ToString();
                         }
                     }
+                    tbxDNI.Enabled = false;
+                    tbxNombreUsuario.Enabled = false;
                 }
                 else
                 {
@@ -120,9 +122,15 @@ namespace ClinicaWeb
                             }
                             else
                             {
-                                personaModificar.usuario.Nombre = tbxNombreUsuario.Text;
-                                personaModificar.usuario.Contrasenia = tbxContraseñaUsuario.Text;
-                                personaModificar.usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
+                                usuario = new Modelo.Usuario();
+                                usuario.Id = personaModificar.usuario.Id;
+                                usuario.Nombre = tbxNombreUsuario.Text;
+                                usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                                usuario.perfil = new Perfil();
+                                usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
+                                usuarioNegocio = new UsuarioNegocio();
+                                usuarioNegocio.actualizar(usuario);
+                                personaModificar.usuario = usuario;
                             }
                         }
                     }
