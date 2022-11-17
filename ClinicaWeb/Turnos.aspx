@@ -3,8 +3,8 @@
 
 <asp:Content ID="contentBodyTurnos" ContentPlaceHolderID="cphBody" runat="server">
 
-    <div class="container text-center">
-        <p class="fw-semibold" style="font-size: 30px">Administración de Turnos</p>
+    <div class="container">
+        <h1>Administración de Turnos</h1>
         <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="boton" />
         <asp:GridView ID="gdvTurnos" runat="server">
         </asp:GridView>

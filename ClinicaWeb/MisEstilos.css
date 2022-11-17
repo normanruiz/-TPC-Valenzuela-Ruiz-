@@ -2,25 +2,20 @@
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI';
-    background: linear-gradient(150deg, #ececec, #9fd3c7);
+    background: #fbf2d5;
     height: 100vh;
     color: dimgrey
 }
 
+
 header {
-    background-color: #142d4c;
+    background-color: #263849;
     font-family: 'Segoe UI';
     font-weight: bold;
     padding: 10px 0px 10px 0px;
     text-align: center;
-    color: azure
+    color: white
 }
-
-    header.h1 {
-        color: lightpink;
-        font-weight: bold
-    }
-
 
 .formulario {
     position: absolute;
@@ -28,13 +23,13 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
-    background: white;
+    background: #263849;
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
-    
 }
 
     .formulario h1 {
+        color: azure;
         text-align: center;
         padding: 0 0 20px 0;
         border-bottom: 1px solid silver
@@ -52,16 +47,17 @@ header {
     background: #9999ff;
     border-radius: 25px;
     font-size: 18px;
-    color: #ffff99;
+    color: #282242;
     cursor: pointer;
     outline: none;
-    margin: 0 0 0 43px;
-    color: black
+    /*padding: 10px 10px 10px 10px;*/
+    margin: 10px 10px 30px 45px
 }
 
     .botonInicio:hover {
         border-color: #9999ff;
         transition: .5s;
+        color: #fbf2d5
     }
 
 form .username {
@@ -78,13 +74,14 @@ form .username {
     border: none;
     background: none;
     outline: none;
+    color: #fbf2d5
 }
 
 .username label {
     position: absolute;
     top: 50%;
     left: 5px;
-    color: #adadad;
+    color: azure;
     transform: translateY(-50%);
     font-size: 16px;
     pointer-events: none;
@@ -131,7 +128,7 @@ form .username {
 .username input:focus ~ label,
 .username input:focus ~ label {
     top: -5px;
-    color: #66ffb3;
+    color: #9999ff;
 }
 
 .username input:focus ~ span::before,
@@ -147,37 +144,40 @@ form .username {
     background: #9999ff;
     border-radius: 25px;
     font-size: 18px;
-    color: #ffff99;
+    color: #282242;
     cursor: pointer;
     outline: none;
     padding: 10px 10px 10px 10px;
-    margin:auto
+    margin: auto
 }
     .boton:hover {
         border-color: #9999ff;
         transition: .5s;
-        color:black
+        color: #fbf2d5
     }
 
 .nav-tabs .nav-item .nav-link {
     color: #142d4c;
-    background: linear-gradient(150deg, #ececec, #9fd3c7);
+    background: #fbf2d5;
 }
 
 .nav {
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.nav-tabs .nav-item .nav-link:hover {
+    transition: .1s;
+    color: #8c57f5;
+    border-color: #fbf2d5
 }
 
 .tab-content {
-    /*    border: 5px solid #dee2e6;
-    border-top: thin;*/
-    background-color: #142d4c;
-    display: flex;
+    background-color: #263849;
 }
 
-    .tab-content .tab-pane {
-        background-color: black;
-        color: #142d4c;
-        min-height: 200px;
-        height: auto;
-    }
+.container h1{
+    font-size:30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #282242;
+    padding: 30px 10px 10px 10px
+}

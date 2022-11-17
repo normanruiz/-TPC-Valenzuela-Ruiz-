@@ -6,7 +6,7 @@
     <hr />
     <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="DNI" aria-label="Search">
-        <button class="btn btn-outline-success" type="button">Buscar paciente</button>
+        <button class="boton" type="button">Buscar paciente</button>
     </form>
     <div>
         <label for="lbNombre" class="form-label">Nombre de paciente elegido</label>

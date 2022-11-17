@@ -5,7 +5,7 @@
 <asp:Content ID="contentBodyUsuario" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Alta/Modificación de Usuario</p>
+        <h1>Alta/Modificación de Usuario</h1>
 
         <div class="mb-3">
             <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>

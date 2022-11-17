@@ -6,8 +6,8 @@
 <asp:Content ID="contentBodyUsuario" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Administración de usuario</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
+        <h1>Administración de usuario</h1>
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="botonInicio" OnClick="btnNuevo_Click" />
         <asp:GridView ID="dgvUsuario" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvUsuario_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="ID" DataField="Id" />

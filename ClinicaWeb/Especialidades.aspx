@@ -4,8 +4,8 @@
 <asp:Content ID="ContentBodyEspecialidades" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <p class="fw-semibold" style="font-size: 30px">Administración de Especialidad</p>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-primary" OnClick="btnNuevo_Click" />
+        <h1>Administración de Especialidad</h1>
+        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="botonInicio" OnClick="btnNuevo_Click" />
         <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="ID" DataField="Id" />
