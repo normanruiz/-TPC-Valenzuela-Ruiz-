@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Error.aspx.cs" Inherits="ClinicaWeb.Error" %>
+﻿<%@ Page Title="Opssss !!! Algo ocurrio" Language="C#" AutoEventWireup="true" CodeBehind="Error.aspx.cs" Inherits="ClinicaWeb.Error" %>
 
 <!DOCTYPE html>
 
@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Error 404 </title>
+    <title><%: Page.Title %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -21,9 +21,9 @@
     <form id="form1" runat="server">
         <%--<div class="error">--%>
         <div class="error">
-            <h1>ERROR 404</h1>
-            <p>En este momento la página no se encuentra disponible. Por favor intenta en otro momento.</p>
-            <a href="Inicio.aspx">Volver al inicio</a>
+            <h1>Opssss !!! Algo ocurrio</h1>
+            <p><%: errorInformado.ToString() %></p>
+            <a href="<%: paginaOrigen  %>">Volver</a>
             <%--<asp:Button ID="btnError" runat="server" Text="Volver al inicio" CssClass="boton" />--%>
         </div>
     </form>
