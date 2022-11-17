@@ -48,22 +48,30 @@ namespace ClinicaWeb
             EspecialidadNegocio especialidadNegocio;
             try
             {
-                if (!(Session["especialidadesModificar"] is null))
+                especialidadNegocio = new EspecialidadNegocio();
+                if (especialidadNegocio.buscar_con_nombre(tbxEspecilidadNombre.Text) is null)
                 {
-                    especialidadModificar.Nombre = tbxEspecilidadNombre.Text;
-                    especialidadNegocio = new EspecialidadNegocio();
-                    especialidadNegocio.actualizar(especialidadModificar);
-                    Session.Remove("especialidadesModificar");
-                    Response.Redirect("Especialidades.aspx", false);
+                    if (Session["especialidadesModificar"] is null)
+                    {
+                        especialidad = new Especialidad();
+                        especialidad.Nombre = tbxEspecilidadNombre.Text;
+                        especialidadNegocio.crear(especialidad);
+                        Session.Remove("especialidadesModificar");
+                        Response.Redirect("Especialidades.aspx", false);
+                    }
+                    else
+                    {
+                        especialidadModificar.Nombre = tbxEspecilidadNombre.Text;
+                        especialidadNegocio.actualizar(especialidadModificar);
+                        Session.Remove("especialidadesModificar");
+                        Response.Redirect("Especialidades.aspx", false);
+                    }
                 }
                 else
                 {
-                    especialidad = new Especialidad();
-                    especialidad.Nombre = tbxEspecilidadNombre.Text;
-                    especialidadNegocio = new EspecialidadNegocio();
-                    especialidadNegocio.crear(especialidad);
-                    Session.Remove("especialidadesModificar");
-                    Response.Redirect("Especialidades.aspx", false);
+                    tbxEspecilidadNombre.CssClass = "form-control is-invalid";
+                    lblEspecilidadNombre.CssClass = "form-label invalid-feedback";
+                    lblEspecilidadNombre.Text = "El campo que intenta ingresar ya existe.";
                 }
             }
             catch (Exception excepcion)

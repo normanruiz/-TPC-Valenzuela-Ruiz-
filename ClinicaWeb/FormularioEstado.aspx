@@ -15,9 +15,8 @@
                 return false;
             }
             else {
-                document.getElementById("tbxEstadoDescripcion").className = "";
-                document.getElementById("tbxEstadoDescripcion").className += "form-control is-valid";
-                document.getElementById("tbxEstadoDescripcion").innerText = "";
+                document.getElementById("tbxEstadoDescripcion").className = "form-control is-valid";
+                document.getElementById("lblEstadoDescripcion").innerText = "";
                 return true;
             }
         }
