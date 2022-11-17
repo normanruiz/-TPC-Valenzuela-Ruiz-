@@ -43,6 +43,7 @@ namespace ClinicaWeb
                         tbxConfirmarContraseñaUsuario.Text = usuarioModificar.Contrasenia;
                         ddlPerfil.SelectedValue = usuarioModificar.perfil.Id.ToString();
                     }
+                    tbxNombreUsuario.Enabled = false;
                 }
                 else
                 {

@@ -40,7 +40,7 @@ namespace ClinicaWeb
                         tbxDireccion.Text = pacienteModificar.Direccion;
                         tbxTelefono.Text = pacienteModificar.Telefono;
                     }
-
+                    tbxDNI.Enabled = false;
                 }
             }
             catch (Exception excepcion)

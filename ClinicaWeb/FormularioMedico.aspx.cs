@@ -50,38 +50,41 @@ namespace ClinicaWeb
                     ddlHorario.DataValueField = "Id";
                     ddlHorario.DataBind();
 
-                    //if (Session["MedicoModificar"] is null)
-                    //{
-                    //}
-                    //else
-                    //{
-
-                    //    //listaEspecialidades = especialidadNegocio.listar_con_medico(medico);
-                    //    //dgvEspecialidad.DataSource = listaEspecialidades;
-                    //    //dgvEspecialidad.DataBind();
-
-                    //}
+                    listaEspecialidades = new List<Especialidad>();
+                    listaHorarios = new List<Horario>();
 
                 }
                 if (Session["MedicoModificar"] is null)
                 {
                     tituloFormulario = "Alta de Medico";
-                    if (Session["listaEspecialidades"] is null)
-                    {
-                        listaEspecialidades = new List<Especialidad>();
-                    }
-                    else
+
+                    if (!(Session["listaEspecialidades"] is null))
                     {
                         listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
                     }
-                    if (Session["listaHorarios"] is null)
-                    {
-                        listaHorarios = new List<Horario>();
-                    }
-                    else
+
+                    if (!(Session["listaHorarios"] is null))
                     {
                         listaHorarios = (List<Horario>)Session["listaHorarios"];
                     }
+
+
+                    //if (Session["listaEspecialidades"] is null)
+                    //{
+                    //    listaEspecialidades = new List<Especialidad>();
+                    //}
+                    //else
+                    //{
+                    //    listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                    //}
+                    //if (Session["listaHorarios"] is null)
+                    //{
+                    //    listaHorarios = new List<Horario>();
+                    //}
+                    //else
+                    //{
+                    //    listaHorarios = (List<Horario>)Session["listaHorarios"];
+                    //}
                 }
                 else
                 {
@@ -241,6 +244,10 @@ namespace ClinicaWeb
                 especialidad = new Especialidad();
                 especialidad = especialidadNegocio.buscar_con_id(Int32.Parse(ddlEspecialidad.SelectedValue));
                 listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                if(listaEspecialidades is null)
+                {
+                    listaEspecialidades = new List<Especialidad>();
+                }
                 listaEspecialidades.Add(especialidad);
                 Session["listaEspecialidades"] = listaEspecialidades;
                 dgvEspecialidad.DataSource = listaEspecialidades;
@@ -264,6 +271,10 @@ namespace ClinicaWeb
                 horario = new Horario();
                 horario = horarioNegocio.buscar_con_id(Int32.Parse(ddlHorario.SelectedValue));
                 listaHorarios = (List<Horario>)Session["listaHorarios"];
+                if (listaHorarios is null)
+                {
+                    listaHorarios = new List<Horario>();
+                }
                 listaHorarios.Add(horario);
                 Session["listaHorarios"] = listaHorarios;
                 dgvHorario.DataSource = listaHorarios;
