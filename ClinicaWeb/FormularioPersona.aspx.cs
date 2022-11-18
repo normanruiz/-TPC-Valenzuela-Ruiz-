@@ -12,6 +12,8 @@ namespace ClinicaWeb
     public partial class FormularioPersona : System.Web.UI.Page
     {
         public Modelo.Persona personaModificar { get; set; }
+        public Modelo.Persona persona { get; set; }
+        public Modelo.Usuario usuario { get; set; }
         public List<Modelo.Usuario> listaUsuarios { get; set; }
         public string tituloFormulario { get; set; }
         public List<Perfil> listaPerfiles { get; set; }
@@ -32,7 +34,11 @@ namespace ClinicaWeb
                     ddlPerfil.DataValueField = "Id";
                     ddlPerfil.DataBind();
                 }
-                if (!(Session["personaModificar"] is null))
+                if (Session["personaModificar"] is null)
+                {
+                    tituloFormulario = "Alta de persona";
+                }
+                else
                 {
                     tituloFormulario = "Modificacion de persona";
                     int id = (int)Session["personaModificar"];
@@ -55,14 +61,10 @@ namespace ClinicaWeb
                             tbxContraseñaUsuario.Text = personaModificar.usuario.Contrasenia;
                             tbxConfirmarContraseñaUsuario.Text = personaModificar.usuario.Contrasenia;
                             ddlPerfil.SelectedValue = personaModificar.usuario.perfil.Id.ToString();
+                            tbxNombreUsuario.Enabled = false;
                         }
                     }
                     tbxDNI.Enabled = false;
-                    tbxNombreUsuario.Enabled = false;
-                }
-                else
-                {
-                    tituloFormulario = "Alta de persona";
                 }
             }
             catch (Exception excepcion)
@@ -95,9 +97,61 @@ namespace ClinicaWeb
             Modelo.Usuario auxUsuario;
             PersonaNegocio personaNegocio;
             UsuarioNegocio usuarioNegocio;
+            bool estado = true;
             try
             {
-                if (!(Session["personaModificar"] is null))
+                personaNegocio = new PersonaNegocio();
+                usuarioNegocio = new UsuarioNegocio();
+                if (Session["personaModificar"] is null)
+                {
+                    if (personaNegocio.buscar_con_dni(tbxDNI.Text) is null)
+                    {
+                        persona = new Modelo.Persona();
+                        persona.DNI = tbxDNI.Text;
+                        persona.Nombre = tbxNombre.Text;
+                        persona.Apellido = tbxApellido.Text;
+                        persona.Email = tbxEmail.Text;
+                        if (ckbUsuario.Checked)
+                        {
+                            if (usuarioNegocio.buscar_con_nombre(tbxNombreUsuario.Text) is null)
+                            {
+
+
+                                if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                                {
+                                    persona.usuario = new Modelo.Usuario();
+                                    persona.usuario.Nombre = tbxNombreUsuario.Text;
+                                    persona.usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                                    persona.usuario.perfil = new Perfil();
+                                    persona.usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
+                                }
+                            }
+                            tbxNombreUsuario.CssClass = "form-control is-invalid";
+                            lblNombreUsuario.CssClass = "form-label invalid-feedback";
+                            lblNombreUsuario.Text = "El usuario que intenta ingresar ya existe.";
+                            estado = false;
+                        }
+                        else
+                        {
+                            persona.usuario = null;
+                        }
+
+                        if (estado)
+                        {
+                            personaNegocio.crear(persona);
+                            Session.Remove("personaModificar");
+                            Response.Redirect("persona.aspx", false);
+                        }
+                    }
+                    else
+                    {
+                        tbxDNI.CssClass = "form-control is-invalid";
+                        lblDNI.CssClass = "form-label invalid-feedback";
+                        lblDNI.Text = "El DNI que intenta ingresar ya existe.";
+                    }
+
+                }
+                else
                 {
                     personaModificar.DNI = tbxDNI.Text;
                     personaModificar.Nombre = tbxNombre.Text;
@@ -114,7 +168,6 @@ namespace ClinicaWeb
                                 usuario.Contrasenia = tbxContraseñaUsuario.Text;
                                 usuario.perfil = new Perfil();
                                 usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
-                                usuarioNegocio = new UsuarioNegocio();
                                 usuarioNegocio.crear(usuario);
                                 auxUsuario = usuarioNegocio.buscar_con_nombre(usuario.Nombre);
                                 personaModificar.usuario = auxUsuario;
@@ -127,7 +180,6 @@ namespace ClinicaWeb
                                 usuario.Contrasenia = tbxContraseñaUsuario.Text;
                                 usuario.perfil = new Perfil();
                                 usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
-                                usuarioNegocio = new UsuarioNegocio();
                                 usuarioNegocio.actualizar(usuario);
                                 personaModificar.usuario = usuario;
                             }
@@ -144,40 +196,79 @@ namespace ClinicaWeb
                     Response.Redirect("persona.aspx", false);
 
                 }
-                else
-                {
 
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioPersona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void tbxDNI_TextChanged(object sender, EventArgs e)
+        {
+            string dniAux;
+            PersonaNegocio personaNegocio;
+            try
+            {
+                if (tbxDNI.Text.Length >= 7)
+                {
+                    dniAux = tbxDNI.Text;
                     persona = new Modelo.Persona();
-                    persona.DNI = tbxDNI.Text;
-                    persona.Nombre = tbxNombre.Text;
-                    persona.Apellido = tbxApellido.Text;
-                    persona.Email = tbxEmail.Text;
-                    if (ckbUsuario.Checked)
+                    personaNegocio = new PersonaNegocio();
+                    persona = personaNegocio.buscar_con_dni(dniAux);
+                    if (persona is null)
                     {
-                        if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
-                        {
-                            persona.usuario = new Modelo.Usuario();
-                            persona.usuario.Nombre = tbxNombreUsuario.Text;
-                            persona.usuario.Contrasenia = tbxContraseñaUsuario.Text;
-                            persona.usuario.perfil = new Perfil();
-                            persona.usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
-                        }
+                        tbxDNI.CssClass = "form-control is-valid";
+                        lblDNI.Text = "";
                     }
                     else
                     {
-                        persona.usuario = null;
+                        tbxDNI.CssClass = "form-control is-invalid";
+                        lblDNI.CssClass = "form-label invalid-feedback";
+                        lblDNI.Text = "El DNI que intenta ingresar ya existe.";
                     }
+                }
+                else
+                {
 
-                    personaNegocio = new PersonaNegocio();
-                    personaNegocio.crear(persona);
-
-                    Session.Remove("personaModificar");
-                    Response.Redirect("persona.aspx", false);
                 }
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("pagOrigen", "FormularioPersona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void tbxNombreUsuario_TextChanged(object sender, EventArgs e)
+        {
+            string usuarioAux;
+            UsuarioNegocio usuarioNegocio;
+            try
+            {
+                usuarioAux = tbxNombreUsuario.Text;
+                usuario = new Modelo.Usuario();
+                usuarioNegocio = new UsuarioNegocio();
+                usuario = usuarioNegocio.buscar_con_nombre(usuarioAux);
+                if (usuario is null)
+                {
+                    tbxNombreUsuario.CssClass = "form-control is-valid";
+                    lblNombreUsuario.Text = "";
+                }
+                else
+                {
+                    tbxNombreUsuario.CssClass = "form-control is-invalid";
+                    lblNombreUsuario.CssClass = "form-label invalid-feedback";
+                    lblNombreUsuario.Text = "El usuario que intenta ingresar ya existe.";
+                }
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioPersona.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
