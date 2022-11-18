@@ -45,35 +45,44 @@ namespace ClinicaWeb
             }
         }
 
-        protected void btnGuardarEspecialidad_Click(object sender, EventArgs e)
+        protected void btnGuardarHorario_Click(object sender, EventArgs e)
         {
             Horario horario;
             HorarioNegocio horarioNegocio;
 
             try
             {
-                if (Session["horarioModificar"] is null)
+                string dia = ddlHorarioDia.SelectedValue;
+                int horaInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                int horaFin = Int32.Parse(ddlHorarioFin.SelectedValue);
+                horarioNegocio = new HorarioNegocio();
+                if (horarioNegocio.existe(dia, horaInicio, horaFin) is null)
                 {
-                    horario = new Horario();
-                    horario.Dia = ddlHorarioDia.SelectedValue;
-                    horario.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
-                    horario.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
-
-                    horarioNegocio = new HorarioNegocio();
-                    horarioNegocio.crear(horario);
-                    Session.Remove("horarioModificar");
-                    Response.Redirect("Horarios.aspx", false);
+                    if (Session["horarioModificar"] is null)
+                    {
+                        horario = new Horario();
+                        horario.Dia = ddlHorarioDia.SelectedValue;
+                        horario.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                        horario.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
+                        horarioNegocio.crear(horario);
+                        Session.Remove("horarioModificar");
+                        Response.Redirect("Horarios.aspx", false);
+                    }
+                    else
+                    {
+                        horarioModificar.Dia = ddlHorarioDia.SelectedValue;
+                        horarioModificar.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                        horarioModificar.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
+                        horarioNegocio.actualizar(horarioModificar);
+                        Session.Remove("horarioModificar");
+                        Response.Redirect("Horarios.aspx", false);
+                    }
                 }
                 else
                 {
-                    horarioModificar.Dia = ddlHorarioDia.SelectedValue;
-                    horarioModificar.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
-                    horarioModificar.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
-
-                    horarioNegocio = new HorarioNegocio();
-                    horarioNegocio.actualizar(horarioModificar);
-                    Session.Remove("horarioModificar");
-                    Response.Redirect("Horarios.aspx", false);
+                    lblAlerta.Text = "El horario que intenta ingresar ya existe.";
+                    lblAlerta.CssClass = "form-label invalid-feedback";
+                    lblAlerta.Visible = true;
                 }
             }
             catch (Exception excepcion)
@@ -84,12 +93,26 @@ namespace ClinicaWeb
             }
         }
 
-        protected void btnCancelarEspecialidad_Click(object sender, EventArgs e)
+        protected void btnCancelarHorario_Click(object sender, EventArgs e)
         {
             try
             {
                 Session.Remove("horarioModificar");
                 Response.Redirect("Horarios.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioHorario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void ddlHorarioInicio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
             }
             catch (Exception excepcion)
             {

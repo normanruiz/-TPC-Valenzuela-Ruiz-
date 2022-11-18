@@ -19,7 +19,6 @@ namespace ClinicaWeb
         {
 
             PersonaNegocio personaNegocio;
-            UsuarioNegocio usuarioNegocio;
             PerfilNegocio perfilNegocio;
 
             try

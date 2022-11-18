@@ -116,6 +116,44 @@ namespace Controlador
             }
         }
 
+        public Horario existe(string dia, int horaInicio, int horaFin)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Horario horario;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK) WHERE h.[dia] = @dia AND h.[horaInicio] = @horaInicio AND h.[horaFin] = @horaFin;");
+                conexion.setearParametro("@dia", dia);
+                conexion.setearParametro("@horaInicio", horaInicio);
+                conexion.setearParametro("@horaFin", horaFin);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    horario = new Horario();
+                    horario.Id = (Int32)conexion.Lector["id"];
+                    horario.Dia = (string)conexion.Lector["dia"];
+                    horario.HoraInicio = (int)conexion.Lector["horaInicio"];
+                    horario.HoraFin = (int)conexion.Lector["horaFin"];
+                }
+                else
+                {
+                    horario = null;
+                }
+                return horario;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public void crear(Horario horario)
         {
             AccesoDatos conexion = new AccesoDatos();

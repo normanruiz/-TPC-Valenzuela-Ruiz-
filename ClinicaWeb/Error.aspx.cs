@@ -23,7 +23,9 @@ namespace ClinicaWeb
             }
             catch (Exception excepcion)
             {
-                Response.Redirect("Inicio.aspx", false);
+                Session.Add("pagOrigen", "error.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }
