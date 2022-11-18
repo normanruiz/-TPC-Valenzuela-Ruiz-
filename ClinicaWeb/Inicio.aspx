@@ -18,24 +18,28 @@
     <link rel="stylesheet" href="MisEstilos.css" />
 </head>
 <body>
+
+    <header>
+        <h1>Clínica Médica</h1>
+    </header>
+
     <form id="form1" runat="server">
-    <div class="formulario">
-                <h1>Inicio de sesión</h1>
-                <form method="post">
-                    <div class="username">
-                        <input type="text" required />
-                        <label>Nombre de usuario</label>
-                    </div>
-                    <div class="username">
-                        <input type="password" required />
-                        <label>Contraseña</label>
-                    </div>
-                    <%--<div class="recordar">¿Olvidó su contraseña?</div>--%>
-                    <%--<button type="submit" href="Turnos.aspx" >Iniciar</button>--%>
-                    <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="botonInicio"/>
-                </form>
-            </div>
-        </form>
+        <div class="formulario">
+            <h1>Inicio de sesión</h1>
+            <form method="post">
+                <div class="username">
+                    <input type="text" required />
+                    <label>Nombre de usuario</label>
+                </div>
+                <div class="username">
+                    <input type="password" required />
+                    <label>Contraseña</label>
+                </div>
+                <%--<div class="recordar">¿Olvidó su contraseña?</div>--%>
+                <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="botonInicio" />
+            </form>
+        </div>
+    </form>
 </body>
 </html>
 
