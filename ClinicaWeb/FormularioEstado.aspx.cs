@@ -49,11 +49,11 @@ namespace ClinicaWeb
             try
             {
                 estadoNegocio = new EstadoNegocio();
-                if (estadoNegocio.buscar_con_descripcion(tbxEstadoDescripcion.Text) is null)
-                {
-                    if (Session["estadoModificar"] is null)
-                    {
 
+                if (Session["estadoModificar"] is null)
+                {
+                    if (estadoNegocio.buscar_con_descripcion(tbxEstadoDescripcion.Text) is null)
+                    {
                         estado = new Estado();
                         estado.Descripcion = tbxEstadoDescripcion.Text;
                         estadoNegocio.crear(estado);
@@ -61,18 +61,28 @@ namespace ClinicaWeb
                     }
                     else
                     {
+                        tbxEstadoDescripcion.CssClass = "form-control is-invalid";
+                        lblEstadoDescripcion.CssClass = "form-label invalid-feedback";
+                        lblEstadoDescripcion.Text = "El campo que intenta ingresar ya existe.";
+                    }
+                }
+                else
+                {
+                    if (estadoNegocio.buscar_con_descripcion(tbxEstadoDescripcion.Text) is null || tbxEstadoDescripcion.Text == estadoModificar.Descripcion)
+                    {
                         estadoModificar.Descripcion = tbxEstadoDescripcion.Text;
                         estadoNegocio.actualizar(estadoModificar);
                         Session.Remove("estadoModificar");
                         Response.Redirect("Estados.aspx", false);
                     }
+                    else
+                    {
+                        tbxEstadoDescripcion.CssClass = "form-control is-invalid";
+                        lblEstadoDescripcion.CssClass = "form-label invalid-feedback";
+                        lblEstadoDescripcion.Text = "El campo que intenta ingresar ya existe.";
+                    }
                 }
-                else
-                {
-                    tbxEstadoDescripcion.CssClass = "form-control is-invalid";
-                    lblEstadoDescripcion.CssClass = "form-label invalid-feedback";
-                    lblEstadoDescripcion.Text = "El campo que intenta ingresar ya existe.";
-                }
+
             }
             catch (Exception excepcion)
             {

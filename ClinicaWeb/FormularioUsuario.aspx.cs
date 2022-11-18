@@ -30,7 +30,11 @@ namespace ClinicaWeb
                     ddlPerfil.DataBind();
                 }
 
-                if (!(Session["usuarioModificar"] is null))
+                if (Session["usuarioModificar"] is null)
+                {
+                    tituloFormulario = "Alta de usuario";
+                }
+                else
                 {
                     tituloFormulario = "Modificacion de usuario";
                     int id = (int)Session["usuarioModificar"];
@@ -44,10 +48,6 @@ namespace ClinicaWeb
                         ddlPerfil.SelectedValue = usuarioModificar.perfil.Id.ToString();
                     }
                     tbxNombreUsuario.Enabled = false;
-                }
-                else
-                {
-                    tituloFormulario = "Alta de usuario";
                 }
 
 
@@ -66,42 +66,53 @@ namespace ClinicaWeb
             UsuarioNegocio usuarioNegocio;
             try
             {
-                if (!(Session["usuarioModificar"] is null))
+                usuarioNegocio = new UsuarioNegocio();
+
+                if (Session["usuarioModificar"] is null)
                 {
+                    if (usuarioNegocio.buscar_con_nombre(tbxNombreUsuario.Text) is null)
+                    {
+                        if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                        {
+                            usuario = new Modelo.Usuario();
+                            usuario.Nombre = tbxNombreUsuario.Text;
+                            usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                            usuario.perfil = new Perfil();
+                            usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
+
+                            usuarioNegocio.crear(usuario);
+
+                            Session.Remove("usuarioModificar");
+                            Response.Redirect("Usuario.aspx", false);
+                        }
+                    }
+                    else
+                    {
+                        tbxNombreUsuario.CssClass = "form-control is-invalid";
+                        lblNombreUsuario.CssClass = "form-label invalid-feedback";
+                        lblNombreUsuario.Text = "El nombre de usuario que intenta ingresar ya existe.";
+                    }
+                }
+                else
+                {
+
                     if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
                     {
                         usuarioModificar.Nombre = tbxNombreUsuario.Text;
                         usuarioModificar.Contrasenia = tbxContraseñaUsuario.Text;
                         usuarioModificar.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
 
-                        usuarioNegocio = new UsuarioNegocio();
                         usuarioNegocio.actualizar(usuarioModificar);
 
                         Session.Remove("usuarioModificar");
                         Response.Redirect("Usuario.aspx", false);
                     }
-                }
-                else
-                {
-                    if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
-                    {
-                        usuario = new Modelo.Usuario();
-                        usuario.Nombre = tbxNombreUsuario.Text;
-                        usuario.Contrasenia = tbxContraseñaUsuario.Text;
-                        usuario.perfil = new Perfil();
-                        usuario.perfil.Id = int.Parse(ddlPerfil.SelectedValue);
 
-                        usuarioNegocio = new UsuarioNegocio();
-                        usuarioNegocio.crear(usuario);
-
-                        Session.Remove("usuarioModificar");
-                        Response.Redirect("Usuario.aspx", false);
-                    }
                 }
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Especialidades.aspx");
+                Session.Add("pagOrigen", "FormularioUsuario.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
@@ -111,6 +122,7 @@ namespace ClinicaWeb
         {
             try
             {
+                Session.Remove("usuarioModificar");
                 Response.Redirect("Usuario.aspx", false);
             }
             catch (Exception excepcion)
