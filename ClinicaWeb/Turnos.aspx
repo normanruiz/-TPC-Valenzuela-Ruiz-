@@ -5,7 +5,7 @@
 
     <div class="container">
         <h1>Administración de Turnos</h1>
-        <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="boton" />
+        <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="botonInicio" />
         <asp:GridView ID="gdvTurnos" runat="server">
         </asp:GridView>
 

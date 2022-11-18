@@ -6,7 +6,7 @@
     <div class="container">
         <h1>Administración de Estados</h1>
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="botonInicio" OnClick="btnNuevo_Click" />
-        <asp:GridView ID="dgvEstados" runat="server" DataKeyNames="Id" CssClass="table table-bordered table-light" AutoGenerateColumns="false" OnRowCommand="dgvEstados_RowCommand">
+        <asp:GridView ID="dgvEstados" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEstados_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="Id." DataField="Id" />
                 <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
