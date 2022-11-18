@@ -102,6 +102,53 @@ namespace Controlador
             }
         }
 
+        public Paciente buscar_con_dni(string dni)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Paciente paciente;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT pa.[id], pa.[idPersona], pa.[fechaNacimiento], pa.[direccion], pa.[telefono] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS pa WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS pe WITH (NOLOCK) on pa.[idPersona] = pe.[id] AND pe.[dni] = '@dni';");
+                conexion.setearParametro("@dni", dni);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    paciente = new Paciente();
+                    paciente.IdPaciente = (Int32)conexion.Lector["id"];
+
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    Persona persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)conexion.Lector["idPersona"]);
+                    paciente.IdPersona = persona.IdPersona;
+                    paciente.DNI = persona.DNI;
+                    paciente.Nombre = persona.Nombre;
+                    paciente.Apellido = persona.Apellido;
+                    paciente.Email = persona.Email;
+                    paciente.usuario = persona.usuario;
+
+                    paciente.FechaNacimiento = (DateTime)conexion.Lector["fechaNacimiento"];
+                    paciente.Direccion = (string)conexion.Lector["direccion"];
+                    paciente.Telefono = (string)conexion.Lector["telefono"];
+                }
+                else
+                {
+                    paciente = null;
+                }
+                return paciente;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public void crear(Paciente paciente)
         {
             AccesoDatos conexion = new AccesoDatos();

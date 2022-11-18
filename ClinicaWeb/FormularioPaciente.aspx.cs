@@ -126,6 +126,7 @@ namespace ClinicaWeb
                         }
                     }
                     else
+
                     {
                         persona.IdPersona = personaAux.IdPersona;
                         persona.DNI = tbxDNI.Text;
@@ -198,6 +199,7 @@ namespace ClinicaWeb
                         tbxNombre.Text = persona.Nombre;
                         tbxApellido.Text = persona.Apellido;
                         tbxEmail.Text = persona.Email;
+                        tbxDNI.Enabled = false;
                     }
                 }
                 else

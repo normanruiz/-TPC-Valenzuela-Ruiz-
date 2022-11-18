@@ -32,6 +32,7 @@ namespace ClinicaWeb
                     {
                         tbxEstadoDescripcion.Text = estadoModificar.Descripcion;
                     }
+                    
                 }
             }
             catch (Exception excepcion)

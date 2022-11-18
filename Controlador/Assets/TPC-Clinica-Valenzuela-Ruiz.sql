@@ -1130,6 +1130,23 @@ SELECT p.[id]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS p WITH (NOLOCK)
 	   WHERE p.[id] = 1;
 GO
+
+
+
+SELECT pa.[id]
+      ,pa.[idPersona]
+      ,pa.[fechaNacimiento]
+      ,pa.[direccion]
+      ,pa.[telefono]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS pa WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS pe WITH (NOLOCK)
+			      on pa.[idPersona] = pe.[id]
+				     AND pe.[dni] = '27846268';
+GO
+
+
+
+
 -- --------------------------------------------------------------------------------------------------------------------
 --  Alta
 -- --------------------------------------------------------------------------------------------------------------------
@@ -1157,6 +1174,7 @@ UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes]
           ,[telefono] = 'Pruebas update'
        WHERE [id] = 5;
 GO
+
 
 -- ====================================================================================================================
 --  Fin Querys y nonquerys para los CRUDs
