@@ -12,8 +12,8 @@
                 <asp:BoundField HeaderText="Dia" DataField="Dia" />
                 <asp:BoundField HeaderText="Hora de inicio" DataField="HoraInicio" />
                 <asp:BoundField HeaderText="Hora de fin" DataField="HoraFin" />
-                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="boton" />
-                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="boton" />
+                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-light" />
+                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-light" />
             </Columns>
         </asp:GridView>
     </div>
