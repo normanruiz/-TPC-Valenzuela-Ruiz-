@@ -2,12 +2,15 @@
     padding: 0;
     margin: 0;
     font-family: 'Segoe UI';
-    background: #fbf2d5;
+    background: #dddddd;
     height: 100vh;
     color: dimgrey;
-    text-align: center;
+    text-align: justify;
 }
 
+.btn {
+    margin: 15px 0 15px 0
+}
 
 header {
     background-color: #263849;
@@ -159,7 +162,7 @@ form .username {
 
 .nav-tabs .nav-item .nav-link {
     color: #142d4c;
-    background: #fbf2d5;
+    background: #dddddd;
     border-color: #263849;
     border: 3px solid;
 }
@@ -174,7 +177,7 @@ form .username {
 
 .nav-tabs .nav-item .nav-link:hover {
     transition: .1s;
-    color: #545353;
+    color: azure;
     
 }
 

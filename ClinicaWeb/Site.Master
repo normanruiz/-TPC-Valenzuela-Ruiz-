@@ -83,6 +83,7 @@
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="cphFooter" runat="server">
                 <footer>
+                    <hr />
                     <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
                 </footer>
             </asp:ContentPlaceHolder>

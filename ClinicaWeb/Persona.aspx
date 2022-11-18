@@ -6,9 +6,14 @@
 <asp:Content ID="contentBodyPersona" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <h1>Administracion de Personas</h1>
-        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="botonInicio" OnClick="btnNuevo_Click" />
-        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
+        <class="row">
+            <h1>Administracion de Personas</h1>
+        </class>
+        <class="row">
+            <asp:Button ID="btnNuevo" runat="server" Text="Nueva Persona" CssClass="btn btn-secondary" OnClick="btnNuevo_Click" />
+        </class>
+        <class="row">
+            <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
             <Columns>
                 <asp:BoundField HeaderText="Id." DataField="IdPersona" />
                 <asp:BoundField HeaderText="DNI" DataField="DNI" />
@@ -18,8 +23,7 @@
                 <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-light" />
             </Columns>
         </asp:GridView>
+        </class>
     </div>
-    <hr />
-
 </asp:Content>
 

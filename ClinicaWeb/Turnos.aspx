@@ -4,13 +4,17 @@
 <asp:Content ID="contentBodyTurnos" ContentPlaceHolderID="cphBody" runat="server">
 
     <div class="container">
-        <h1>Administración de Turnos</h1>
-        <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="botonInicio" />
-        <asp:GridView ID="gdvTurnos" runat="server">
+        <class="row">
+            <h1>Administración de Turnos</h1>
+        </class>
+        <class="row">
+            <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn btn-secondary" />
+        </class>
+        <class="row">
+            <asp:GridView ID="gdvTurnos" runat="server">
         </asp:GridView>
-
+        </class>
     </div>
-    <hr />
 
 </asp:Content>
 
