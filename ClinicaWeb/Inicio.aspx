@@ -28,12 +28,17 @@
             <h1>Inicio de sesión</h1>
             <form method="post">
                 <div class="username">
-                    <input type="text" required />
-                    <label>Nombre de usuario</label>
+                    <label for="tbxNombre" class="form-label">Nombre de usuario</label>
+                    <asp:TextBox ID="tbxNombre" runat="server" ClientIDMode="Static"></asp:TextBox>
+                  <%--  <input type="text" required />
+                    <label for="" >Nombre de usuario</label>--%>
                 </div>
                 <div class="username">
-                    <input type="password" required />
-                    <label>Contraseña</label>
+                    <label for="tbxContraseña" class="form-label">Contraseña</label>
+                    <asp:TextBox TextMode="Password" ID="tbxContraseña" runat="server" ClientIDMode="Static"></asp:TextBox>
+                    <asp:Label ID="lblalerta" for="tbxContraseña" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+<%--                    <input type="password" required />
+                    <label>Contraseña</label>--%>
                 </div>
                 <%--<div class="recordar">¿Olvidó su contraseña?</div>--%>
                 <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="botonInicio" />

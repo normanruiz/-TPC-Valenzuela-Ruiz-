@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Modelo;
+using Controlador;
 
 namespace ClinicaWeb
 {
@@ -23,7 +25,38 @@ namespace ClinicaWeb
              * si existe  para la tupla usuario contrasela que fueron enviados
              * entonces si tenemos un usuario con un case verificamos su perfil y redirigimos a donde corresponda
              */
-            Response.Redirect("Turnos.aspx", false);
+
+            string nombre;
+            string contraseña;
+            Modelo.Usuario usuario;
+            UsuarioNegocio usuarioNegocio;
+
+            try
+            {
+                nombre = tbxNombre.Text;
+                contraseña = tbxContraseña.Text;
+                usuarioNegocio = new UsuarioNegocio();
+                usuario = usuarioNegocio.validar(nombre, contraseña);
+                if (usuario is null)
+                {
+                    tbxNombre.CssClass = "form-control is-invalid";
+                    tbxContraseña.CssClass = "form-control is-invalid";
+                    lblalerta.CssClass = "form-label invalid-feedback";
+                    lblalerta.Text = "Usuario y/o contraseña invalidos.";
+                }
+                else
+                {
+                    Session["usuario"] = usuario;
+                    Response.Redirect("Turnos.aspx", false);
+                }
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Inicio.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
