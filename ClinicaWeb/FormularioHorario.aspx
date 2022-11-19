@@ -9,7 +9,7 @@
             <div class="col-4">
             </div>
             <div class="col-4">
-                <h2><%= tituloFormulario %></h2>
+                <h1><%= tituloFormulario %></h1>
             </div>
             <div class="col-4">
             </div>

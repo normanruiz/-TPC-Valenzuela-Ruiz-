@@ -8,7 +8,7 @@
             <h1>Administración de Turnos</h1>
         </class>
         <class="row">
-            <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn btn-secondary" />
+            <asp:Button ID="ButtonNuevoTurno" runat="server" Text="Nuevo Turno" OnClick="ButtonNuevoTurno_Click" CssClass="btn btn-outline-secondary" />
         </class>
         <class="row">
             <asp:GridView ID="gdvTurnos" runat="server">

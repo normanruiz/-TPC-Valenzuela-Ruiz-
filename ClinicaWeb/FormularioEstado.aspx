@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h2><%= tituloFormulario %></h2>
+                <h1><%= tituloFormulario %></h1>
                 <div class="mb-3">
                     <label for="tbxEstadoDescripcion" class="form-label">Nombre del estado</label>
                     <asp:TextBox ID="tbxEstadoDescripcion" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>

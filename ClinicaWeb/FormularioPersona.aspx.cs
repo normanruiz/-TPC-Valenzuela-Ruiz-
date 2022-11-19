@@ -40,7 +40,7 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    tituloFormulario = "Modificacion de persona";
+                    tituloFormulario = "Modificación de persona";
                     int id = (int)Session["personaModificar"];
                     personaNegocio = new PersonaNegocio();
                     personaModificar = personaNegocio.buscar_con_id(id);

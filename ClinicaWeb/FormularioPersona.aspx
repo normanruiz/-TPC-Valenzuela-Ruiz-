@@ -132,23 +132,21 @@
 
     </script>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-3">
             </div>
             <div class="col-6">
-                <p class="fw-semibold" style="font-size: 30px"><%= tituloFormulario %></p>
+                <h1><%= tituloFormulario %></h1>
             </div>
             <div class="col-3">
             </div>
         </div>
 
         <div class="row">
-
             <div class="col-2">
             </div>
-
             <div class="col-4">
                 <%-- Aca arranca la carga de la persona --%>
                 <div class="mb-3">
@@ -172,8 +170,8 @@
                     <asp:Label ID="lblEmail" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                 </div>
                 <div class="mb-4">
-                    <div class="form-check">
-                        <asp:CheckBox ID="ckbUsuario" runat="server" CssClass="form-check-input" ClientIDMode="Static" AutoPostBack="true" />
+                    <div class="form-switch>
+                        <asp:CheckBox ID="ckbUsuario" runat="server" class="form-check-input" type="checkbox" ClientIDMode="Static" AutoPostBack="true" />
                         <label class="form-check-label" for="ckbUsuario">Requiere ususario</label>
                     </div>
                 </div>
@@ -208,24 +206,22 @@
 
             <div class="col-2">
             </div>
-
         </div>
 
         <div class="row">
             <%-- aca los botones para guardar o cancelar --%>
-            <div class="col-3">
+            <div class="col-2">
+            </div>
+            <div class="col-2">
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary btn-lg" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
+            </div>
+            <div class="col-2">
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
             </div>
             <div class="col-6">
-                <div class="mb-3">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
-                </div>
-            </div>
-            <div class="col-3">
             </div>
         </div>
 
     </div>
-    <hr />
 </asp:Content>
 
