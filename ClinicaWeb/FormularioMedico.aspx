@@ -135,7 +135,7 @@
             <div class="col-3">
             </div>
             <div class="col-6">
-                <h1>Alta de Médico</h1>
+                <h1><%= tituloFormulario %></h1>
             </div>
             <div class="col-3">
             </div>
