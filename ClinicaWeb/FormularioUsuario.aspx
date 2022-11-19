@@ -14,7 +14,7 @@
             if (nombreUsuario === "") {
                 document.getElementById("tbxNombreUsuario").className = "form-control is-invalid";
                 document.getElementById("lblNombreUsuario").className = "form-label invalid-feedback";
-                document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacío.";
                 estado = false;
             }
             else {
@@ -37,14 +37,14 @@
                 if (contraseñaUsuario === "") {
                     document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
                 if (confirmarContraseñaUsuario === "") {
                     document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
@@ -58,14 +58,14 @@
                 if (contraseñaUsuario === "") {
                     document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
                 if (confirmarContraseñaUsuario === "") {
                     document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
@@ -100,33 +100,56 @@
 
     </script>
 
-    <div class="container">
-        <h1><%= tituloFormulario %></h1>
-
-        <div class="mb-3">
-            <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
-            <asp:TextBox ID="tbxNombreUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-            <asp:Label ID="lblNombreUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-8">
+                <h1><%= tituloFormulario %></h1>
+            </div>
+            <div class="col-2">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
-            <asp:TextBox ID="tbxContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-            <asp:Label ID="lblContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
+                    <asp:TextBox ID="tbxNombreUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                    <asp:Label ID="lblNombreUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                </div>
+                <div class="mb-3">
+                    <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
+                    <asp:TextBox ID="tbxContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                    <asp:Label ID="lblContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                </div>
+                <div class="mb-3">
+                    <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
+                    <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                    <asp:Label ID="lblConfirmarContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                </div>
+                <div class="mb-3">
+                    <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
+                    <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select"></asp:DropDownList>
+                </div>
+            </div>
+            <div class="col-6">
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
-            <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-            <asp:Label ID="lblConfirmarContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-        </div>
-        <div class="mb-3">
-            <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
-            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select"></asp:DropDownList>
-        </div>
-        <asp:Button ID="btnGuardarUsuario" runat="server" Text="Guardar" CssClass="boton" OnClientClick="return Validar()" OnClick="btnGuardarUsuario_Click" />
-        <asp:Button ID="btnCancelarUsuario" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelarUsuario_Click" />
-
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-2">
+                <asp:Button ID="btnGuardarUsuario" runat="server" Text="Guardar" CssClass="btn btn-primary btn-lg" OnClientClick="return Validar()" OnClick="btnGuardarUsuario_Click" />
+            </div>
+            <div class="col-2">
+                <asp:Button ID="btnCancelarUsuario" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelarUsuario_Click" />
+            </div>
+            <div class="col-6">
+            </div>
+        </div>    
     </div>
-    <hr />
 
 </asp:Content>
 

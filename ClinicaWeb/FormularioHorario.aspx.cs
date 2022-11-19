@@ -25,7 +25,7 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    tituloFormulario = "Modificacion de Horario";
+                    tituloFormulario = "Modificación de Horario";
                     int id = (int)Session["horarioModificar"];
                     horarioNegocio = new HorarioNegocio();
                     horarioModificar = horarioNegocio.buscar_con_id(id);

@@ -13,7 +13,7 @@
             let pacienteDNI = document.getElementById("tbxDNI").value;
             if (pacienteDNI === "") {
                 document.getElementById("tbxDNI").className = "form-control is-invalid";
-                document.getElementById("lblDNI").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDNI").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -26,7 +26,7 @@
             let pacienteNombre = document.getElementById("tbxNombre").value;
             if (pacienteNombre === "") {
                 document.getElementById("tbxNombre").className = "form-control is-invalid";
-                document.getElementById("lblNombre").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblNombre").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblNombre").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -39,7 +39,7 @@
             let pacienteApelliddo = document.getElementById("tbxApellido").value;
             if (pacienteApelliddo === "") {
                 document.getElementById("tbxApellido").className = "form-control is-invalid";
-                document.getElementById("lblApellido").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblApellido").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblApellido").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -52,7 +52,7 @@
             let pacienteEmail = document.getElementById("tbxEmail").value;
             if (pacienteEmail === "") {
                 document.getElementById("tbxEmail").className = "form-control is-invalid";
-                document.getElementById("lblEmail").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblEmail").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblEmail").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -65,7 +65,7 @@
             let pacienteFechaNacimiento = document.getElementById("tbxFechaNacimiento").value;
             if (pacienteFechaNacimiento === "") {
                 document.getElementById("tbxFechaNacimiento").className = "form-control is-invalid";
-                document.getElementById("lblFechaNacimiento").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblFechaNacimiento").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblFechaNacimiento").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -78,7 +78,7 @@
             let pacienteTelefono = document.getElementById("tbxTelefono").value;
             if (pacienteTelefono === "") {
                 document.getElementById("tbxTelefono").className = "form-control is-invalid";
-                document.getElementById("lblTelefono").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblTelefono").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblTelefono").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -91,7 +91,7 @@
             let pacienteDireccion = document.getElementById("tbxDireccion").value;
             if (pacienteDireccion === "") {
                 document.getElementById("tbxDireccion").className = "form-control is-invalid";
-                document.getElementById("lblDireccion").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblDireccion").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDireccion").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -108,12 +108,12 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <h1><%= tituloFormulario %></h1>
             </div>
-            <div class="col-3">
+            <div class="col-6">
             </div>
         </div>
 

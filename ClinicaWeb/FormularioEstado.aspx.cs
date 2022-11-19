@@ -24,7 +24,7 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    tituloFormulario = "Modificacion de Estado";
+                    tituloFormulario = "Modificación de Estado";
                     int id = (int)Session["estadoModificar"];
                     estadoNegocio = new EstadoNegocio();
                     estadoModificar = estadoNegocio.buscar_con_id(id);
