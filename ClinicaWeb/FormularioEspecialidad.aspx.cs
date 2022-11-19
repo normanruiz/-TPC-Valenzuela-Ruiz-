@@ -20,7 +20,7 @@ namespace ClinicaWeb
             {
                 if (!(Session["especialidadesModificar"] is null))
                 {
-                    tituloFormulario = "Modificacion de Especialidad";
+                    tituloFormulario = "Modificación de Especialidad";
                     int id = (int)Session["especialidadesModificar"];
                     especialidadNegocio = new EspecialidadNegocio();
                     especialidadModificar = especialidadNegocio.buscar_con_id(id);
