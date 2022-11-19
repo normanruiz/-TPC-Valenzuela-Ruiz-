@@ -106,14 +106,14 @@
 
     </script>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-2">
+            <div class="col-3">
             </div>
-            <div class="col-8">
-                <p class="fw-semibold" style="font-size: 30px"><%= tituloFormulario %></p>
+            <div class="col-6">
+                <h1>Alta de Paciente</h1>
             </div>
-            <div class="col-2">
+            <div class="col-3">
             </div>
         </div>
 
@@ -165,14 +165,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <%-- acordate de mandar el usuario en null --%>
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
+                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary btn-lg" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
             </div>
-            <div class="col-3">
+            <div class="col-4">
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
+            </div>
+            <div class="col-2">
             </div>
         </div>
 
