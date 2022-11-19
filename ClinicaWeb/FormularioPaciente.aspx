@@ -108,12 +108,12 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <h1><%= tituloFormulario %></h1>
             </div>
-            <div class="col-3">
+            <div class="col-6">
             </div>
         </div>
 
