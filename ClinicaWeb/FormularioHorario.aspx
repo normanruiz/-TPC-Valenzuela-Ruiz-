@@ -26,7 +26,7 @@
                         <label for="ddlHorarioDia" class="form-label">Dia</label>
                     </div>
                     <div class="col-6">
-                        <asp:DropDownList ID="ddlHorarioDia" runat="server" CssClass="btn btn-secondary dropdown-toggle">
+                        <asp:DropDownList ID="ddlHorarioDia" runat="server" CssClass="form-select">
                             <asp:ListItem Text="Lunes" />
                             <asp:ListItem Text="Martes" />
                             <asp:ListItem Text="Miercoles" />
@@ -42,7 +42,7 @@
                         <label for="ddlHorarioInicio" class="form-label">Hora inicio</label>
                     </div>
                     <div class="col-6">
-                        <asp:DropDownList ID="ddlHorarioInicio" runat="server" CssClass="btn btn-secondary dropdown-toggle" AutoPostBack="true" OnSelectedIndexChanged="ddlHorarioInicio_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlHorarioInicio" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlHorarioInicio_SelectedIndexChanged">
                             <asp:ListItem Text="00:00" Value="0" />
                             <asp:ListItem Text="01:00" Value="1" />
                             <asp:ListItem Text="02:00" Value="2" />
@@ -76,7 +76,7 @@
                         <label for="ddlHorarioFin" class="form-label">Hora fin</label>
                     </div>
                     <div class="col-6">
-                        <asp:DropDownList ID="ddlHorarioFin" runat="server" CssClass="btn btn-secondary dropdown-toggle">
+                        <asp:DropDownList ID="ddlHorarioFin" runat="server" CssClass="form-select">
                             <asp:ListItem Text="01:00" Value="1" />
                             <asp:ListItem Text="02:00" Value="2" />
                             <asp:ListItem Text="03:00" Value="3" />
@@ -102,6 +102,7 @@
                             <asp:ListItem Text="23:00" Value="23" />
                             <asp:ListItem Text="24:00" Value="24" />
                         </asp:DropDownList>
+                        <asp:Label ID="lblAlerta" for="ddlHorarioFin" runat="server" Text="" CssClass="form-label" ClientIDMode="Static"></asp:Label>
                     </div>
                 </div>
 
@@ -110,7 +111,6 @@
                     </div>
                     <div class="col-6">
                         <div class="mb-3">
-                            <asp:Label ID="lblAlerta" runat="server" Text="" style="display: block" CssClass="form-label" ClientIDMode="Static"></asp:Label>
                         </div>
                     </div>
                     <div class="col-3">

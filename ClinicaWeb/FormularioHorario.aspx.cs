@@ -60,13 +60,22 @@ namespace ClinicaWeb
                 {
                     if (Session["horarioModificar"] is null)
                     {
-                        horario = new Horario();
-                        horario.Dia = ddlHorarioDia.SelectedValue;
-                        horario.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
-                        horario.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
-                        horarioNegocio.crear(horario);
-                        Session.Remove("horarioModificar");
-                        Response.Redirect("Horarios.aspx", false);
+                        if (Int32.Parse(ddlHorarioFin.SelectedValue) > Int32.Parse(ddlHorarioInicio.SelectedValue))
+                        {
+                            horario = new Horario();
+                            horario.Dia = ddlHorarioDia.SelectedValue;
+                            horario.HoraInicio = Int32.Parse(ddlHorarioInicio.SelectedValue);
+                            horario.HoraFin = Int32.Parse(ddlHorarioFin.SelectedValue);
+                            horarioNegocio.crear(horario);
+                            Session.Remove("horarioModificar");
+                            Response.Redirect("Horarios.aspx", false);
+                        }
+                        else
+                        {
+                            ddlHorarioFin.CssClass = "form-select is-invalid";
+                            lblAlerta.CssClass = "form-label invalid-feedback";
+                            lblAlerta.Text = "El horario de fin de turno debe ser mayor al de inicio.";
+                        }
                     }
                     else
                     {
@@ -80,9 +89,9 @@ namespace ClinicaWeb
                 }
                 else
                 {
+                    ddlHorarioFin.CssClass = "form-select is-invalid";
                     lblAlerta.Text = "El horario que intenta ingresar ya existe.";
                     lblAlerta.CssClass = "form-label invalid-feedback";
-                    lblAlerta.Visible = true;
                 }
             }
             catch (Exception excepcion)
