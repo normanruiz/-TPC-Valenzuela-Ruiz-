@@ -34,6 +34,12 @@ namespace ClinicaWeb
                         ddlHorarioDia.SelectedValue = horarioModificar.Dia;
                         ddlHorarioInicio.SelectedValue = horarioModificar.HoraInicio.ToString();
                         ddlHorarioFin.SelectedValue = horarioModificar.HoraFin.ToString();
+
+                        for (int i = (Int32.Parse(ddlHorarioFin.SelectedValue) - 1); i > 0; i--)
+                        {
+                            ddlHorarioFin.Items.Remove(ddlHorarioInicio.Items.FindByValue(i.ToString()));
+                        }
+
                     }
                 }
             }
@@ -121,7 +127,16 @@ namespace ClinicaWeb
         {
             try
             {
-
+                int value = Int32.Parse(ddlHorarioFin.SelectedValue);
+                ddlHorarioFin.Items.Clear();
+                for (int i = (Int32.Parse(ddlHorarioInicio.SelectedValue) + 1); i < 24; i++) {
+                    ddlHorarioFin.Items.Add(ddlHorarioInicio.Items.FindByValue(i.ToString()));
+                }
+                ddlHorarioFin.Items.Add(new ListItem("24:00", "24"));
+                //if (!(value <= Int32.Parse(ddlHorarioInicio.SelectedValue)))
+                //{
+                //    ddlHorarioFin.SelectedValue = value.ToString();
+                //}
             }
             catch (Exception excepcion)
             {
