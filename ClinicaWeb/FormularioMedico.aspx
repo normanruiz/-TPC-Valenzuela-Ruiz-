@@ -14,7 +14,7 @@
             let medicoDNI = document.getElementById("tbxDNI").value;
             if (medicoDNI === "") {
                 document.getElementById("tbxDNI").className = "form-control is-invalid";
-                document.getElementById("lblDNI").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDNI").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -27,7 +27,7 @@
             let medicoNombre = document.getElementById("tbxNombre").value;
             if (medicoNombre === "") {
                 document.getElementById("tbxNombre").className = "form-control is-invalid";
-                document.getElementById("lblNombre").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblNombre").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblNombre").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -40,7 +40,7 @@
             let medicoApelliddo = document.getElementById("tbxApellido").value;
             if (medicoApelliddo === "") {
                 document.getElementById("tbxApellido").className = "form-control is-invalid";
-                document.getElementById("lblApellido").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblApellido").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblApellido").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -53,7 +53,7 @@
             let medicoEmail = document.getElementById("tbxEmail").value;
             if (medicoEmail === "") {
                 document.getElementById("tbxEmail").className = "form-control is-invalid";
-                document.getElementById("lblEmail").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblEmail").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblEmail").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -67,7 +67,7 @@
             if (nombreUsuario === "") {
                 document.getElementById("tbxNombreUsuario").className = "form-control is-invalid";
                 document.getElementById("lblNombreUsuario").className = "form-label invalid-feedback";
-                document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacío.";
                 estado = false;
             }
             else {
@@ -90,14 +90,14 @@
                 if (contraseñaUsuario === "") {
                     document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
                 if (confirmarContraseñaUsuario === "") {
                     document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
@@ -111,14 +111,14 @@
                 if (contraseñaUsuario === "") {
                     document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
 
                 if (confirmarContraseñaUsuario === "") {
                     document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                     document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                     estado = false;
                 }
             }

@@ -56,7 +56,7 @@ namespace ClinicaWeb
                 }
                 if (Session["MedicoModificar"] is null)
                 {
-                    tituloFormulario = "Alta de Medico";
+                    tituloFormulario = "Alta de Médico";
 
                     if (!(Session["listaEspecialidades"] is null))
                     {
@@ -73,7 +73,7 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    tituloFormulario = "Modificacion de Medico";
+                    tituloFormulario = "Modificación de Médico";
 
                     medicoNegocio = new MedicoNegocio();
                     medicoModificar = medicoNegocio.buscar_con_id((Int32)Session["MedicoModificar"]);

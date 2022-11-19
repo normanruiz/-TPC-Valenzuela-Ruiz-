@@ -21,11 +21,11 @@ namespace ClinicaWeb
             {
                 if (Session["pacienteModificar"] is null)
                 {
-                    tituloFormulario = "Alta de paciente";
+                    tituloFormulario = "Alta de Paciente";
                 }
                 else
                 {
-                    tituloFormulario = "Modificacion de paciente";
+                    tituloFormulario = "Modificación de paciente";
                     int id = (int)Session["pacienteModificar"];
                     pacienteNegocio = new PacienteNegocio();
                     pacienteModificar = pacienteNegocio.buscar_con_id(id);

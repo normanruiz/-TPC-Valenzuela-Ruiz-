@@ -13,7 +13,7 @@
             let pacienteDNI = document.getElementById("tbxDNI").value;
             if (pacienteDNI === "") {
                 document.getElementById("tbxDNI").className = "form-control is-invalid";
-                document.getElementById("lblDNI").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDNI").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -26,7 +26,7 @@
             let pacienteNombre = document.getElementById("tbxNombre").value;
             if (pacienteNombre === "") {
                 document.getElementById("tbxNombre").className = "form-control is-invalid";
-                document.getElementById("lblNombre").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblNombre").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblNombre").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -39,7 +39,7 @@
             let pacienteApelliddo = document.getElementById("tbxApellido").value;
             if (pacienteApelliddo === "") {
                 document.getElementById("tbxApellido").className = "form-control is-invalid";
-                document.getElementById("lblApellido").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblApellido").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblApellido").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -52,7 +52,7 @@
             let pacienteEmail = document.getElementById("tbxEmail").value;
             if (pacienteEmail === "") {
                 document.getElementById("tbxEmail").className = "form-control is-invalid";
-                document.getElementById("lblEmail").innerText = "El campo no puede estar vacio.";
+                document.getElementById("lblEmail").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblEmail").className = "form-label invalid-feedback";
 
                 estado = false;
@@ -69,7 +69,7 @@
                 if (nombreUsuario === "") {
                     document.getElementById("tbxNombreUsuario").className = "form-control is-invalid";
                     document.getElementById("lblNombreUsuario").className = "form-label invalid-feedback";
-                    document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacio.";
+                    document.getElementById("lblNombreUsuario").innerText = "El campo no puede estar vacío.";
                     estado = false;
                 }
                 else {
@@ -92,14 +92,14 @@
                     if (contraseñaUsuario === "") {
                         document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                         document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                        document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                        document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                         estado = false;
                     }
 
                     if (confirmarContraseñaUsuario === "") {
                         document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                         document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                        document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                        document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                         estado = false;
                     }
 
@@ -113,14 +113,14 @@
                     if (contraseñaUsuario === "") {
                         document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
                         document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-                        document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                        document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                         estado = false;
                     }
 
                     if (confirmarContraseñaUsuario === "") {
                         document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
                         document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-                        document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
+                        document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacía. ";
                         estado = false;
                     }
 
@@ -170,10 +170,10 @@
                     <asp:Label ID="lblEmail" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                 </div>
                 <div class="mb-4">
-                    <div class="form-switch>
-                        <asp:CheckBox ID="ckbUsuario" runat="server" class="form-check-input" type="checkbox" ClientIDMode="Static" AutoPostBack="true" />
-                        <label class="form-check-label" for="ckbUsuario">Requiere ususario</label>
-                    </div>
+                    <div class="form-check">
+                        <asp:CheckBox ID="ckbUsuario" runat="server" ClientIDMode="Static" AutoPostBack="true" />
+                        <label for="ckbUsuario" class="form-check-label">Requiere ususario</label>
+                     </div>
                 </div>
             </div>
 
