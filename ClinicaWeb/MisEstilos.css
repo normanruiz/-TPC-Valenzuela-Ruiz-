@@ -5,7 +5,7 @@
     background: #dddddd;
     height: 100vh;
     color: dimgrey;
-    text-align: justify;
+/*    text-align: center;*/
 }
 
 .btn {
@@ -164,25 +164,17 @@ form .username {
     color: #142d4c;
     background: #dddddd;
     border-color: #263849;
-    border: 3px solid;
-}
-
-.nav {
-    justify-content: flex-start;
-}
-
-.nav-link active {
-    border-bottom: none
+    border: 2px solid;
 }
 
 .nav-tabs .nav-item .nav-link:hover {
     transition: .1s;
-    color: azure;
-    
+    color: #808080;
 }
 
 .tab-content {
     background-color: #263849;
+    height: fit-content
 }
 
 .container h1{
