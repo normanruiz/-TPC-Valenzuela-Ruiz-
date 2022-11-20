@@ -93,17 +93,17 @@
                 <footer>
                     <hr />
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-3 d-grid gap-2">
                             <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 d-grid gap-2">
                             <asp:Label ID="lblUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 d-grid gap-2">
                             <asp:Label ID="lblPerfil" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                         </div>
-                        <div class="col-3">
-                            <asp:Button ID="btnSalir" runat="server" Text="Cerrar Sesion" OnClick="btnSalir_Click" />
+                        <div class="col-3 d-grid gap-2 text-end">
+                            <asp:Button ID="btnSalir" runat="server" Text="Cerrar Sesion" OnClick="btnSalir_Click" CssClass="btn btn-secondary btn-sm" />
                         </div>
                     </div>
                 </footer>
