@@ -25,8 +25,8 @@
                     <asp:Label ID="lblDNI" runat="server" Text="" ClientIDMode="Static"></asp:Label>
                 </div>
                 <div class="mb-3">
-                <label for="ddlEspecialidad" class="form-label">Especialidad Médica</label>
-                <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select"></asp:DropDownList>
+                    <label for="ddlEspecialidad" class="form-label">Especialidad Médica</label>
+                    <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select"></asp:DropDownList>
                 </div>
                 <div class="mb-3">
                     <asp:CheckBox ID="ckbDni" runat="server" ClientIDMode="Static" AutoPostBack="true" />
@@ -36,18 +36,45 @@
             <div class="col-2">
                 <div class="mb-3"></div>
                 <div class="mb-3">
-                    <asp:Button ID="btnBuscarDni" runat="server" Text="Buscar Paciente" CssClass="btn btn-outline-primary"/>
+                    <asp:Button ID="btnBuscarDni" runat="server" Text="Buscar Paciente" CssClass="btn btn-outline-primary" />
                 </div>
-             </div>   
+            </div>
             <div class="col-5">
             </div>
         </div>
         <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
+            <div class="col-3"></div>
+            <div class="col-2">
+                <div class="card text-white text-center bg-dark  mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Nombre del medico</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha</h5>
+                        <p class="card-text">Hora disponible</p>
+                        <asp:Button ID="btnTurno1" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card text-white text-center bg-dark  mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Nombre del medico</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha</h5>
+                        <p class="card-text">Hora disponible</p>
+                        <asp:Button ID="btnTurno2" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card text-white text-center bg-dark  mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Nombre del medico</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha</h5>
+                        <p class="card-text">Hora disponible</p>
+                        <asp:Button ID="btnTurno3" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
         </div>
 
     </div>
