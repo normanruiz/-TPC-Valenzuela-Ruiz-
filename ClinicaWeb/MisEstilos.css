@@ -175,10 +175,10 @@ form .username {
     border: 2px solid;
 }
 
-.nav-tabs .nav-item .nav-link:hover {
-    transition: .1s;
-    color: #808080;
-}
+    .nav-tabs .nav-item .nav-link:hover {
+        transition: .1s;
+        color: #808080;
+    }
 
 .tab-content {
     background-color: #263849;
@@ -191,3 +191,4 @@ form .username {
     color: #282242;
     padding: 30px 10px 10px 0px
 }
+

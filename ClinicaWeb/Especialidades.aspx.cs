@@ -26,7 +26,8 @@ namespace ClinicaWeb
                 }
 
                 listaEspecialidades = especialidadNegocio.listar();
-                dgvEspecialidad.DataSource = listaEspecialidades;
+                Session["listaEspecialidades"] = listaEspecialidades;
+                dgvEspecialidad.DataSource = (List<Especialidad>)Session["listaEspecialidades"];
                 dgvEspecialidad.DataBind();
             }
             catch (Exception excepcion)
@@ -74,6 +75,26 @@ namespace ClinicaWeb
             catch (Exception excepcion)
             {
                 Session.Add("pagOrigen", "Especialidades.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void tbxFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Especialidad> listaEspecialidades;
+            List<Especialidad> listaEspecialidadesFiltrada;
+            try
+            {
+                listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                listaEspecialidadesFiltrada = listaEspecialidades.FindAll(especilidad => especilidad.Nombre.ToUpper().Contains(tbxFiltro.Text.ToUpper()));
+                Session["listaEspecialidadesFiltrada"] = listaEspecialidadesFiltrada;
+                dgvEspecialidad.DataSource = listaEspecialidadesFiltrada;
+                dgvEspecialidad.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
