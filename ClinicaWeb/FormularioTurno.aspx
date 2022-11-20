@@ -77,15 +77,52 @@
             <div class="col-3"></div>
         </div>
 
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-2">
+                <label for="ddlMedicos" class="form-label">Médicos</label>
+                <asp:DropDownList ID="ddlMedicos" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col-2">
+                <label for="ddlHorarios" class="form-label">Horarios disponibles</label>
+                <asp:DropDownList ID="ddlHorarios" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col-2">
+                <label for="ddlHora" class="form-label">Horas disponibles</label>
+                <asp:DropDownList ID="ddlHora" runat="server" CssClass="form-select"></asp:DropDownList>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-4">
+                <asp:Calendar ID="Calendar2" runat="server"></asp:Calendar>
+                <asp:DataList ID="DataList2" runat="server"></asp:DataList>
+            </div>
+            <div class="col-5"></div>
+        </div>
     </div>
-
-    <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-    <asp:DataList ID="DataList1" runat="server"></asp:DataList>
-    <p>///Data list con los horarios disponibles///</p>
-    <button class="btn btn-outline-success" type="button">Elegir Turno</button>
-
-    <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="boton" OnClick="btnGuardar_Click" />
-    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="boton" OnClick="btnCancelar_Click" />
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-4">
+            <div class="mb-3">
+                <h4>Agrega un comentario sobre el turno</h4>
+            </div>
+            <div class="mb-3">
+                <asp:TextBox ID="tbxComentario" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+            </div>
+            <div class="mb-3">
+                <asp:Button ID="btnComentario" runat="server" Text="Agregar comentario" CssClass="btn btn-outline-primary" />
+            </div>
+            <div class="mb-3">
+                <asp:DataList ID="dlComentarios" runat="server"></asp:DataList>
+            </div>
+            <div class="mb-3">
+                <asp:Button ID="btnTurno" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" />
+            </div>
+        </div>
+        <div class="col-5"></div>
+    </div>
 
 </asp:Content>
 
