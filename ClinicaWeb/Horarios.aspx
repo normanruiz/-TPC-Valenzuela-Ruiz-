@@ -3,7 +3,7 @@
 
 <asp:Content ID="ContentBodyHorarios" ContentPlaceHolderID="cphBody" runat="server">
 
-    <div class="container">
+    <div class="container-login">
         <class="row">
             <h1>Administración de Horarios</h1>
         </class>

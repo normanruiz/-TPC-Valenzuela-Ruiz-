@@ -77,7 +77,7 @@
             <div class="col-3"></div>
         </div>
 
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-3"></div>
             <div class="col-2">
                 <label for="ddlMedicos" class="form-label">Médicos</label>
@@ -93,7 +93,7 @@
             </div>
             <div class="col-3"></div>
         </div>
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-3"></div>
             <div class="col-4">
                 <asp:Calendar ID="Calendar2" runat="server"></asp:Calendar>
@@ -102,20 +102,20 @@
             <div class="col-5"></div>
         </div>
     </div>
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col-3"></div>
         <div class="col-4">
             <div class="mb-3">
-                <h4>Agrega un comentario sobre el turno</h4>
+                <h4>Agrega una observación</h4>
             </div>
             <div class="mb-3">
-                <asp:TextBox ID="tbxComentario" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+                <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
             </div>
             <div class="mb-3">
-                <asp:Button ID="btnComentario" runat="server" Text="Agregar comentario" CssClass="btn btn-outline-primary" />
+                <asp:Button ID="btnObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" />
             </div>
             <div class="mb-3">
-                <asp:DataList ID="dlComentarios" runat="server"></asp:DataList>
+                <asp:DataList ID="dlObservaciones" runat="server"></asp:DataList>
             </div>
             <div class="mb-3">
                 <asp:Button ID="btnTurno" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" />
