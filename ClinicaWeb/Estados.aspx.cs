@@ -25,7 +25,8 @@ namespace ClinicaWeb
                 }
 
                 listaEstados = estadoNegocio.listar();
-                dgvEstados.DataSource = listaEstados;
+                Session["listaEstados"] = listaEstados;
+                dgvEstados.DataSource = (List<Estado>)Session["listaEstados"];
                 dgvEstados.DataBind();
             }
             catch (Exception excepcion)
@@ -69,6 +70,25 @@ namespace ClinicaWeb
                     estadoNegocio.Eliminar(id);
                     Response.Redirect("Estados.aspx", false);
                 }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void tbxFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Estado> listaEstados;
+            List<Estado> listaEstadosFiltrada;
+            try
+            {
+                listaEstados = (List<Estado>)Session["listaEstados"];
+                listaEstadosFiltrada = listaEstados.FindAll(estado => estado.Descripcion.ToUpper().Contains(tbxFiltro.Text.ToUpper()));
+                dgvEstados.DataSource = listaEstadosFiltrada;
+                dgvEstados.DataBind();
             }
             catch (Exception excepcion)
             {

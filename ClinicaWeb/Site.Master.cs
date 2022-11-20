@@ -23,6 +23,12 @@ namespace ClinicaWeb
                 {
                     Response.Redirect("Inicio.aspx", false);
                 }
+                else
+                {
+                    lblUsuario.Text = string.Concat("Usuario: ", usuario.Nombre);
+                    lblPerfil.Text = string.Concat("Acceso: ", usuario.perfil.Tipo);
+                }
+
 
             }
             catch (Exception excepcion)
