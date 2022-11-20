@@ -9,6 +9,17 @@
     align-content: start
 }
 
+body-inicio{
+    padding: 0;
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: #dddddd;
+    height: 100vh;
+    color: dimgrey;
+    text-align: start;
+    align-content: start
+}
+
 .btn {
     margin: 15px 0 15px 0
 }

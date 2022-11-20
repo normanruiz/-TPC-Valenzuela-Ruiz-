@@ -29,7 +29,7 @@
             <form method="post">
                 <div class="username">
                     <label for="tbxNombre" class="form-label">Nombre de usuario</label>
-                    <asp:TextBox ID="tbxNombre" runat="server" ClientIDMode="Static"></asp:TextBox>
+                    <asp:TextBox ID="tbxNombre" for="tbxNombre" runat="server" Text="" ClientIDMode="Static"></asp:TextBox>
                   <%--  <input type="text" required />
                     <label for="" >Nombre de usuario</label>--%>
                 </div>
@@ -47,4 +47,5 @@
     </form>
 </body>
 </html>
+
 
