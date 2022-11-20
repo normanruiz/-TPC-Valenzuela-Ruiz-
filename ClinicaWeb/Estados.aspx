@@ -30,13 +30,15 @@
 
                 <div class="row">
                     <div class="col">
-                        <asp:GridView ID="dgvEstados" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEstados_RowCommand">
+                        <asp:GridView ID="dgvEstados" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEstados_RowCommand" AllowPaging="true" PageSize="4" OnPageIndexChanging="dgvEstados_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField HeaderText="Id." DataField="Id" />
                                 <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
                             </Columns>
+                            <PagerStyle BackColor="Red" ForeColor="White" HorizontalAlign="Center" />
+
                         </asp:GridView>
                     </div>
                 </div>

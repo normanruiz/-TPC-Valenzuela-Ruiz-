@@ -104,6 +104,7 @@ namespace ClinicaWeb
         {
             try
             {
+                Session.Remove("estadoModificar");
                 Response.Redirect("Estados.aspx", false);
             }
             catch (Exception excepcion)

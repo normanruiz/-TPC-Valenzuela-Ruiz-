@@ -87,8 +87,38 @@ namespace ClinicaWeb
             {
                 listaEstados = (List<Estado>)Session["listaEstados"];
                 listaEstadosFiltrada = listaEstados.FindAll(estado => estado.Descripcion.ToUpper().Contains(tbxFiltro.Text.ToUpper()));
+                Session["listaEstadosFiltrada"] = listaEstadosFiltrada;
                 dgvEstados.DataSource = listaEstadosFiltrada;
                 dgvEstados.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void dgvEstados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Estado> listaEstados;
+            List<Estado> listaEstadosFiltrada;
+            try
+            {
+                
+                listaEstadosFiltrada = (List<Estado>)Session["listaEstadosFiltrada"];
+                if (listaEstadosFiltrada is null) {
+                    listaEstados = (List<Estado>)Session["listaEstados"];
+                    dgvEstados.PageIndex = e.NewPageIndex;
+                    dgvEstados.DataSource = listaEstados;
+                }
+                else
+                {
+                    dgvEstados.PageIndex = e.NewPageIndex;
+                    dgvEstados.DataSource = listaEstadosFiltrada;
+                }
+                dgvEstados.DataBind();
+           
             }
             catch (Exception excepcion)
             {
