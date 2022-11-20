@@ -14,10 +14,18 @@ namespace ClinicaWeb
         public List<Modelo.Paciente> listaPacientes { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
             PacienteNegocio pacienteNegocio = new PacienteNegocio();
 
             try
             {
+                if (!Helpers.Validacion.ValidarPermisos(this, "Recepcionista", "Administrador"))
+                {
+                    Session.Add("pagOrigen", "Turnos.aspx");
+                    Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 listaPacientes = pacienteNegocio.listar();
                 dgvPacientes.DataSource = listaPacientes;
                 dgvPacientes.DataBind();

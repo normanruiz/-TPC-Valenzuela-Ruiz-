@@ -15,6 +15,13 @@ namespace ClinicaWeb
         public Estado estadoModificar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if( !Helpers.Validacion.ValidarPermisos(this, "Administrador"))
+            {
+                Session.Add("pagOrigen", "Turnos.aspx");
+                Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                Response.Redirect("Error.aspx", false);
+            }
+
             EstadoNegocio estadoNegocio;
             try
             {

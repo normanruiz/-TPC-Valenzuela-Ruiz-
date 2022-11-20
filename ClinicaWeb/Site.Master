@@ -78,7 +78,6 @@
                     <a class="nav-link" href="Estados.aspx">Administrar Estados</a>
                 </li>
                 <% } %>
-
             </ul>
         </div>
 
@@ -93,7 +92,20 @@
             <asp:ContentPlaceHolder ID="cphFooter" runat="server">
                 <footer>
                     <hr />
-                    <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <p>&copy; <%: DateTime.Now.Year %> - Mi Clínica Web ASP.NET</p>
+                        </div>
+                        <div class="col-3">
+                            <asp:Label ID="lblUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="col-3">
+                            <asp:Label ID="lblPerfil" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="col-3">
+                            <asp:Button ID="btnSalir" runat="server" Text="Cerrar Sesion" OnClick="btnSalir_Click" />
+                        </div>
+                    </div>
                 </footer>
             </asp:ContentPlaceHolder>
         </div>

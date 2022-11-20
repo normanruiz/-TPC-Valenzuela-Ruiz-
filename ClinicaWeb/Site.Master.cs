@@ -14,24 +14,45 @@ namespace ClinicaWeb
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            Modelo.Usuario usuario;
+
+            try
+            {
+                usuario = (Modelo.Usuario)Session["Usuario"];
+                if (usuario is null)
+                {
+                    Response.Redirect("Inicio.aspx", false);
+                }
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Turnos.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         public bool ValidarRecepcionista()
         {
-            bool estado = true;
+            bool estado = false;
             Modelo.Usuario usuario;
             try
             {
                 usuario = new Modelo.Usuario();
                 usuario = (Modelo.Usuario)Session["usuario"];
-                if (usuario.perfil.Tipo == "Recepcionista")
+                if (!(usuario is null))
                 {
-                    estado = true;
+                    if (usuario.perfil.Tipo == "Recepcionista")
+                    {
+                        estado = true;
+                    }
+                    else
+                    {
+                        estado = false;
+                    }
                 }
-                else
-                {
-                    estado = false;
-                }
+
                 return estado;
             }
             catch (Exception excepcion)
@@ -46,19 +67,22 @@ namespace ClinicaWeb
 
         public bool ValidarAdministrador()
         {
-            bool estado = true;
+            bool estado = false;
             Modelo.Usuario usuario;
             try
             {
                 usuario = new Modelo.Usuario();
                 usuario = (Modelo.Usuario)Session["usuario"];
-                if (usuario.perfil.Tipo == "Administrador")
+                if (!(usuario is null))
                 {
-                    estado = true;
-                }
-                else
-                {
-                    estado = false;
+                    if (usuario.perfil.Tipo == "Administrador")
+                    {
+                        estado = true;
+                    }
+                    else
+                    {
+                        estado = false;
+                    }
                 }
                 return estado;
             }
@@ -73,5 +97,19 @@ namespace ClinicaWeb
 
         }
 
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Session.Remove("Usuario");
+                Response.Redirect("Inicio.aspx", false);
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Turnos.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

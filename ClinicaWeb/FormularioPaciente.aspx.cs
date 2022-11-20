@@ -19,6 +19,13 @@ namespace ClinicaWeb
             PacienteNegocio pacienteNegocio;
             try
             {
+                if (!Helpers.Validacion.ValidarPermisos(this, "Recepcionista", "Administrador"))
+                {
+                    Session.Add("pagOrigen", "Turnos.aspx");
+                    Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 if (Session["pacienteModificar"] is null)
                 {
                     tituloFormulario = "Alta de Paciente";

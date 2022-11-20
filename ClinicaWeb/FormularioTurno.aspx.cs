@@ -11,7 +11,12 @@ namespace ClinicaWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Helpers.Validacion.ValidarPermisos(this, "Medico", "Recepcionista", "Administrador"))
+            {
+                Session.Add("pagOrigen", "Turnos.aspx");
+                Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)

@@ -17,6 +17,13 @@ namespace ClinicaWeb
             EstadoNegocio estadoNegocio = new EstadoNegocio();
             try
             {
+                if (!Helpers.Validacion.ValidarPermisos(this, "Administrador"))
+                {
+                    Session.Add("pagOrigen", "Turnos.aspx");
+                    Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                    Response.Redirect("Error.aspx", false);
+                }
+
                 listaEstados = estadoNegocio.listar();
                 dgvEstados.DataSource = listaEstados;
                 dgvEstados.DataBind();

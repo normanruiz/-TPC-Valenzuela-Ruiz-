@@ -264,6 +264,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Validacion.cs" />
     <Compile Include="Horarios.aspx.cs">
       <DependentUpon>Horarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

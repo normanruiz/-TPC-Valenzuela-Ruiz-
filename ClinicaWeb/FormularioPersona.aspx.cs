@@ -25,6 +25,13 @@ namespace ClinicaWeb
 
             try
             {
+                if (!Helpers.Validacion.ValidarPermisos(this, "Administrador"))
+                {
+                    Session.Add("pagOrigen", "Turnos.aspx");
+                    Session.Add("excepcion", new Exception("Esta intentando ingresar a una seccion para la que no tiene permisos de acceso."));
+                    Response.Redirect("Error.aspx", false);
+
+                }
                 if (!IsPostBack)
                 {
                     perfilNegocio = new PerfilNegocio();
