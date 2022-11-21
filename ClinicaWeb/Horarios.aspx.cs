@@ -28,6 +28,7 @@ namespace ClinicaWeb
                 try
                 {
                     listaHorarios = horarioNegocio.listar();
+                    Session["listaHorarios"] = listaHorarios;
                     dgvHorarios.DataSource = listaHorarios;
                     dgvHorarios.DataBind();
                 }
@@ -86,6 +87,76 @@ namespace ClinicaWeb
                 Session.Add("pagOrigen", "Horarios.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Horario> listaHorarios;
+            List<Modelo.Horario> listaHorariosFiltrada;
+            try
+            {
+                listaHorarios = (List<Modelo.Horario>)Session["listaHorarios"];
+                listaHorariosFiltrada = filtrarDia(listaHorarios);
+                if (tbxFiltroInicio.Text.Length > 0)
+                {
+                    listaHorariosFiltrada = filtrarInicio(listaHorariosFiltrada);
+                }
+                if (tbxFiltroFin.Text.Length > 0)
+                {
+                    listaHorariosFiltrada = filtrarFin(listaHorariosFiltrada);
+                }
+                Session["listaHorariosFiltrada"] = listaHorariosFiltrada;
+                dgvHorarios.DataSource = listaHorariosFiltrada;
+                dgvHorarios.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private List<Modelo.Horario> filtrarDia(List<Modelo.Horario> listaHorarios)
+        {
+            List<Modelo.Horario> listaDias;
+            try
+            {
+                listaDias = listaHorarios.FindAll(horario => horario.Dia.ToUpper().Contains(tbxFiltroDia.Text.ToUpper()));
+                return listaDias;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Modelo.Horario> filtrarInicio(List<Modelo.Horario> listaHorarios)
+        {
+            List<Modelo.Horario> listaInicios;
+            try
+            {
+                listaInicios = listaHorarios.FindAll(horario => horario.HoraInicio.ToString().ToUpper().Contains(tbxFiltroInicio.Text.ToUpper()));
+                return listaInicios;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Modelo.Horario> filtrarFin(List<Modelo.Horario> listaHorarios)
+        {
+            List<Modelo.Horario> listaFines;
+            try
+            {
+                listaFines = listaHorarios.FindAll(horario => horario.HoraFin.ToString().ToUpper().Contains(tbxFiltroFin.Text.ToUpper()));
+                return listaFines;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

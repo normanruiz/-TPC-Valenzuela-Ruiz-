@@ -6,12 +6,12 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <h1>Administración de Especialidades</h1>
             </div>
-            <div class="col-3">
+            <div class="col-4">
             </div>
-            <div class="col-3">
+            <div class="col-4">
             </div>
         </div>
 
