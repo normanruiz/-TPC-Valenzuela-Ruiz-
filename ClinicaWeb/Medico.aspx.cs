@@ -26,7 +26,8 @@ namespace ClinicaWeb
                 }
 
                 listaMedicos = medicoNegocio.listar();
-                dgvMedicos.DataSource = listaMedicos;
+                Session["listaMedicos"] = listaMedicos;
+                dgvMedicos.DataSource = (List<Modelo.Medico>)Session["listaMedicos"];
                 dgvMedicos.DataBind();
             }
             catch (Exception excepcion)
@@ -81,5 +82,82 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void tbxFiltroNombre_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Medico> listaMedicos;
+            List<Modelo.Medico> listaMedicosFiltrada;
+            try
+            {
+                listaMedicos = (List<Modelo.Medico>)Session["listaMedicos"];
+                listaMedicosFiltrada = filtrarNombre(listaMedicos);
+                if (tbxFiltroApellido.Text.Length > 0)
+                {
+                    listaMedicosFiltrada = filtrarApellido(listaMedicosFiltrada);
+                }
+                Session["listaMedicosFiltrada"] = listaMedicosFiltrada;
+                dgvMedicos.DataSource = listaMedicosFiltrada;
+                dgvMedicos.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void tbxFiltroApellido_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Medico> listaMedicos;
+            List<Modelo.Medico> listaMedicosFiltrada;
+            try
+            {
+                listaMedicos = (List<Modelo.Medico>)Session["listaMedicos"];
+                listaMedicosFiltrada = filtrarApellido(listaMedicos);
+                if (tbxFiltroNombre.Text.Length > 0)
+                {
+                    listaMedicosFiltrada = filtrarNombre(listaMedicosFiltrada);
+                }
+                Session["listaMedicosFiltrada"] = listaMedicosFiltrada;
+                dgvMedicos.DataSource = listaMedicosFiltrada;
+                dgvMedicos.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private List<Modelo.Medico> filtrarNombre(List<Modelo.Medico> listaMedicos)
+        {
+            List<Modelo.Medico> listaNombres;
+            try
+            {
+                listaNombres = listaMedicos.FindAll(medico => medico.Nombre.ToUpper().Contains(tbxFiltroNombre.Text.ToUpper()));
+                return listaNombres;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Modelo.Medico> filtrarApellido(List<Modelo.Medico> listaMedicos)
+        {
+            List<Modelo.Medico> listaApellidos;
+            try
+            {
+                listaApellidos = listaMedicos.FindAll(medico => medico.Apellido.ToUpper().Contains(tbxFiltroApellido.Text.ToUpper()));
+                return listaApellidos;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }
