@@ -118,9 +118,8 @@ namespace ClinicaWeb
                 listaNombres = listaUsuarios.FindAll(usuario => usuario.Nombre.ToUpper().Contains(tbxFiltroUsuario.Text.ToUpper()));
                 return listaNombres;
             }
-            catch (Exception excepcion)
+            catch
             {
-                throw excepcion;
                 return null;
             }
 
@@ -158,9 +157,8 @@ namespace ClinicaWeb
                 listaPerfiles = listaUsuarios.FindAll(usuario => usuario.perfil.Tipo.ToUpper().Contains(tbxFiltroPerfil.Text.ToUpper()));
                 return listaPerfiles;
             }
-            catch (Exception excepcion)
+            catch
             {
-                throw excepcion;
                 return null;
             }
 

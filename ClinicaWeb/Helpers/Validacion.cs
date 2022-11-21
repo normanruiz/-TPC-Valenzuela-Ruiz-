@@ -40,7 +40,7 @@ namespace ClinicaWeb.Helpers
                 return estado;
 
             }
-            catch (Exception excepcion)
+            catch
             {
                 return false;
             }
@@ -65,7 +65,7 @@ namespace ClinicaWeb.Helpers
                 return estado;
 
             }
-            catch (Exception excepcion)
+            catch
             {
                 return false;
             }
