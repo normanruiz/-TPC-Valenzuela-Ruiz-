@@ -27,6 +27,7 @@ namespace ClinicaWeb
                 }
 
                 listaPersonas = personaNegocio.listar();
+                Session["listaPersonas"] = listaPersonas;
                 dgvPersona.DataSource = listaPersonas;
                 dgvPersona.DataBind();
             }
@@ -86,6 +87,76 @@ namespace ClinicaWeb
                 Session.Add("pagOrigen", "Persona.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Persona> listaPersonas;
+            List<Modelo.Persona> listaPersonasFiltrada;
+            try
+            {
+                listaPersonas = (List<Modelo.Persona>)Session["listaPersonas"];
+                listaPersonasFiltrada = filtrarDNI(listaPersonas);
+                if (tbxFiltroNombre.Text.Length > 0)
+                {
+                    listaPersonasFiltrada = filtrarNombre(listaPersonasFiltrada);
+                }
+                if (tbxFiltroApellido.Text.Length > 0)
+                {
+                    listaPersonasFiltrada = filtrarApellido(listaPersonasFiltrada);
+                }
+                Session["listaPacientesFiltrada"] = listaPersonasFiltrada;
+                dgvPersona.DataSource = listaPersonasFiltrada;
+                dgvPersona.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private List<Modelo.Persona> filtrarDNI(List<Modelo.Persona> listaPersonas)
+        {
+            List<Modelo.Persona> listaDNIs;
+            try
+            {
+                listaDNIs = listaPersonas.FindAll(persona => persona.DNI.ToUpper().Contains(tbxFiltroDNI.Text.ToUpper()));
+                return listaDNIs;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Modelo.Persona> filtrarNombre(List<Modelo.Persona> listaPersonas)
+        {
+            List<Modelo.Persona> listaNombres;
+            try
+            {
+                listaNombres = listaPersonas.FindAll(persona => persona.Nombre.ToUpper().Contains(tbxFiltroNombre.Text.ToUpper()));
+                return listaNombres;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private List<Modelo.Persona> filtrarApellido(List<Modelo.Persona> listaPersonas)
+        {
+            List<Modelo.Persona> listaApellidos;
+            try
+            {
+                listaApellidos = listaPersonas.FindAll(persona => persona.Apellido.ToUpper().Contains(tbxFiltroApellido.Text.ToUpper()));
+                return listaApellidos;
+            }
+            catch
+            {
+                return null;
             }
         }
     }
