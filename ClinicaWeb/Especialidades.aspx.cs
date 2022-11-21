@@ -94,7 +94,7 @@ namespace ClinicaWeb
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("pagOrigen", "Especialidades.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }

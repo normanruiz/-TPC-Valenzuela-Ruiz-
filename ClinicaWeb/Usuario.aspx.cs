@@ -26,7 +26,8 @@ namespace ClinicaWeb
                 }
 
                 listaUsuarios = usuarioNegocio.listar();
-                dgvUsuario.DataSource = listaUsuarios;
+                Session["listaUsuarios"] = listaUsuarios;
+                dgvUsuario.DataSource = (List<Modelo.Usuario>)Session["listaUsuarios"];
                 dgvUsuario.DataBind();
             }
             catch (Exception excepcion)
@@ -49,7 +50,7 @@ namespace ClinicaWeb
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
-            
+
         }
 
         protected void dgvUsuario_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -84,5 +85,86 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void tbxFiltroUsuario_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Usuario> listaUsuarios;
+            List<Modelo.Usuario> listaUsuariosFiltrada;
+            try
+            {
+                listaUsuarios = (List<Modelo.Usuario>)Session["listaUsuarios"];
+                listaUsuariosFiltrada = filtrarNombre(listaUsuarios);
+                if (tbxFiltroPerfil.Text.Length > 0)
+                {
+                    listaUsuariosFiltrada = filtrarPerfil(listaUsuariosFiltrada);
+                }
+                Session["listaUsuariosFiltrada"] = listaUsuariosFiltrada;
+                dgvUsuario.DataSource = listaUsuariosFiltrada;
+                dgvUsuario.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Usuario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private List<Modelo.Usuario> filtrarNombre(List<Modelo.Usuario> listaUsuarios)
+        {
+            List<Modelo.Usuario> listaNombres;
+            try
+            {
+                listaNombres = listaUsuarios.FindAll(usuario => usuario.Nombre.ToUpper().Contains(tbxFiltroUsuario.Text.ToUpper()));
+                return listaNombres;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+                return null;
+            }
+
+        }
+
+        protected void tbxFiltroPerfil_TextChanged(object sender, EventArgs e)
+        {
+            List<Modelo.Usuario> listaUsuarios;
+            List<Modelo.Usuario> listaUsuariosFiltrada;
+            try
+            {
+                listaUsuarios = (List<Modelo.Usuario>)Session["listaUsuarios"];
+                listaUsuariosFiltrada = filtrarPerfil(listaUsuarios);
+                if (tbxFiltroUsuario.Text.Length > 0)
+                {
+                    listaUsuariosFiltrada = filtrarNombre(listaUsuariosFiltrada);
+                }
+                Session["listaUsuariosFiltrada"] = listaUsuariosFiltrada;
+                dgvUsuario.DataSource = listaUsuariosFiltrada;
+                dgvUsuario.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Usuario.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private List<Modelo.Usuario> filtrarPerfil(List<Modelo.Usuario> listaUsuarios)
+        {
+            List<Modelo.Usuario> listaPerfiles;
+            try
+            {
+                listaPerfiles = listaUsuarios.FindAll(usuario => usuario.perfil.Tipo.ToUpper().Contains(tbxFiltroPerfil.Text.ToUpper()));
+                return listaPerfiles;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+                return null;
+            }
+
+        }
+
     }
 }
