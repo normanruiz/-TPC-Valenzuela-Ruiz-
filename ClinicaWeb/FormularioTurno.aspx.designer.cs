@@ -132,31 +132,31 @@ namespace ClinicaWeb
         protected global::System.Web.UI.WebControls.DataList DataList2;
 
         /// <summary>
-        /// tbxComentario control.
+        /// tbxObservacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbxComentario;
+        protected global::System.Web.UI.WebControls.TextBox tbxObservacion;
 
         /// <summary>
-        /// btnComentario control.
+        /// btnObservacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnComentario;
+        protected global::System.Web.UI.WebControls.Button btnObservacion;
 
         /// <summary>
-        /// dlComentarios control.
+        /// dlObservaciones control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlComentarios;
+        protected global::System.Web.UI.WebControls.DataList dlObservaciones;
 
         /// <summary>
         /// btnTurno control.

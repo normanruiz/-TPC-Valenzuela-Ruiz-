@@ -24,26 +24,29 @@
     </header>
 
     <form id="form1" runat="server">
-        <div class="formulario">
-            <h1>Inicio de sesión</h1>
-            <form method="post">
-                <div class="username">
-                    <label for="tbxNombre" class="form-label">Nombre de usuario</label>
-                    <asp:TextBox ID="tbxNombre" for="tbxNombre" runat="server" Text="" ClientIDMode="Static"></asp:TextBox>
-                  <%--  <input type="text" required />
-                    <label for="" >Nombre de usuario</label>--%>
-                </div>
-                <div class="username">
-                    <label for="tbxContraseña" class="form-label">Contraseña</label>
-                    <asp:TextBox TextMode="Password" ID="tbxContraseña" runat="server" ClientIDMode="Static"></asp:TextBox>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="login">
+                    <div class="mb-3">
+                        <h1>Inicio de sesión</h1>
+                    </div>
+                    <div class="mb-3">
+                        <asp:TextBox ID="tbxNombre" CssClass="login-textbox" placeholder="Nombre de usuario" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                    <asp:TextBox TextMode="Password" ID="tbxContraseña" CssClass="login-textbox" placeholder="Contraseña" runat="server" ClientIDMode="Static"></asp:TextBox>
                     <asp:Label ID="lblalerta" for="tbxContraseña" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-<%--                    <input type="password" required />
-                    <label>Contraseña</label>--%>
+                    </div> 
+                    <div class="mb-3">
+                        <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="btn btn-outline-light btn-lg" />
+                    </div>
                 </div>
-                <%--<div class="recordar">¿Olvidó su contraseña?</div>--%>
-                <asp:Button ID="btnIniciar" runat="server" Text="Iniciar" OnClick="btnIniciar_Click" CssClass="botonInicio" />
-            </form>
+            </div>
+            <div class="col"></div>
         </div>
+    </div>
     </form>
 </body>
 </html>

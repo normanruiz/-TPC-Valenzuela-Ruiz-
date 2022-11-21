@@ -39,10 +39,10 @@ namespace ClinicaWeb
                 usuario = usuarioNegocio.validar(nombre, contraseña);
                 if (usuario is null)
                 {
-                    tbxNombre.CssClass = "form-control is-invalid";
-                    tbxContraseña.CssClass = "form-control is-invalid";
+                    tbxNombre.CssClass = "login-textbox is-invalid";
+                    tbxContraseña.CssClass = "login-textbox is-invalid";
                     lblalerta.CssClass = "form-label invalid-feedback";
-                    lblalerta.Text = "Usuario y/o contraseña invalidos.";
+                    lblalerta.Text = "Usuario y/o contraseña inválidos.";
                 }
                 else
                 {
