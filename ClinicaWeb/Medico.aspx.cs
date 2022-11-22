@@ -56,23 +56,26 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvMedicos.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvMedicos.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
 
-                if (e.CommandName == "Modificar")
-                {
-                    Session.Add("medicoModificar", id);
-                    Response.Redirect("FormularioMedico.aspx", false);
-                }
-                else if (e.CommandName == "Eliminar")
-                {
-                    MedicoNegocio MedicoNegocio = new MedicoNegocio();
-                    MedicoNegocio.quitar_especialidades(id);
-                    MedicoNegocio.quitar_horarios(id);
-                    MedicoNegocio.Eliminar(id);
-                    Response.Redirect("Medico.aspx", false);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("medicoModificar", id);
+                        Response.Redirect("FormularioMedico.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        MedicoNegocio MedicoNegocio = new MedicoNegocio();
+                        MedicoNegocio.quitar_especialidades(id);
+                        MedicoNegocio.quitar_horarios(id);
+                        MedicoNegocio.Eliminar(id);
+                        Response.Redirect("Medico.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -159,5 +162,34 @@ namespace ClinicaWeb
             }
         }
 
+        protected void dgvMedicos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Medico> listaMedicos;
+            List<Modelo.Medico> listaMedicosFiltrada;
+            try
+            {
+
+                listaMedicosFiltrada = (List<Modelo.Medico>)Session["listaMedicosFiltrada"];
+                if (listaMedicosFiltrada is null)
+                {
+                    listaMedicos = (List<Modelo.Medico>)Session["listaMedicos"];
+                    dgvMedicos.PageIndex = e.NewPageIndex;
+                    dgvMedicos.DataSource = listaMedicos;
+                }
+                else
+                {
+                    dgvMedicos.PageIndex = e.NewPageIndex;
+                    dgvMedicos.DataSource = listaMedicosFiltrada;
+                }
+                dgvMedicos.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Medico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }
