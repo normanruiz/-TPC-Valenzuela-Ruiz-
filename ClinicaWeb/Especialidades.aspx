@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="row">
-                    <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand" AllowPaging="true" OnPageIndexChanging="dgvEspecialidad_PageIndexChanging">
+                    <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvEspecialidad_PageIndexChanging">
                         <Columns>
                             <asp:BoundField HeaderText="ID" DataField="Id" />
                             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
