@@ -43,24 +43,27 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvPacientes.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
-
-                if (e.CommandName == "Modificar")
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
                 {
-                    Session.Add("pacienteModificar", id);
-                    Response.Redirect("FormularioPaciente.aspx", false);
-                }
-                else if (e.CommandName == "Eliminar")
-                {
-                    PacienteNegocio pacienteNegocio = new PacienteNegocio();
-                    Modelo.Paciente paciente = new Modelo.Paciente();
-                    paciente = pacienteNegocio.buscar_con_id(id);
-                    pacienteNegocio.Eliminar(id);
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvPacientes.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
 
-                    Response.Redirect("Paciente.aspx", false);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("pacienteModificar", id);
+                        Response.Redirect("FormularioPaciente.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        PacienteNegocio pacienteNegocio = new PacienteNegocio();
+                        Modelo.Paciente paciente = new Modelo.Paciente();
+                        paciente = pacienteNegocio.buscar_con_id(id);
+                        pacienteNegocio.Eliminar(id);
+
+                        Response.Redirect("Paciente.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -152,6 +155,36 @@ namespace ClinicaWeb
             catch
             {
                 return null;
+            }
+        }
+
+        protected void dgvPacientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Paciente> listaPacientes;
+            List<Modelo.Paciente> listaPacientesFiltrada;
+            try
+            {
+
+                listaPacientesFiltrada = (List<Modelo.Paciente>)Session["listaPacientesFiltrada"];
+                if (listaPacientesFiltrada is null)
+                {
+                    listaPacientes = (List<Modelo.Paciente>)Session["listaPacientes"];
+                    dgvPacientes.PageIndex = e.NewPageIndex;
+                    dgvPacientes.DataSource = listaPacientes;
+                }
+                else
+                {
+                    dgvPacientes.PageIndex = e.NewPageIndex;
+                    dgvPacientes.DataSource = listaPacientesFiltrada;
+                }
+                dgvPacientes.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Paciente.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }

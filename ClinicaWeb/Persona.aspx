@@ -46,13 +46,13 @@
                                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
                             </Columns>
-                                                    <PagerSettings Mode="NumericFirstLast"
-                            Position="Bottom"
-                            PageButtonCount="10" />
-                        <PagerStyle BackColor="LightBlue"
-                            Height="30px"
-                            VerticalAlign="Bottom"
-                            HorizontalAlign="Center" />
+                            <PagerSettings Mode="NumericFirstLast"
+                                Position="Bottom"
+                                PageButtonCount="10" />
+                            <PagerStyle BackColor="LightBlue"
+                                Height="30px"
+                                VerticalAlign="Bottom"
+                                HorizontalAlign="Center" />
                         </asp:GridView>
                     </div>
                 </div>
