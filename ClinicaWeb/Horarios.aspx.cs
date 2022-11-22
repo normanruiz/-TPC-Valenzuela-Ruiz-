@@ -65,21 +65,24 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvHorarios.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvHorarios.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
 
-                if (e.CommandName == "Modificar")
-                {
-                    Session.Add("horarioModificar", id);
-                    Response.Redirect("FormularioHorario.aspx", false);
-                }
-                else if (e.CommandName == "Eliminar")
-                {
-                    HorarioNegocio horarioNegocio = new HorarioNegocio();
-                    horarioNegocio.Eliminar(id);
-                    Response.Redirect("Horarios.aspx", false);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("horarioModificar", id);
+                        Response.Redirect("FormularioHorario.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        HorarioNegocio horarioNegocio = new HorarioNegocio();
+                        horarioNegocio.Eliminar(id);
+                        Response.Redirect("Horarios.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -157,6 +160,36 @@ namespace ClinicaWeb
             catch
             {
                 return null;
+            }
+        }
+
+        protected void dgvHorarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Horario> listaHorarios;
+            List<Modelo.Horario> listaHorariosFiltrada;
+            try
+            {
+
+                listaHorariosFiltrada = (List<Modelo.Horario>)Session["listaHorariosFiltrada"];
+                if (listaHorariosFiltrada is null)
+                {
+                    listaHorarios = (List<Modelo.Horario>)Session["listaHorarios"];
+                    dgvHorarios.PageIndex = e.NewPageIndex;
+                    dgvHorarios.DataSource = listaHorarios;
+                }
+                else
+                {
+                    dgvHorarios.PageIndex = e.NewPageIndex;
+                    dgvHorarios.DataSource = listaHorariosFiltrada;
+                }
+                dgvHorarios.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Horarios.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }
