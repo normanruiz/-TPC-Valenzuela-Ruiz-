@@ -55,20 +55,23 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvEstados.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
-                if (e.CommandName == "Modificar")
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
                 {
-                    Session.Add("estadoModificar", id);
-                    Response.Redirect("FormularioEstado.aspx", false);
-                }
-                else if (e.CommandName == "Eliminar")
-                {
-                    EstadoNegocio estadoNegocio = new EstadoNegocio();
-                    estadoNegocio.Eliminar(id);
-                    Response.Redirect("Estados.aspx", false);
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvEstados.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("estadoModificar", id);
+                        Response.Redirect("FormularioEstado.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        EstadoNegocio estadoNegocio = new EstadoNegocio();
+                        estadoNegocio.Eliminar(id);
+                        Response.Redirect("Estados.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)

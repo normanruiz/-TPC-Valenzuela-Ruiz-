@@ -37,7 +37,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand">
+                        <asp:GridView ID="dgvPersona" runat="server" DataKeyNames="IdPersona" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPersona_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvPersona_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField HeaderText="Id." DataField="IdPersona" />
                                 <asp:BoundField HeaderText="DNI" DataField="DNI" />
@@ -46,6 +46,13 @@
                                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
                             </Columns>
+                                                    <PagerSettings Mode="NumericFirstLast"
+                            Position="Bottom"
+                            PageButtonCount="10" />
+                        <PagerStyle BackColor="LightBlue"
+                            Height="30px"
+                            VerticalAlign="Bottom"
+                            HorizontalAlign="Center" />
                         </asp:GridView>
                     </div>
                 </div>

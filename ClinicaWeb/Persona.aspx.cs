@@ -58,28 +58,31 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvPersona.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvPersona.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
 
-                if (e.CommandName == "Modificar")
-                {
-                    Session.Add("personaModificar", id);
-                    Response.Redirect("FormularioPersona.aspx", false);
-                }
-                else if (e.CommandName == "Eliminar")
-                {
-                    PersonaNegocio personaNegocio = new PersonaNegocio();
-                    Modelo.Persona auxPersona = new Modelo.Persona();
-                    auxPersona = personaNegocio.buscar_con_id(id);
-                    personaNegocio.Eliminar(id);
-                    if(!(auxPersona.usuario is null))
+                    if (e.CommandName == "Modificar")
                     {
-                        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-                        usuarioNegocio.Eliminar(auxPersona.usuario.Id);
+                        Session.Add("personaModificar", id);
+                        Response.Redirect("FormularioPersona.aspx", false);
                     }
-                    Response.Redirect("Persona.aspx", false);
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        PersonaNegocio personaNegocio = new PersonaNegocio();
+                        Modelo.Persona auxPersona = new Modelo.Persona();
+                        auxPersona = personaNegocio.buscar_con_id(id);
+                        personaNegocio.Eliminar(id);
+                        if (!(auxPersona.usuario is null))
+                        {
+                            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                            usuarioNegocio.Eliminar(auxPersona.usuario.Id);
+                        }
+                        Response.Redirect("Persona.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -157,6 +160,36 @@ namespace ClinicaWeb
             catch
             {
                 return null;
+            }
+        }
+
+        protected void dgvPersona_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Persona> listaPersonas;
+            List<Modelo.Persona> listaPersonasFiltrada;
+            try
+            {
+
+                listaPersonasFiltrada = (List<Modelo.Persona>)Session["listaPersonasFiltrada"];
+                if (listaPersonasFiltrada is null)
+                {
+                    listaPersonas = (List<Modelo.Persona>)Session["listaPersonas"];
+                    dgvPersona.PageIndex = e.NewPageIndex;
+                    dgvPersona.DataSource = listaPersonas;
+                }
+                else
+                {
+                    dgvPersona.PageIndex = e.NewPageIndex;
+                    dgvPersona.DataSource = listaPersonasFiltrada;
+                }
+                dgvPersona.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }
