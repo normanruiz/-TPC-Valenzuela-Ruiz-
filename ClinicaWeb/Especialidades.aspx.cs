@@ -99,5 +99,35 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void dgvEspecialidad_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Especialidad> listaEspecialidades;
+            List<Especialidad> listaEspecialidadesFiltrada;
+            try
+            {
+
+                listaEspecialidadesFiltrada = (List<Especialidad>)Session["listaEspecialidadesFiltrada"];
+                if (listaEspecialidadesFiltrada is null)
+                {
+                    listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                    dgvEspecialidad.PageIndex = e.NewPageIndex;
+                    dgvEspecialidad.DataSource = listaEspecialidades;
+                }
+                else
+                {
+                    dgvEspecialidad.PageIndex = e.NewPageIndex;
+                    dgvEspecialidad.DataSource = listaEspecialidadesFiltrada;
+                }
+                dgvEspecialidad.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

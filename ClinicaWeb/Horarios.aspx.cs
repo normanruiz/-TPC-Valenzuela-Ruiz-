@@ -112,7 +112,7 @@ namespace ClinicaWeb
             }
             catch (Exception excepcion)
             {
-                Session.Add("pagOrigen", "Persona.aspx");
+                Session.Add("pagOrigen", "Horarios.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
             }
