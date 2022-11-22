@@ -164,5 +164,34 @@ namespace ClinicaWeb
 
         }
 
+        protected void dgvUsuario_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Usuario> listaUsuarios;
+            List<Modelo.Usuario> listausuariosFiltrada;
+            try
+            {
+
+                listausuariosFiltrada = (List<Modelo.Usuario>)Session["listaUsuariosFiltrada"];
+                if (listausuariosFiltrada is null)
+                {
+                    listaUsuarios = (List<Modelo.Usuario>)Session["listaUsuarios"];
+                    dgvUsuario.PageIndex = e.NewPageIndex;
+                    dgvUsuario.DataSource = listaUsuarios;
+                }
+                else
+                {
+                    dgvUsuario.PageIndex = e.NewPageIndex;
+                    dgvUsuario.DataSource = listausuariosFiltrada;
+                }
+                dgvUsuario.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Estados.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }

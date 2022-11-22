@@ -56,21 +56,25 @@ namespace ClinicaWeb
         {
             try
             {
-                int index = Convert.ToInt32(e.CommandArgument);
-                GridViewRow selectedRow = dgvEspecialidad.Rows[index];
-                TableCell contactName = selectedRow.Cells[0];
-                int id = Convert.ToInt32(contactName.Text);
-                if (e.CommandName == "Modificar")
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
                 {
-                    Session.Add("especialidadesModificar", id);
-                    Response.Redirect("FormularioEspecialidad.aspx", false);
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvEspecialidad.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("especialidadesModificar", id);
+                        Response.Redirect("FormularioEspecialidad.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                        especialidadNegocio.Eliminar(id);
+                        Response.Redirect("Especialidades.aspx", false);
+                    }
                 }
-                else if (e.CommandName == "Eliminar")
-                {
-                    EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-                    especialidadNegocio.Eliminar(id);
-                    Response.Redirect("Especialidades.aspx", false);
-                }
+
             }
             catch (Exception excepcion)
             {
