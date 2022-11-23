@@ -8,14 +8,15 @@ namespace Modelo
 {
     public class Turno
     {
-        public int Numero { get; set; }
+        public int Id { get; set; }
+        public String Numero { get; set; }
         public Paciente paciente { get; set; }
         public Especialidad especialidad { get; set; }
-        public Horario horario { get; set; }
         public Medico medico { get; set; }
-        public String Observaciones { get; set; }
+        public Horario horario { get; set; }
+        public int horaInicio { get; set; }
+        public DateTime Fecha { get; set; }
         public Estado estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
 
     }
 }

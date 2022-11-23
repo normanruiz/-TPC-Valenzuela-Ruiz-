@@ -369,7 +369,7 @@ GO
 USE [TPC-Clinica-Valenzuela-Ruiz]
 GO
 
-/****** Object:  Table [dbo].[turnos]    Script Date: 27/10/2022 08:41:43 ******/
+/****** Object:  Table [dbo].[turnos]    Script Date: 23/11/2022 09:49:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -378,48 +378,32 @@ GO
 
 CREATE TABLE [dbo].[turnos](
 	[id] [int] IDENTITY(1,1) NOT NULL,
+	[numero] [varchar](4) NOT NULL,
 	[ipPaciente] [int] NOT NULL,
 	[idEspecialidad] [int] NOT NULL,
-	[idHorario] [int] NOT NULL,
 	[idMedico] [int] NOT NULL,
+	[idHorario] [int] NOT NULL,
+	[horainicio] [int] NOT NULL,
+	[fecha] [datetime] NOT NULL,
 	[idEstado] [int] NOT NULL,
-	[fechaCreacion] [datetime] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[ipPaciente] ASC,
-	[idHorario] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[idMedico] ASC,
-	[idHorario] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([idEspecialidad])
-REFERENCES [dbo].[especialidades] ([id])
-GO
-
-ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([idEstado])
-REFERENCES [dbo].[estados] ([id])
-GO
-
-ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([idHorario])
-REFERENCES [dbo].[horarios] ([id])
-GO
-
-ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([idMedico])
-REFERENCES [dbo].[medicos] ([id])
-GO
-
-ALTER TABLE [dbo].[turnos]  WITH CHECK ADD FOREIGN KEY([ipPaciente])
-REFERENCES [dbo].[pacientes] ([id])
-GO
+--CREATE TABLE [dbo].[turnos](
+--	[id] [int] IDENTITY(1,1) NOT NULL primary key,
+--	[numero] varchar(4) not null,
+--	[ipPaciente] [int] NOT NULL,
+--	[idEspecialidad] [int] NOT NULL,
+--	[idMedico] [int] NOT NULL,
+--	[idHorario] [int] NOT NULL,
+--	[horainicio] [int] not null,
+--	[fecha] [datetime] NOT NULL,
+--	[idEstado] [int] NOT NULL,
+--	)
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 --  Creacion de la tabla intermnedia [dbo].[MedicoXEspecialidad] 
