@@ -3,7 +3,7 @@
 
 <asp:Content ID="contentBodyTurnos" ContentPlaceHolderID="cphBody" runat="server">
 
-    <div class="container">
+    <div class="container-fluid">
         <class="row">
             <h1>Administración de Turnos</h1>
         </class>
