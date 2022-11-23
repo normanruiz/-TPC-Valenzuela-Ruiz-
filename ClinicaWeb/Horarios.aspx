@@ -37,7 +37,7 @@
                     <div class="col">
                         <asp:GridView ID="dgvHorarios" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvHorarios_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvHorarios_PageIndexChanging">
                             <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="Id" />
+                                <asp:BoundField HeaderText="Id." DataField="Id" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto"/>
                                 <asp:BoundField HeaderText="Dia" DataField="Dia" />
                                 <asp:BoundField HeaderText="Hora de inicio" DataField="HoraInicio" />
                                 <asp:BoundField HeaderText="Hora de fin" DataField="HoraFin" />

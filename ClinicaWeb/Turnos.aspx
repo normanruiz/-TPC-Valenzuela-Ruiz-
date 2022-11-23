@@ -33,7 +33,7 @@
 
                         <asp:GridView ID="dgvTurnos" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvTurnos_RowCommand">
                             <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="Id" />
+                                <asp:BoundField HeaderText="Id." DataField="Id" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto" />
                                 <asp:BoundField HeaderText="Numero" DataField="Numero" />
                                 <asp:BoundField HeaderText="Paciente" DataField="paciente.denominacion" />
                                 <asp:BoundField HeaderText="Especialidad" DataField="especialidad.Nombre" />

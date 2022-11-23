@@ -35,7 +35,7 @@
                     <div class="col">
                         <asp:GridView ID="dgvMedicos" runat="server" DataKeyNames="IdMedico" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvMedicos_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvMedicos_PageIndexChanging">
                             <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="IdMedico" Visible="false" />
+                                <asp:BoundField HeaderText="Id." DataField="IdMedico" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto" />
                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
