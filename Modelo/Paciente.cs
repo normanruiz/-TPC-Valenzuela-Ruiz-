@@ -12,5 +12,13 @@ namespace Modelo
         public DateTime FechaNacimiento { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
+
+        public string denominacion
+        {
+            get
+            {
+                return Apellido + " " + Nombre;
+            }
+        }
     }
 }

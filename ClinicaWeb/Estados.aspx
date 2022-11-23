@@ -24,7 +24,7 @@
                     <div class="col-4">
                     </div>
                     <div class="col-4 text-end">
-                        <asp:Button ID="btnNuevo" runat="server" Text="Nuevo Estado" CssClass="form-control btn btn-outline-secondary" OnClick="btnNuevo_Click" />
+                        <asp:Button ID="btnNuevo" runat="server" Text="Cargar turno" CssClass="form-control btn btn-outline-secondary" OnClick="btnNuevo_Click" />
                     </div>
                 </div>
 

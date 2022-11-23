@@ -119,6 +119,7 @@
             </div>
             <div class="mb-3">
                 <asp:Button ID="btnTurno" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
             </div>
         </div>
         <div class="col-5"></div>

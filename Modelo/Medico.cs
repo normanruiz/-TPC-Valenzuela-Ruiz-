@@ -12,5 +12,13 @@ namespace Modelo
         public List<Especialidad> Especialidades { get; set; }
         public List<Horario> Horarios { get; set; }
 
+        public string denominacion
+        {
+            get
+            {
+                return Apellido + " " + Nombre;
+            }
+        }
+
     }
 }
