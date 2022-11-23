@@ -38,7 +38,7 @@
                     <div class="col">
                         <asp:GridView ID="dgvPacientes" runat="server" DataKeyNames="IdPaciente" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvPacientes_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvPacientes_PageIndexChanging">
                             <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="IdPaciente" />
+                                <asp:BoundField HeaderText="Id." DataField="IdPaciente" Visible="false" />
                                 <asp:BoundField HeaderText="DNI" DataField="DNI" />
                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />

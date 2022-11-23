@@ -96,7 +96,7 @@
         <div class="row align-items-center">
             <div class="col-3"></div>
             <div class="col-4">
-                <asp:Calendar ID="Calendar2" runat="server"></asp:Calendar>
+                <asp:Calendar ID="Calendar2" CssClass="table" runat="server"></asp:Calendar>
                 <asp:DataList ID="DataList2" runat="server"></asp:DataList>
             </div>
             <div class="col-5"></div>
