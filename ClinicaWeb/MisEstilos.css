@@ -9,6 +9,11 @@
     align-content: start
 }
 
+.table {
+    margin: 20px 0 20px 0;
+    text-align:center
+}
+
 .btn {
     margin: 10px 0 10px 0
 }
@@ -91,32 +96,6 @@ header {
         box-sizing: border-box;
     }
 
-form .username {
-    position: relative;
-    border-bottom: 2px solid #adadad;
-    margin: 30px 0;
-}
-
-.username-textbox {
-    width: 100%;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border: none;
-    background: none;
-    outline: none;
-    color: #fbf2d5
-}
-
-.username label {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    color: azure;
-    transform: translateY(-50%);
-    font-size: 16px;
-    pointer-events: none;
-}
 
 .error {
     position: absolute;
@@ -146,7 +125,7 @@ form .username {
         color: #385170
     }
 
-.username span::before {
+/*.username span::before {
     content: '';
     position: absolute;
     top: 40px;
@@ -166,7 +145,7 @@ form .username {
 .username input:focus ~ span::before {
     width: 100%
 }
-
+*/
 
 .nav-tabs .nav-item .nav-link {
     color: #142d4c;
@@ -191,4 +170,12 @@ form .username {
     color: #282242;
     padding: 30px 10px 10px 0px
 }
+
+.mb-3 h4 {
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #282242;
+    margin: 50px 10px 10px 0px
+}
+
 

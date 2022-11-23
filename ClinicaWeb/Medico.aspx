@@ -4,11 +4,11 @@
 
 <asp:Content ID="ContentBodyMedicos" ContentPlaceHolderID="cphBody" runat="server">
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-4">
-                <h1>Administración de Medicos</h1>
+                <h1>Administración de Médicos</h1>
             </div>
             <div class="col-4">
             </div>
@@ -35,11 +35,11 @@
                     <div class="col">
                         <asp:GridView ID="dgvMedicos" runat="server" DataKeyNames="IdMedico" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvMedicos_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvMedicos_PageIndexChanging">
                             <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="IdMedico" />
+                                <asp:BoundField HeaderText="Id." DataField="IdMedico" Visible="false" />
                                 <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
                                 <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
                                 <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
-                                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
+                                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light"/>
                             </Columns>
                             <PagerSettings Mode="NumericFirstLast"
                                 Position="Bottom"
@@ -49,6 +49,28 @@
                                 VerticalAlign="Bottom"
                                 HorizontalAlign="Center" />
                         </asp:GridView>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEliminar">
+                     Eliminar
+                </button>
+                
+
+                <div class="modal fade" id="ModalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="LblModalEliminar">Confirma la eliminación</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Seguro de que quieres eliminar el registro?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary">Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
