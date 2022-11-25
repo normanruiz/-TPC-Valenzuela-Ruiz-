@@ -528,11 +528,8 @@ namespace ClinicaWeb
         protected void ddlHorarios_SelectedIndexChanged(object sender, EventArgs e)
         {
             Modelo.Turno turno;
-            List<Modelo.Horario> listaHorarios;
             Modelo.Horario horario;
             HorarioNegocio horarioNegocio;
-
-
 
             try
             {

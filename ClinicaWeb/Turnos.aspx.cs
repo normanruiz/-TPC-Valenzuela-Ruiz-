@@ -56,9 +56,28 @@ namespace ClinicaWeb
 
         protected void dgvTurnos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            TurnoNegocio turnoNegocio;
             try
             {
-
+                if (e.CommandName == "Modificar" || e.CommandName == "Eliminar")
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    GridViewRow selectedRow = dgvTurnos.Rows[index];
+                    TableCell contactName = selectedRow.Cells[0];
+                    int id = Convert.ToInt32(contactName.Text);
+                    if (e.CommandName == "Modificar")
+                    {
+                        Session.Add("estadoModificar", id);
+                        Response.Redirect("FormularioEstado.aspx", false);
+                    }
+                    else if (e.CommandName == "Eliminar")
+                    {
+                        turnoNegocio = new TurnoNegocio();
+                        turnoNegocio.Eliminar_observaciones_de_turno(id);
+                        turnoNegocio.Eliminar(id);
+                        Response.Redirect("Turnos.aspx", false);
+                    }
+                }
             }
             catch (Exception excepcion)
             {

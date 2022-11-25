@@ -1318,5 +1318,18 @@ INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[ObservacionesXTurno] ([idTurno]
 GO
 
 
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[ObservacionesXTurno]
+       WHERE [idTurno] = 1;
+GO
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos]
+       WHERE [id] = 1;
+GO
+
+
+
 
 

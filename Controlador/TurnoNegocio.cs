@@ -197,6 +197,50 @@ namespace Controlador
             }
         }
 
+        public void Eliminar_observaciones_de_turno(int idTurno)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[ObservacionesXTurno] WHERE [idTurno] = @idTurno;";
+                conexion.setearParametro("@idTurno", idTurno);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void Eliminar(int idTurno)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+
+            try
+            {
+                string consulta = "DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] WHERE [id] = @idTurno;";
+                conexion.setearParametro("@idTurno", idTurno);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
     }
 }
 
