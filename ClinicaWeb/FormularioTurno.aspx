@@ -31,7 +31,7 @@
                     <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged"></asp:DropDownList>
                 </div>
                 <div class="mb-3">
-                    <asp:CheckBox ID="ckbCargaManual" runat="server" ClientIDMode="Static" AutoPostBack="true" />
+                    <asp:CheckBox ID="ckbCargaManual" runat="server" ClientIDMode="Static" AutoPostBack="true" Enabled="false" OnCheckedChanged="ckbCargaManual_CheckedChanged"/>
                     <label for="ckbCargaManual" class="form-check-label">Carga Manual</label>
                 </div>
             </div>
@@ -94,31 +94,62 @@
             { %>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
+
                 <div class="row align-items-center">
-                    <div class="col-3"></div>
-                    <div class="col-2">
+
+                    <div class="col-3">
+                    </div>
+
+                    <div class="col-3">
                         <label for="ddlMedicos" class="form-label">Médicos</label>
-                        <asp:DropDownList ID="ddlMedicos" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlMedicos_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlMedicos" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlMedicos_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                     </div>
-                    <div class="col-2">
+
+                    <div class="col-3">
                         <label for="ddlHorarios" class="form-label">Horarios disponibles</label>
-                        <asp:DropDownList ID="ddlHorarios" runat="server" CssClass="form-select"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlHorarios" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlHorarios_SelectedIndexChanged" Enabled="false"></asp:DropDownList>
                     </div>
-                    <div class="col-2">
-                        <label for="ddlHora" class="form-label">Horas disponibles</label>
-                        <asp:DropDownList ID="ddlHora" runat="server" CssClass="form-select"></asp:DropDownList>
+
+                    <div class="col-3">
                     </div>
-                    <div class="col-3"></div>
                 </div>
+
                 <div class="row align-items-center">
-                    <div class="col-3"></div>
-                    <div class="col-4">
-                        <asp:Calendar ID="Calendar2" CssClass="table" runat="server"></asp:Calendar>
-                        <asp:DataList ID="DataList2" runat="server"></asp:DataList>
+
+                    <div class="col-3">
                     </div>
-                    <div class="col-5"></div>
+
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="tbxFecha" class="form-label">Fechas disponibles</label>
+                            <asp:TextBox TextMode="Date" ID="tbxFecha" runat="server" Enabled="false" CssClass="form-control" OnTextChanged="tbxFecha_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        </div>
+                    </div>
+
+                    <div class="col-5">
+                    </div>
+
                 </div>
+
+                <div class="row align-items-center">
+
+                    <div class="col-3">
+                    </div>
+
+                    <div class="col-4">
+                        <div class="mb-3">
+                            <label for="ddlHora" class="form-label">Horas disponibles</label>
+                            <asp:DropDownList ID="ddlHora" runat="server" CssClass="form-select" Enabled="false" OnSelectedIndexChanged="ddlHora_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                        </div>
+                    </div>
+
+                    <div class="col-5">
+                    </div>
+
                 </div>
+
+             </div>
+
             </ContentTemplate>
         </asp:UpdatePanel>
         <% } %>
