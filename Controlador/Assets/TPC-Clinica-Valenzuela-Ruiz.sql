@@ -379,7 +379,7 @@ GO
 CREATE TABLE [dbo].[turnos](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[numero] [varchar](4) NOT NULL,
-	[ipPaciente] [int] NOT NULL,
+	[idPaciente] [int] NOT NULL,
 	[idEspecialidad] [int] NOT NULL,
 	[idMedico] [int] NOT NULL,
 	[idHorario] [int] NOT NULL,
@@ -471,6 +471,35 @@ GO
 
 ALTER TABLE [dbo].[MedicoXHorario]  WITH CHECK ADD FOREIGN KEY([idMedico])
 REFERENCES [dbo].[medicos] ([id])
+GO
+
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--  Creacion de la tabla intermnedia [dbo].[ObservacionesXTurno] 
+-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+/****** Object:  Table [dbo].[ObservacionesXTurno]    Script Date: 24/11/2022 22:28:16 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ObservacionesXTurno](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[idTurno] [int] NOT NULL,
+	[observacion] [varchar](max) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[ObservacionesXTurno]  WITH CHECK ADD FOREIGN KEY([idTurno])
+REFERENCES [dbo].[turnos] ([id])
 GO
 
 -- ====================================================================================================================
@@ -810,7 +839,44 @@ SELECT h.[id]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK)
 			INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK)
 			      ON h.[id] = mxh.[idHorario]
-				     AND mxH.[idMedico] = 1;
+				     AND mxH.[idMedico] = 1012;
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Buscar proximo para medico
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT top 1 h.[id]
+      ,h.[dia]
+      ,h.[horaInicio]
+	  ,h.[horaFin]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK)
+			INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK)
+			      ON h.[id] = mxh.[idHorario]
+				     AND mxH.[idMedico] = 3
+					 AND CASE h.[dia]
+							WHEN 'Domingo' THEN 1
+							WHEN 'Lunes' THEN 2
+							WHEN 'Martes' THEN 3
+							WHEN 'Miercoles' THEN 4
+							WHEN 'Jueves' THEN 5
+							WHEN 'Viernes' THEN 6
+							WHEN 'Sabado' THEN 7
+						 END >= DATEPART(dw, GETDATE());
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Buscar proximo para dia
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT h.[horainicio]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS h WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK)
+			      ON h.[id] = mxh.[idHorario]
+				     AND mxh.[idMedico] = 1
+					 AND mxh.[idHorario] = 5
+	   WHERE CONVERT(DATE, h.[fecha]) >= CONVERT(DATE, GETDATE());
+
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -1011,7 +1077,7 @@ GO
 SELECT m.[id]
       ,m.[idPersona]
        FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
-	   WHERE m.[id] = 1;
+	   WHERE m.[id] = 17;
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
@@ -1027,8 +1093,16 @@ SELECT m.[id]
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
---  Buscar Especialidades
+--  Buscar con especialidades
 -- --------------------------------------------------------------------------------------------------------------------
+
+SELECT m.[id]
+      ,m.[idPersona]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK)
+			      ON m.[id] = mxe.[idMedico]
+					 AND mxe.[idEspecialidad] = 17;
+GO
 
 -- --------------------------------------------------------------------------------------------------------------------
 --  Buscar Horarios
@@ -1174,7 +1248,7 @@ UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes]
 GO
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---  CRUDs [dbo].[pacientes]
+--  CRUDs [dbo].[turnos]
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 -- --------------------------------------------------------------------------------------------------------------------
 --  Listado
@@ -1193,10 +1267,23 @@ SELECT t.[id]
 GO
 
 -- --------------------------------------------------------------------------------------------------------------------
+--  Generar numero
+-- --------------------------------------------------------------------------------------------------------------------
+
+SELECT COUNT(t.[id]) AS 'contador'
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK)
+				INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
+				      ON T.idEspecialidad = e.id
+	   WHERE CONVERT(DATE, t.[fecha]) = CONVERT(DATE, '2022-11-23')
+	         AND t.[idEspecialidad] = 1;
+
+GO
+
+-- --------------------------------------------------------------------------------------------------------------------
 --  Alta
 -- --------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] ([numero], [ipPaciente], [idEspecialidad], [idMedico], [idHorario], [horainicio], [fecha], [idEstado])
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] ([numero], [idPaciente], [idEspecialidad], [idMedico], [idHorario], [horainicio], [fecha], [idEstado])
      VALUES ( 'A001', 23, 1, 1, 1, 2, getdate(), 1 )
 GO
 
@@ -1205,3 +1292,31 @@ GO
 -- ====================================================================================================================
 --  Fin Querys y nonquerys para los CRUDs
 -- ####################################################################################################################
+
+create table ObservacionesXTurno(
+	id int not null identity(1,1) primary key,
+	idTurno int not null foreign key references turnos(id),
+	observacion varchar(max) not null
+);
+
+SELECT t.[id]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK)
+	   WHERE t.[numero] = @numero
+       AND t.[idPaciente] = @idPaciente
+       AND t.[idEspecialidad] = @idEspecialidad
+       AND t.[idEspecialidad] = @idEspecialidad
+       AND t.[idHorario] = @idHorario
+       AND t.[horainicio] = @horainicio
+       AND t.[fecha] = @fecha
+       AND t.[idEstado] = @idEstado;
+GO
+
+
+
+INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[ObservacionesXTurno] ([idTurno], [observacion])
+       VALUES (,);
+GO
+
+
+
+

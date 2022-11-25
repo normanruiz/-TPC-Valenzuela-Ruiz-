@@ -53,6 +53,51 @@ namespace Controlador
             }
         }
 
+        public List<Medico> listar_con_especialidad(int idEspecialidad)
+        {
+            List<Medico> listaMedicos = new List<Medico>();
+            AccesoDatos conexion = new AccesoDatos();
+            Medico medico;
+            Persona persona;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT m.[id], m.[idPersona] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK) ON m.[id] = mxe.[idMedico] AND mxe.[idEspecialidad] = @idEspecialidad;");
+                conexion.setearParametro("@idEspecialidad", idEspecialidad);
+                conexion.ejecutarLectura();
+
+                while (conexion.Lector.Read())
+                {
+                    medico = new Medico();
+                    medico.IdMedico = (Int32)conexion.Lector["id"];
+                    medico.IdPersona = (Int32)conexion.Lector["idPersona"];
+
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)conexion.Lector["idPersona"]);
+
+                    medico.DNI = persona.DNI;
+                    medico.Nombre = persona.Nombre;
+                    medico.Apellido = persona.Apellido;
+                    medico.Email = persona.Email;
+                    medico.usuario = persona.usuario;
+
+                    listaMedicos.Add(medico);
+                }
+
+                return listaMedicos;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public Medico buscar_con_id(int id)
         {
             AccesoDatos conexion = new AccesoDatos();

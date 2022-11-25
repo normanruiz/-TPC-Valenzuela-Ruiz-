@@ -71,29 +71,6 @@
 
             }
 
-            //if (contraseñaUsuario === "") {
-            //    document.getElementById("tbxContraseñaUsuario").className = "form-control is-invalid";
-            //    document.getElementById("lblContraseñaUsuario").className = "form-label invalid-feedback";
-            //    document.getElementById("lblContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
-            //    estado = false;
-            //}
-            //else {
-            //    document.getElementById("tbxContraseñaUsuario").className = "form-control is-valid";
-            //    document.getElementById("lblContraseñaUsuario").innerText = "";
-            //}
-
-            //if (confirmarContraseñaUsuario === "") {
-            //    document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-invalid";
-            //    document.getElementById("lblConfirmarContraseñaUsuario").className = "form-label invalid-feedback";
-            //    document.getElementById("lblConfirmarContraseñaUsuario").innerText += "La contraseña no puede estar vacia. ";
-            //    estado = false;
-            //}
-            //else {
-            //    document.getElementById("tbxConfirmarContraseñaUsuario").className = "form-control is-valid";
-            //    document.getElementById("lblConfirmarContraseñaUsuario").innerText = "";
-            //}
-
-
             return estado;
 
         }
@@ -148,7 +125,7 @@
             </div>
             <div class="col-6">
             </div>
-        </div>    
+        </div>
     </div>
 
 </asp:Content>

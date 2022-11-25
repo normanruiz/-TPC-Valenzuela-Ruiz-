@@ -110,7 +110,7 @@ namespace Controlador
             try
             {
                 conexion.conectar();
-                conexion.setearConsulta("SELECT pa.[id], pa.[idPersona], pa.[fechaNacimiento], pa.[direccion], pa.[telefono] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS pa WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS pe WITH (NOLOCK) on pa.[idPersona] = pe.[id] AND pe.[dni] = '@dni';");
+                conexion.setearConsulta("SELECT pa.[id], pa.[idPersona], pa.[fechaNacimiento], pa.[direccion], pa.[telefono] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[pacientes] AS pa WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS pe WITH (NOLOCK) on pa.[idPersona] = pe.[id] AND pe.[dni] = @dni;");
                 conexion.setearParametro("@dni", dni);
                 conexion.ejecutarLectura();
 

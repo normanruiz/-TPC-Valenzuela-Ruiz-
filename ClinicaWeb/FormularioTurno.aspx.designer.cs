@@ -42,13 +42,13 @@ namespace ClinicaWeb
         protected global::System.Web.UI.WebControls.DropDownList ddlEspecialidad;
 
         /// <summary>
-        /// Control ckbDni.
+        /// Control ckbCargaManual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckbDni;
+        protected global::System.Web.UI.WebControls.CheckBox ckbCargaManual;
 
         /// <summary>
         /// Control btnBuscarDni.
@@ -60,31 +60,112 @@ namespace ClinicaWeb
         protected global::System.Web.UI.WebControls.Button btnBuscarDni;
 
         /// <summary>
-        /// Control btnTurno1.
+        /// Control lblMedicoOpcion1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTurno1;
+        protected global::System.Web.UI.WebControls.Label lblMedicoOpcion1;
 
         /// <summary>
-        /// Control btnTurno2.
+        /// Control lblDiaOpcion1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTurno2;
+        protected global::System.Web.UI.WebControls.Label lblDiaOpcion1;
 
         /// <summary>
-        /// Control btnTurno3.
+        /// Control lblHoraOpcion1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTurno3;
+        protected global::System.Web.UI.WebControls.Label lblHoraOpcion1;
+
+        /// <summary>
+        /// Control btnElegirOpcion1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnElegirOpcion1;
+
+        /// <summary>
+        /// Control lblMedicoOpcion2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMedicoOpcion2;
+
+        /// <summary>
+        /// Control lblDiaOpcion2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiaOpcion2;
+
+        /// <summary>
+        /// Control lblHoraOpcion2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHoraOpcion2;
+
+        /// <summary>
+        /// Control btnElegirOpcion2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnElegirOpcion2;
+
+        /// <summary>
+        /// Control lblMedicoOpcion3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMedicoOpcion3;
+
+        /// <summary>
+        /// Control lblDiaOpcion3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDiaOpcion3;
+
+        /// <summary>
+        /// Control lblHoraOpcion3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHoraOpcion3;
+
+        /// <summary>
+        /// Control btnElegirOpcion3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnElegirOpcion3;
 
         /// <summary>
         /// Control ddlMedicos.
@@ -141,31 +222,31 @@ namespace ClinicaWeb
         protected global::System.Web.UI.WebControls.TextBox tbxObservacion;
 
         /// <summary>
-        /// Control btnObservacion.
+        /// Control btnAgregarObservacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnObservacion;
+        protected global::System.Web.UI.WebControls.Button btnAgregarObservacion;
 
         /// <summary>
-        /// Control dlObservaciones.
+        /// Control listaObservaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList dlObservaciones;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl listaObservaciones;
 
         /// <summary>
-        /// Control btnTurno.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTurno;
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
 
         /// <summary>
         /// Control btnCancelar.

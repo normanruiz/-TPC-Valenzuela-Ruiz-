@@ -80,6 +80,39 @@ namespace Controlador
             }
         }
 
+        public List<int> buscar_ocupados_para_medico_en_dia(int idMedico, int idDia)
+        {
+            List<int> listaHorasOcupadas = new List<int>();
+            AccesoDatos conexion = new AccesoDatos();
+            int hora;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT h.[horainicio] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS h WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) ON h.[id] = mxh.[idHorario] AND mxh.[idMedico] = @idMedico AND mxh.[idHorario] = @idDia WHERE CONVERT(DATE, h.[fecha]) >= CONVERT(DATE, GETDATE());");
+                conexion.setearParametro("@idMedico", idMedico);
+                conexion.setearParametro("@idDia", idDia);
+                conexion.ejecutarLectura();
+
+                while (conexion.Lector.Read())
+                {
+                    hora = (int)conexion.Lector["horaInicio"];
+
+                    listaHorasOcupadas.Add(hora);
+                }
+
+                return listaHorasOcupadas;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public Horario buscar_con_id(int id)
         {
             AccesoDatos conexion = new AccesoDatos();
@@ -90,6 +123,42 @@ namespace Controlador
                 conexion.conectar();
                 conexion.setearConsulta("SELECT h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK) WHERE h.[id] = @id;");
                 conexion.setearParametro("@id", id);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    horario = new Horario();
+                    horario.Id = (Int32)conexion.Lector["id"];
+                    horario.Dia = (string)conexion.Lector["dia"];
+                    horario.HoraInicio = (int)conexion.Lector["horaInicio"];
+                    horario.HoraFin = (int)conexion.Lector["horaFin"];
+                }
+                else
+                {
+                    horario = null;
+                }
+                return horario;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public Horario buscar_proximo_para_medico(int idMedico)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Horario horario;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT top 1 h.[id], h.[dia], h.[horaInicio], h.[horaFin] FROM[TPC-Clinica-Valenzuela-Ruiz].[dbo].[horarios] AS h WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) ON h.[id] = mxh.[idHorario] AND mxh.[idMedico] = @idMedico AND CASE h.[dia] WHEN 'Domingo' THEN 1 WHEN 'Lunes' THEN 2 WHEN 'Martes' THEN 3 WHEN 'Miercoles' THEN 4 WHEN 'Jueves' THEN 5 WHEN 'Viernes' THEN 6 WHEN 'Sabado' THEN 7 END >= DATEPART(dw, GETDATE());");
+                conexion.setearParametro("@idMedico", idMedico);
                 conexion.ejecutarLectura();
 
                 if (conexion.Lector.Read())
