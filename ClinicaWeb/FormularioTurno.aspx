@@ -7,12 +7,12 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
+                <h1><%= tituloFormulario %></h1>
             </div>
             <div class="col-4">
-                <h1>Nuevo Turno</h1>
             </div>
-            <div class="col-5">
+            <div class="col-4">
             </div>
         </div>
 
@@ -26,12 +26,19 @@
                     <asp:Label for="tbxDNI" ID="lblDNI" runat="server" ClientIDMode="Static"></asp:Label>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-3 d-inline">
                     <label for="ddlEspecialidad" class="form-label">Especialidad Médica</label>
                     <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged"></asp:DropDownList>
                 </div>
+                <% if (!(Session["turnoModificar"] is null))
+                    { %>
+                <div class="mb-3 d-inline">
+                    <label for="ddlEstado" class="form-label">Estado</label>
+                    <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <% } %>
                 <div class="mb-3">
-                    <asp:CheckBox ID="ckbCargaManual" runat="server" ClientIDMode="Static" AutoPostBack="true" Enabled="false" OnCheckedChanged="ckbCargaManual_CheckedChanged"/>
+                    <asp:CheckBox ID="ckbCargaManual" runat="server" ClientIDMode="Static" AutoPostBack="true" Enabled="false" OnCheckedChanged="ckbCargaManual_CheckedChanged" />
                     <label for="ckbCargaManual" class="form-check-label">Carga Manual</label>
                 </div>
             </div>
@@ -57,7 +64,7 @@
                         <p class="card-text">
                             <asp:Label ID="lblHoraOpcion1" runat="server" CssClass="card-text" ClientIDMode="Static" Text="Hora a designar"></asp:Label>
                         </p>
-                        <asp:Button ID="btnElegirOpcion1" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion1_Click" Enabled="false"/>
+                        <asp:Button ID="btnElegirOpcion1" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion1_Click" Enabled="false" />
                     </div>
                 </div>
             </div>
@@ -70,7 +77,7 @@
                         <p class="card-text">
                             <asp:Label ID="lblHoraOpcion2" runat="server" CssClass="card-text" ClientIDMode="Static" Text="Hora a designar"></asp:Label>
                         </p>
-                        <asp:Button ID="btnElegirOpcion2" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion2_Click" Enabled="false"/>
+                        <asp:Button ID="btnElegirOpcion2" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion2_Click" Enabled="false" />
                     </div>
                 </div>
             </div>
@@ -83,7 +90,7 @@
                         <p class="card-text">
                             <asp:Label ID="lblHoraOpcion3" runat="server" CssClass="card-text" ClientIDMode="Static" Text="Hora a designar"></asp:Label>
                         </p>
-                        <asp:Button ID="btnElegirOpcion3" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion3_Click" Enabled="false"/>
+                        <asp:Button ID="btnElegirOpcion3" runat="server" Text="Elegir" CssClass="btn btn-outline-primary" OnClick="btnElegirOpcion3_Click" Enabled="false" />
                     </div>
                 </div>
             </div>
@@ -148,39 +155,47 @@
 
                 </div>
 
-             </div>
+                </div>
 
             </ContentTemplate>
         </asp:UpdatePanel>
         <% } %>
 
-        <div class="row align-items-center">
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
 
-            <div class="col-3">
-            </div>
+                <div class="row align-items-center">
 
-            <div class="col-6">
-                <div class="mb-3">
-                    <h4>Agrega una observación</h4>
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" OnClick="btnAgregarObservacion_Click" Enabled="false"/>
-                </div>
-                <div class="mb-3">
-                    <ul class="list-group list-group-flush" id="listaObservaciones" runat="server"></ul>
-                </div>
-                <div class="mb-8">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" OnClick="btnGuardar_Click"/>
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
-                </div>
-            </div>
+                    <div class="col-3">
+                    </div>
 
-            <div class="col-3">
-            </div>
-        </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <h4>Agrega una observación</h4>
+                        </div>
+                        <div class="mb-3">
+                            <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                        </div>
+                        <div class="mb-3">
+                            <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" OnClick="btnAgregarObservacion_Click" Enabled="false" />
+                        </div>
+                        <div class="mb-3">
+                            <ul class="list-group list-group-flush" id="listaObservaciones" runat="server"></ul>
+                        </div>
+
+                        <div class="mb-8">
+                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" OnClick="btnGuardar_Click" />
+                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                    </div>
+
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
 </asp:Content>
 
 

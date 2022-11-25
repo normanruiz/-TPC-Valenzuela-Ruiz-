@@ -1329,6 +1329,37 @@ DELETE FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos]
        WHERE [id] = 1;
 GO
 
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+SELECT t.[id]
+      ,t.[numero]
+      ,t.[idPaciente]
+      ,t.[idEspecialidad]
+      ,t.[idMedico]
+      ,t.[idHorario]
+      ,t.[horainicio]
+      ,t.[fecha]
+      ,t.[idEstado]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK)
+	   WHERE T.[id] = 1;
+
+GO
+
+UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos]
+   SET [numero] = @numero
+      ,[idPaciente] = @idPaciente
+      ,[idEspecialidad] = @idEspecialidad
+      ,[idMedico] = @idMedico
+      ,[idHorario] = @idHorario
+      ,[horainicio] = @horainicio
+      ,[fecha] = @fecha
+      ,[idEstado] = @idEstado
+ WHERE [id] = @id;
+GO
+
+
+
 
 
 

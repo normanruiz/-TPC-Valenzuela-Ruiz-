@@ -77,12 +77,110 @@ namespace Controlador
             }
         }
 
+        public Modelo.Turno buscar_con_id(int idTurno)
+        {
+            AccesoDatos Conexion = new AccesoDatos();
+            Modelo.Turno turno;
+            Modelo.Paciente paciente;
+            PacienteNegocio pacienteNegocio;
+            Modelo.Especialidad especialidad;
+            EspecialidadNegocio especialidadNegocio;
+            Modelo.Medico medico;
+            MedicoNegocio medicoNegocio;
+            Modelo.Horario horario;
+            HorarioNegocio horarioNegocio;
+            Modelo.Estado estado;
+            EstadoNegocio estadoNegocio;
+
+            try
+            {
+                Conexion.conectar();
+                Conexion.setearConsulta("SELECT t.[id], t.[numero], t.[idPaciente], t.[idEspecialidad], t.[idMedico], t.[idHorario], t.[horainicio], t.[fecha], t.[idEstado] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK) WHERE t.[id] = @idTurno;");
+                Conexion.setearParametro("@idTurno", idTurno);
+                Conexion.ejecutarLectura();
+                if(Conexion.Lector.Read())
+                {
+                    turno = new Modelo.Turno();
+                    turno.Id = (Int32)Conexion.Lector["id"];
+                    turno.Numero = (string)Conexion.Lector["numero"];
+
+                    pacienteNegocio = new PacienteNegocio();
+                    paciente = pacienteNegocio.buscar_con_id((Int32)Conexion.Lector["idPaciente"]);
+                    turno.paciente = paciente;
+
+                    especialidadNegocio = new EspecialidadNegocio();
+                    especialidad = especialidadNegocio.buscar_con_id((Int32)Conexion.Lector["idEspecialidad"]);
+                    turno.especialidad = especialidad;
+
+                    medicoNegocio = new MedicoNegocio();
+                    medico = medicoNegocio.buscar_con_id((Int32)Conexion.Lector["idMedico"]);
+                    turno.medico = medico;
+
+                    horarioNegocio = new HorarioNegocio();
+                    horario = horarioNegocio.buscar_con_id((Int32)Conexion.Lector["idHorario"]);
+                    turno.horario = horario;
+
+                    turno.horaInicio = (Int32)Conexion.Lector["horainicio"];
+
+                    turno.Fecha = (DateTime)Conexion.Lector["fecha"];
+
+                    estadoNegocio = new EstadoNegocio();
+                    estado = estadoNegocio.buscar_con_id((Int32)Conexion.Lector["idEstado"]);
+                    turno.estado = estado;
+
+                }
+                else
+                {
+                    turno = null;
+                }
+
+                return turno;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                Conexion.cerrar();
+            }
+        }
+
         public void crear(Turno turno)
         {
             AccesoDatos conexion = new AccesoDatos();
             try
             {
                 string consulta = "INSERT INTO [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] ([numero], [idPaciente], [idEspecialidad], [idMedico], [idHorario], [horainicio], [fecha], [idEstado]) VALUES (@numero, @idPaciente, @idEspecialidad, @idMedico, @idHorario, @horainicio, @fecha, @idEstado)";
+                conexion.setearParametro("@numero", turno.Numero);
+                conexion.setearParametro("@idPaciente", turno.paciente.IdPaciente);
+                conexion.setearParametro("@idEspecialidad", turno.especialidad.Id);
+                conexion.setearParametro("@idMedico", turno.medico.IdMedico);
+                conexion.setearParametro("@idHorario", turno.horario.Id);
+                conexion.setearParametro("@horainicio", turno.horaInicio);
+                conexion.setearParametro("@fecha", turno.Fecha);
+                conexion.setearParametro("@idEstado", turno.estado.Id);
+                conexion.conectar();
+                conexion.setearConsulta(consulta);
+                conexion.ejecutarAccion();
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
+        public void actualizar(Turno turno)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            try
+            {
+                string consulta = "UPDATE[TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] SET [numero] = @numero, [idPaciente] = @idPaciente, [idEspecialidad] = @idEspecialidad, [idMedico] = @idMedico, [idHorario] = @idHorario, [horainicio] = @horainicio, [fecha] = @fecha, [idEstado] = @idEstado WHERE [id] = @id;";
+                conexion.setearParametro("@id", turno.Id);
                 conexion.setearParametro("@numero", turno.Numero);
                 conexion.setearParametro("@idPaciente", turno.paciente.IdPaciente);
                 conexion.setearParametro("@idEspecialidad", turno.especialidad.Id);
@@ -241,6 +339,37 @@ namespace Controlador
             }
         }
 
+        public List<String> listar_observaciones_de_turno(int idTurno)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            String observacion;
+            List<String> observaciones;
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT oxt.[observacion] FROM [dbo].[ObservacionesXTurno] AS oxt WITH (NOLOCK) WHERE oxt.[idTurno] = @idTurno ORDER BY oxt.[id] DESC;");
+                conexion.setearParametro("@idTurno", idTurno);
+                conexion.ejecutarLectura();
+                observaciones = new List<string>();
+                while (conexion.Lector.Read())
+                {
+                    observacion = (string)conexion.Lector["observacion"];
+                    observaciones.Add(observacion);
+                }
+
+                return observaciones;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
     }
 }
+
 

@@ -67,8 +67,8 @@ namespace ClinicaWeb
                     int id = Convert.ToInt32(contactName.Text);
                     if (e.CommandName == "Modificar")
                     {
-                        Session.Add("estadoModificar", id);
-                        Response.Redirect("FormularioEstado.aspx", false);
+                        Session.Add("turnoModificar", id);
+                        Response.Redirect("FormularioTurno.aspx", false);
                     }
                     else if (e.CommandName == "Eliminar")
                     {

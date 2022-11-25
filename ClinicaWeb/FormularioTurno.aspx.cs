@@ -12,10 +12,23 @@ namespace ClinicaWeb
 {
     public partial class FormularioTurno : System.Web.UI.Page
     {
+        public string tituloFormulario { get; set; }
+        public Modelo.Turno turnoModificar { get; set; }
         public List<Modelo.Especialidad> listaEspecialidades { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            EstadoNegocio estadoNegocio;
+            List<Modelo.Estado> listaEstados;
             EspecialidadNegocio especialidadNegocio;
+            TurnoNegocio turnoNegocio;
+            List<Modelo.Medico> listaMedicos;
+            MedicoNegocio medicoNegocio;
+            List<Modelo.Horario> listaHorarios;
+            HorarioNegocio horarioNegocio;
+            List<int> horasOcupadas;
+            List<int> horasLibres;
+            List<string> listaObservacion; 
+
             try
             {
                 if (!Helpers.Validacion.ValidarPermisos(this, "Medico", "Recepcionista", "Administrador"))
@@ -25,16 +38,98 @@ namespace ClinicaWeb
                     Response.Redirect("Error.aspx", false);
                 }
 
-                if (!IsPostBack)
+                if (Session["turnoModificar"] is null)
                 {
-                    especialidadNegocio = new EspecialidadNegocio();
-                    listaEspecialidades = especialidadNegocio.listar();
-                    ddlEspecialidad.DataSource = listaEspecialidades;
-                    ddlEspecialidad.DataTextField = "Nombre";
-                    ddlEspecialidad.DataValueField = "Id";
-                    ddlEspecialidad.DataBind();
-                    ddlEspecialidad.Enabled = false;
+                    tituloFormulario = "Alta de Turno";
 
+                    if (!IsPostBack)
+                    {
+                        especialidadNegocio = new EspecialidadNegocio();
+                        listaEspecialidades = especialidadNegocio.listar();
+                        ddlEspecialidad.DataSource = listaEspecialidades;
+                        ddlEspecialidad.DataTextField = "Nombre";
+                        ddlEspecialidad.DataValueField = "Id";
+                        ddlEspecialidad.DataBind();
+                        ddlEspecialidad.Enabled = false;
+                    }
+                }
+                else
+                {
+                    tituloFormulario = "Modificación de Turno";
+                    if (!IsPostBack)
+                    {
+                        int id = (int)Session["turnoModificar"];
+                        turnoNegocio = new TurnoNegocio();
+                        turnoModificar = turnoNegocio.buscar_con_id(id);
+                        Session["turno"] = turnoModificar;
+                        tbxDNI.Text = turnoModificar.paciente.DNI;
+                        tbxDNI.Enabled = false;
+
+                        estadoNegocio = new EstadoNegocio();
+                        listaEstados = estadoNegocio.listar();
+                        ddlEstado.DataSource = listaEstados;
+                        ddlEstado.DataTextField = "Descripcion";
+                        ddlEstado.DataValueField = "Id";
+                        ddlEstado.DataBind();
+                        ddlEstado.SelectedValue = turnoModificar.estado.Id.ToString();
+
+                        especialidadNegocio = new EspecialidadNegocio();
+                        listaEspecialidades = especialidadNegocio.listar();
+                        ddlEspecialidad.DataSource = listaEspecialidades;
+                        ddlEspecialidad.DataTextField = "Nombre";
+                        ddlEspecialidad.DataValueField = "Id";
+                        ddlEspecialidad.DataBind();
+                        ddlEspecialidad.SelectedValue = turnoModificar.especialidad.Id.ToString();
+
+                        ckbCargaManual.Checked = true;
+
+                        ddlMedicos.Enabled = true;
+                        medicoNegocio = new MedicoNegocio();
+                        listaMedicos = medicoNegocio.listar_con_especialidad(turnoModificar.especialidad.Id);
+                        ddlMedicos.DataSource = listaMedicos;
+                        ddlMedicos.DataTextField = "denominacion";
+                        ddlMedicos.DataValueField = "IdMedico";
+                        ddlMedicos.DataBind();
+                        ddlMedicos.SelectedValue = turnoModificar.medico.IdMedico.ToString();
+
+                        ddlHorarios.Enabled = true;
+                        horarioNegocio = new HorarioNegocio();
+                        listaHorarios = horarioNegocio.listar_con_medico(turnoModificar.medico.IdMedico);
+                        ddlHorarios.DataSource = listaHorarios;
+                        ddlHorarios.DataTextField = "Turno";
+                        ddlHorarios.DataValueField = "Id";
+                        ddlHorarios.DataBind();
+                        ddlHorarios.SelectedValue = turnoModificar.horario.Id.ToString();
+
+
+                        tbxFecha.Enabled = true;
+                        tbxFecha.Text = turnoModificar.Fecha.ToString("yyyy-MM-dd"); //.DataDespesa.ToShortDateString()
+
+                        horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(turnoModificar.medico.IdMedico, turnoModificar.horario.Id);
+                        horasLibres = new List<int>();
+                        for (int i = turnoModificar.horario.HoraInicio; i < turnoModificar.horario.HoraFin; i++)
+                        {
+                            if (!horasOcupadas.Contains(i))
+                            {
+                                horasLibres.Add(i);
+                            }
+                        }
+                        if (horasLibres.Count != 0)
+                        {
+                            ddlHora.DataSource = horasLibres;
+                            ddlHora.DataBind();
+                            ddlHora.Enabled = true;
+                        }
+                        ddlHora.SelectedValue = turnoModificar.horaInicio.ToString();
+
+                        listaObservacion = turnoNegocio.listar_observaciones_de_turno(turnoModificar.Id);
+                        foreach (string observacion in listaObservacion)
+                        {
+                            listaObservaciones.InnerHtml += "<li class=\"list - group - item\">" + observacion + "</li>";
+                        }
+
+                        btnAgregarObservacion.Enabled = true;
+                    }
 
                 }
             }
@@ -56,39 +151,75 @@ namespace ClinicaWeb
 
             try
             {
-                //cargar y completar el turno
-                turno = (Modelo.Turno)Session["turno"];
-                observacion = (string)Session["observacion"];
-                turnoNegocio = new TurnoNegocio();
-                turno.Numero = turnoNegocio.generar_numero(turno.Fecha, turno.especialidad);
-                estadoNegocio = new EstadoNegocio();
-                turno.estado = estadoNegocio.buscar_con_descripcion("Nuevo");
+                if (Session["turnoModificar"] is null)
+                {
+                    //cargar y completar el turno
+                    turno = (Modelo.Turno)Session["turno"];
+                    observacion = (string)Session["observacion"];
+                    turnoNegocio = new TurnoNegocio();
+                    turno.Numero = turnoNegocio.generar_numero(turno.Fecha, turno.especialidad);
+                    estadoNegocio = new EstadoNegocio();
+                    turno.estado = estadoNegocio.buscar_con_descripcion("Nuevo");
 
-                //guardar el turno
-                turnoNegocio.crear(turno);
+                    //guardar el turno
+                    turnoNegocio.crear(turno);
 
-                //Guardar la observacion
-                turno.Id = turnoNegocio.buscar_id_de_turno(turno);
-                turnoNegocio.guardar_observacion(turno.Id, observacion);
+                    //Guardar la observacion
+                    turno.Id = turnoNegocio.buscar_id_de_turno(turno);
+                    turnoNegocio.guardar_observacion(turno.Id, observacion);
 
-                //limpiar session
-                Session.Remove("observacion");
-                Session.Remove("turno");
-                Session.Remove("medicoOpcion1");
-                Session.Remove("medicoOpcion2");
-                Session.Remove("medicoOpcion3");
-                Session.Remove("horarioOpcion1");
-                Session.Remove("horaOpcion1");
-                Session.Remove("fechaOpcion1");
-                Session.Remove("horarioOpcion2");
-                Session.Remove("horaOpcion2");
-                Session.Remove("fechaOpcion2");
-                Session.Remove("horarioOpcion3");
-                Session.Remove("horaOpcion3");
-                Session.Remove("fechaOpcion3");
+                    //limpiar session
+                    Session.Remove("observacion");
+                    Session.Remove("turno");
+                    Session.Remove("medicoOpcion1");
+                    Session.Remove("medicoOpcion2");
+                    Session.Remove("medicoOpcion3");
+                    Session.Remove("horarioOpcion1");
+                    Session.Remove("horaOpcion1");
+                    Session.Remove("fechaOpcion1");
+                    Session.Remove("horarioOpcion2");
+                    Session.Remove("horaOpcion2");
+                    Session.Remove("fechaOpcion2");
+                    Session.Remove("horarioOpcion3");
+                    Session.Remove("horaOpcion3");
+                    Session.Remove("fechaOpcion3");
 
-                //salir
-                Response.Redirect("Turnos.aspx", false);
+                    //salir
+                    Response.Redirect("Turnos.aspx", false);
+                }
+                else
+                {
+                    //cargar y completar el turno
+                    turno = (Modelo.Turno)Session["turno"];
+                    observacion = (string)Session["observacion"];
+
+                    //guardar el turno
+                    turnoNegocio = new TurnoNegocio();
+                    turnoNegocio.actualizar(turno);
+
+                    //Guardar la observacion
+                    turnoNegocio.guardar_observacion(turno.Id, observacion);
+
+                    //limpiar session
+                    Session.Remove("observacion");
+                    Session.Remove("turno");
+                    Session.Remove("turnoModificar");
+                    Session.Remove("medicoOpcion1");
+                    Session.Remove("medicoOpcion2");
+                    Session.Remove("medicoOpcion3");
+                    Session.Remove("horarioOpcion1");
+                    Session.Remove("horaOpcion1");
+                    Session.Remove("fechaOpcion1");
+                    Session.Remove("horarioOpcion2");
+                    Session.Remove("horaOpcion2");
+                    Session.Remove("fechaOpcion2");
+                    Session.Remove("horarioOpcion3");
+                    Session.Remove("horaOpcion3");
+                    Session.Remove("fechaOpcion3");
+
+                    //salir
+                    Response.Redirect("Turnos.aspx", false);
+                }
             }
             catch (Exception excepcion)
             {
@@ -102,6 +233,7 @@ namespace ClinicaWeb
         {
             try
             {
+                Session.Remove("turnoModificar");
                 Response.Redirect("Turnos.aspx", false);
             }
             catch (Exception excepcion)
@@ -154,12 +286,24 @@ namespace ClinicaWeb
 
         protected void btnAgregarObservacion_Click(object sender, EventArgs e)
         {
+            List<String> listaObservacion;
+            TurnoNegocio turnoNegocio;
+            Modelo.Turno turno;
 
             try
             {
-                listaObservaciones.InnerHtml = "<li class=\"list - group - item\">" + tbxObservacion.Text + "</li>";
+                turno = (Modelo.Turno)Session["turno"];
+                listaObservaciones.InnerHtml = "";
                 Session["observacion"] = tbxObservacion.Text;
                 btnAgregarObservacion.Enabled = false;
+                turnoNegocio = new TurnoNegocio();
+                listaObservacion = turnoNegocio.listar_observaciones_de_turno(turno.Id);
+                listaObservaciones.InnerHtml += "<li class=\"list - group - item\">" + tbxObservacion.Text + "</li>";
+                foreach (string observacion in listaObservacion)
+                {
+                    listaObservaciones.InnerHtml += "<li class=\"list - group - item\">" + observacion + "</li>";
+                }
+
             }
             catch (Exception excepcion)
             {
@@ -206,7 +350,6 @@ namespace ClinicaWeb
 
                 if (ckbCargaManual.Checked)
                 {
-                    ddlMedicos.Enabled = true;
                     medicoNegocio = new MedicoNegocio();
                     listaMedicos = medicoNegocio.listar_con_especialidad(especialidad.Id);
                     ddlMedicos.DataSource = listaMedicos;
@@ -626,13 +769,37 @@ namespace ClinicaWeb
         protected void ddlHora_SelectedIndexChanged(object sender, EventArgs e)
         {
             Modelo.Turno turno;
-            
+
             try
             {
-                turno = (Modelo.Turno)Session["turno"];           
+                turno = (Modelo.Turno)Session["turno"];
                 turno.horaInicio = Int32.Parse(ddlHora.SelectedValue);
+                turno.Fecha = turno.Fecha.AddHours(double.Parse(ddlHora.SelectedValue.ToString()));
                 Session["turno"] = turno;
                 btnAgregarObservacion.Enabled = true;
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void ddlEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Modelo.Turno turno;
+            Modelo.Estado estado;
+            EstadoNegocio estadoNegocio;
+
+            try
+            {
+                turno = (Modelo.Turno)Session["turno"];
+                int id = Int32.Parse(ddlEstado.SelectedValue);
+                estadoNegocio = new EstadoNegocio();
+                estado = estadoNegocio.buscar_con_id(id);
+                turno.estado = estado;
+                Session["turno"] = turno;
             }
             catch (Exception excepcion)
             {
