@@ -14,20 +14,21 @@ namespace ClinicaWeb
     {
         public string tituloFormulario { get; set; }
         public Modelo.Turno turnoModificar { get; set; }
+        public List<Modelo.Medico> listaMedicos { get; set; }
         public List<Modelo.Especialidad> listaEspecialidades { get; set; }
+        public List<Modelo.Estado> listaEstados { get; set; }
+        public List<Modelo.Horario> listaHorarios { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             EstadoNegocio estadoNegocio;
-            List<Modelo.Estado> listaEstados;
             EspecialidadNegocio especialidadNegocio;
             TurnoNegocio turnoNegocio;
-            List<Modelo.Medico> listaMedicos;
             MedicoNegocio medicoNegocio;
-            List<Modelo.Horario> listaHorarios;
             HorarioNegocio horarioNegocio;
             List<int> horasOcupadas;
             List<int> horasLibres;
-            List<string> listaObservacion; 
+            List<string> listaObservacion;
 
             try
             {
@@ -44,13 +45,7 @@ namespace ClinicaWeb
 
                     if (!IsPostBack)
                     {
-                        especialidadNegocio = new EspecialidadNegocio();
-                        listaEspecialidades = especialidadNegocio.listar();
-                        ddlEspecialidad.DataSource = listaEspecialidades;
-                        ddlEspecialidad.DataTextField = "Nombre";
-                        ddlEspecialidad.DataValueField = "Id";
-                        ddlEspecialidad.DataBind();
-                        ddlEspecialidad.Enabled = false;
+                        Cargar_especialidades();
                     }
                 }
                 else
@@ -62,49 +57,32 @@ namespace ClinicaWeb
                         turnoNegocio = new TurnoNegocio();
                         turnoModificar = turnoNegocio.buscar_con_id(id);
                         Session["turno"] = turnoModificar;
+
                         tbxDNI.Text = turnoModificar.paciente.DNI;
                         tbxDNI.Enabled = false;
 
-                        estadoNegocio = new EstadoNegocio();
-                        listaEstados = estadoNegocio.listar();
-                        ddlEstado.DataSource = listaEstados;
-                        ddlEstado.DataTextField = "Descripcion";
-                        ddlEstado.DataValueField = "Id";
-                        ddlEstado.DataBind();
+                        Cargar_estados();
                         ddlEstado.SelectedValue = turnoModificar.estado.Id.ToString();
 
-                        especialidadNegocio = new EspecialidadNegocio();
-                        listaEspecialidades = especialidadNegocio.listar();
-                        ddlEspecialidad.DataSource = listaEspecialidades;
-                        ddlEspecialidad.DataTextField = "Nombre";
-                        ddlEspecialidad.DataValueField = "Id";
-                        ddlEspecialidad.DataBind();
+                        Cargar_especialidades();
                         ddlEspecialidad.SelectedValue = turnoModificar.especialidad.Id.ToString();
 
                         ckbCargaManual.Checked = true;
+                        ckbCargaManual.Enabled = true;
 
                         ddlMedicos.Enabled = true;
-                        medicoNegocio = new MedicoNegocio();
-                        listaMedicos = medicoNegocio.listar_con_especialidad(turnoModificar.especialidad.Id);
-                        ddlMedicos.DataSource = listaMedicos;
-                        ddlMedicos.DataTextField = "denominacion";
-                        ddlMedicos.DataValueField = "IdMedico";
-                        ddlMedicos.DataBind();
+                        Cargar_medicos_con_especialidad(turnoModificar.especialidad.Id);
                         ddlMedicos.SelectedValue = turnoModificar.medico.IdMedico.ToString();
 
                         ddlHorarios.Enabled = true;
-                        horarioNegocio = new HorarioNegocio();
-                        listaHorarios = horarioNegocio.listar_con_medico(turnoModificar.medico.IdMedico);
-                        ddlHorarios.DataSource = listaHorarios;
-                        ddlHorarios.DataTextField = "Turno";
-                        ddlHorarios.DataValueField = "Id";
-                        ddlHorarios.DataBind();
+                        Cargar_horario_de_medico(turnoModificar.medico.IdMedico);
                         ddlHorarios.SelectedValue = turnoModificar.horario.Id.ToString();
 
 
                         tbxFecha.Enabled = true;
-                        tbxFecha.Text = turnoModificar.Fecha.ToString("yyyy-MM-dd"); //.DataDespesa.ToShortDateString()
+                        tbxFecha.Text = turnoModificar.Fecha.ToString("yyyy-MM-dd");
 
+                        horarioNegocio = new HorarioNegocio();
                         horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(turnoModificar.medico.IdMedico, turnoModificar.horario.Id);
                         horasLibres = new List<int>();
                         for (int i = turnoModificar.horario.HoraInicio; i < turnoModificar.horario.HoraFin; i++)
@@ -318,26 +296,6 @@ namespace ClinicaWeb
             Modelo.Turno turno;
             Modelo.Especialidad especialidad;
             EspecialidadNegocio especialidadNegocio;
-            List<Modelo.Medico> listaMedicos;
-            MedicoNegocio medicoNegocio;
-            Modelo.Medico medicoOpcion1;
-            Modelo.Medico medicoOpcion2;
-            Modelo.Medico medicoOpcion3;
-            HorarioNegocio horarioNegocio;
-
-            List<Modelo.Horario> horariosDisponiblesOpcion1;
-            List<Modelo.Horario> horariosDisponiblesOpcion2;
-            List<Modelo.Horario> horariosDisponiblesOpcion3;
-
-            List<int> horasOcupadas;
-            List<int> horasLibres;
-
-            DateTime? fechaOpcion1;
-            DateTime? fechaOpcion2;
-            DateTime? fechaOpcion3;
-            int? horaOpcion1;
-            int? horaOpcion2;
-            int? horaOpcion3;
 
             try
             {
@@ -350,214 +308,19 @@ namespace ClinicaWeb
 
                 if (ckbCargaManual.Checked)
                 {
-                    medicoNegocio = new MedicoNegocio();
-                    listaMedicos = medicoNegocio.listar_con_especialidad(especialidad.Id);
-                    ddlMedicos.DataSource = listaMedicos;
-                    ddlMedicos.DataTextField = "denominacion";
-                    ddlMedicos.DataValueField = "IdMedico";
-                    ddlMedicos.DataBind();
+                    Cargar_medicos_con_especialidad(especialidad.Id);
                     ddlMedicos.Enabled = true;
                 }
                 else
                 {
-
-                    //recuperar medicos
-                    medicoNegocio = new MedicoNegocio();
-                    listaMedicos = medicoNegocio.listar_con_especialidad(especialidad.Id);
-                    medicoOpcion1 = listaMedicos[0] is null ? null : listaMedicos[0];
-                    Session.Add("medicoOpcion1", medicoOpcion1);
-                    medicoOpcion2 = listaMedicos[1] is null ? null : listaMedicos[1];
-                    Session.Add("medicoOpcion2", medicoOpcion2);
-                    medicoOpcion3 = listaMedicos[2] is null ? null : listaMedicos[2];
-                    Session.Add("medicoOpcion3", medicoOpcion3);
-
-                    //recupero fechas y horas
-                    horarioNegocio = new HorarioNegocio();
-
                     // opcion 1
-                    fechaOpcion1 = new DateTime();
-                    horaOpcion1 = new int();
-                    horasOcupadas = new List<int>();
-                    if (medicoOpcion1 is null)
-                    {
-                        fechaOpcion1 = null;
-                        horaOpcion1 = null;
-                    }
-                    else
-                    {
-                        horariosDisponiblesOpcion1 = horarioNegocio.listar_con_medico(medicoOpcion1.IdMedico);
-
-                        foreach (Modelo.Horario horario in horariosDisponiblesOpcion1)
-                        {
-                            int incremento = 7;
-                            for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
-                            {
-                                incremento--;
-                                if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
-                                {
-                                    horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion1.IdMedico, horario.Id);
-                                    horasLibres = new List<int>();
-                                    for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
-                                    {
-                                        if (!horasOcupadas.Contains(i))
-                                        {
-                                            horasLibres.Add(i);
-                                        }
-                                    }
-                                    if (horasLibres.Count != 0)
-                                    {
-                                        Session.Add("horarioOpcion1", horario);
-                                        horaOpcion1 = horasLibres[0];
-                                        Session.Add("horaOpcion1", horaOpcion1);
-                                        fechaOpcion1 = fecha.AddHours(double.Parse(horaOpcion1.ToString()));
-                                        Session.Add("fechaOpcion1", fechaOpcion1);
-                                        break;
-                                    }
-
-                                }
-                            }
-
-                        }
-
-                    }
+                    Cargar_turno_opcion1(especialidad.Id);
 
                     // opcion 2
-                    fechaOpcion2 = new DateTime();
-                    horaOpcion2 = new int();
-                    horasOcupadas = new List<int>();
-                    if (medicoOpcion2 is null)
-                    {
-                        fechaOpcion2 = null;
-                        horaOpcion2 = null;
-                    }
-                    else
-                    {
-                        horariosDisponiblesOpcion2 = horarioNegocio.listar_con_medico(medicoOpcion2.IdMedico);
-
-                        foreach (Modelo.Horario horario in horariosDisponiblesOpcion2)
-                        {
-                            int incremento = 7;
-                            for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
-                            {
-                                incremento--;
-                                if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
-                                {
-                                    horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion2.IdMedico, horario.Id);
-                                    horasLibres = new List<int>();
-                                    for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
-                                    {
-                                        if (!horasOcupadas.Contains(i))
-                                        {
-                                            horasLibres.Add(i);
-                                        }
-                                    }
-                                    if (horasLibres.Count != 0)
-                                    {
-                                        Session.Add("horarioOpcion2", horario);
-                                        horaOpcion2 = horasLibres[0];
-                                        Session.Add("horaOpcion2", horaOpcion2);
-                                        fechaOpcion2 = fecha.AddHours(double.Parse(horaOpcion2.ToString()));
-                                        Session.Add("fechaOpcion2", fechaOpcion2);
-                                        break;
-                                    }
-
-                                }
-                            }
-
-                        }
-
-                    }
+                    Cargar_turno_opcion2(especialidad.Id);
 
                     // opcion 3
-                    fechaOpcion3 = new DateTime();
-                    horaOpcion3 = new int();
-                    horasOcupadas = new List<int>();
-                    if (medicoOpcion3 is null)
-                    {
-                        fechaOpcion3 = null;
-                        horaOpcion3 = null;
-                    }
-                    else
-                    {
-                        horariosDisponiblesOpcion3 = horarioNegocio.listar_con_medico(medicoOpcion3.IdMedico);
-
-                        foreach (Modelo.Horario horario in horariosDisponiblesOpcion3)
-                        {
-                            int incremento = 7;
-                            for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
-                            {
-                                incremento--;
-                                if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
-                                {
-                                    horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion3.IdMedico, horario.Id);
-                                    horasLibres = new List<int>();
-                                    for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
-                                    {
-                                        if (!horasOcupadas.Contains(i))
-                                        {
-                                            horasLibres.Add(i);
-                                        }
-                                    }
-                                    if (horasLibres.Count != 0)
-                                    {
-                                        Session.Add("horarioOpcion3", horario);
-                                        horaOpcion3 = horasLibres[0];
-                                        Session.Add("horaOpcion3", horaOpcion3);
-                                        fechaOpcion3 = fecha.AddHours(double.Parse(horaOpcion3.ToString()));
-                                        Session.Add("fechaOpcion3", fechaOpcion3);
-                                        break;
-                                    }
-
-                                }
-                            }
-
-                        }
-
-                    }
-
-                    // muestro los datos
-                    // opcion 1
-                    if (medicoOpcion1 is null)
-                    {
-                        lblMedicoOpcion1.Text = "Opcion";
-                        lblDiaOpcion1.Text = "no";
-                        lblHoraOpcion1.Text = "Disponible";
-                    }
-                    else
-                    {
-                        lblMedicoOpcion1.Text = medicoOpcion1.denominacion;
-                        lblDiaOpcion1.Text = DateTime.Parse(fechaOpcion1.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
-                        lblHoraOpcion1.Text = DateTime.Parse(fechaOpcion1.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
-                        btnElegirOpcion1.Enabled = true;
-                    }
-                    // opcion 2
-                    if (medicoOpcion2 is null)
-                    {
-                        lblMedicoOpcion2.Text = "Opcion";
-                        lblDiaOpcion2.Text = "no";
-                        lblHoraOpcion2.Text = "Disponible";
-                    }
-                    else
-                    {
-                        lblMedicoOpcion2.Text = medicoOpcion2.denominacion;
-                        lblDiaOpcion2.Text = DateTime.Parse(fechaOpcion2.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
-                        lblHoraOpcion2.Text = DateTime.Parse(fechaOpcion2.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
-                        btnElegirOpcion2.Enabled = true;
-                    }
-                    // opcion 3
-                    if (medicoOpcion3 is null)
-                    {
-                        lblMedicoOpcion3.Text = "Opcion";
-                        lblDiaOpcion3.Text = "no";
-                        lblHoraOpcion3.Text = "Disponible";
-                    }
-                    else
-                    {
-                        lblMedicoOpcion3.Text = medicoOpcion3.denominacion;
-                        lblDiaOpcion3.Text = DateTime.Parse(fechaOpcion3.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
-                        lblHoraOpcion3.Text = DateTime.Parse(fechaOpcion3.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
-                        btnElegirOpcion3.Enabled = true;
-                    }
+                    Cargar_turno_opcion3(especialidad.Id);   
 
                 }
 
@@ -698,19 +461,23 @@ namespace ClinicaWeb
         protected void ckbCargaManual_CheckedChanged(object sender, EventArgs e)
         {
             Modelo.Turno turno;
-            MedicoNegocio medicoNegocio;
-            List<Modelo.Medico> listaMedicos;
             try
             {
                 turno = (Modelo.Turno)Session["Turno"];
-                ddlMedicos.Enabled = true;
-                medicoNegocio = new MedicoNegocio();
-                listaMedicos = medicoNegocio.listar_con_especialidad(turno.especialidad.Id);
-                ddlMedicos.DataSource = listaMedicos;
-                ddlMedicos.DataTextField = "denominacion";
-                ddlMedicos.DataValueField = "IdMedico";
-                ddlMedicos.DataBind();
-                ddlMedicos.Enabled = true;
+
+                if(ckbCargaManual.Checked)
+                {
+                    ddlMedicos.Enabled = true;
+                    Cargar_medicos_con_especialidad(turno.especialidad.Id);
+                }
+                else
+                {
+                    Cargar_turno_opcion1(turno.especialidad.Id);
+
+                    Cargar_turno_opcion2(turno.especialidad.Id);
+
+                    Cargar_turno_opcion3(turno.especialidad.Id);
+                }
 
             }
             catch (Exception excepcion)
@@ -808,5 +575,342 @@ namespace ClinicaWeb
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        private void Cargar_especialidades()
+        {
+            EspecialidadNegocio especialidadNegocio;
+            try
+            {
+                especialidadNegocio = new EspecialidadNegocio();
+                listaEspecialidades = especialidadNegocio.listar();
+                ddlEspecialidad.DataSource = listaEspecialidades;
+                ddlEspecialidad.DataTextField = "Nombre";
+                ddlEspecialidad.DataValueField = "Id";
+                ddlEspecialidad.DataBind();
+                ddlEspecialidad.Enabled = false;
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_estados()
+        {
+            EstadoNegocio estadoNegocio;
+            try
+            {
+                estadoNegocio = new EstadoNegocio();
+                listaEstados = estadoNegocio.listar();
+                ddlEstado.DataSource = listaEstados;
+                ddlEstado.DataTextField = "Descripcion";
+                ddlEstado.DataValueField = "Id";
+                ddlEstado.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_medicos_con_especialidad(int idEspecialidad)
+        {
+            MedicoNegocio medicoNegocio;
+            try
+            {
+                medicoNegocio = new MedicoNegocio();
+                listaMedicos = medicoNegocio.listar_con_especialidad(idEspecialidad);
+                ddlMedicos.DataSource = listaMedicos;
+                ddlMedicos.DataTextField = "denominacion";
+                ddlMedicos.DataValueField = "IdMedico";
+                ddlMedicos.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_horario_de_medico(int idMedico)
+        {
+            HorarioNegocio horarioNegocio;
+            try
+            {
+                horarioNegocio = new HorarioNegocio();
+                listaHorarios = horarioNegocio.listar_con_medico(idMedico);
+                ddlHorarios.DataSource = listaHorarios;
+                ddlHorarios.DataTextField = "Turno";
+                ddlHorarios.DataValueField = "Id";
+                ddlHorarios.DataBind();
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_turno_opcion1(int idEspecilidad)
+        {
+
+            Modelo.Medico medicoOpcion1;
+            MedicoNegocio medicoNegocio;
+            HorarioNegocio horarioNegocio;
+
+            List<Modelo.Horario> horariosDisponiblesOpcion1;
+
+            List<int> horasOcupadas;
+            List<int> horasLibres;
+
+            DateTime? fechaOpcion1;
+
+            int? horaOpcion1;
+
+            try
+            {
+                medicoNegocio = new MedicoNegocio();
+                listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
+                medicoOpcion1 = listaMedicos[0] is null ? null : listaMedicos[0];
+                Session.Add("medicoOpcion1", medicoOpcion1);
+                fechaOpcion1 = new DateTime();
+                horaOpcion1 = new int();
+                horasOcupadas = new List<int>();
+                horarioNegocio = new HorarioNegocio();
+                if (medicoOpcion1 is null)
+                {
+                    fechaOpcion1 = null;
+                    horaOpcion1 = null;
+                    lblMedicoOpcion1.Text = "Opcion";
+                    lblDiaOpcion1.Text = "no";
+                    lblHoraOpcion1.Text = "Disponible";
+                }
+                else
+                {
+                    horariosDisponiblesOpcion1 = horarioNegocio.listar_con_medico(medicoOpcion1.IdMedico);
+
+                    foreach (Modelo.Horario horario in horariosDisponiblesOpcion1)
+                    {
+                        int incremento = 7;
+                        for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
+                        {
+                            incremento--;
+                            if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
+                            {
+                                horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion1.IdMedico, horario.Id);
+                                horasLibres = new List<int>();
+                                for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
+                                {
+                                    if (!horasOcupadas.Contains(i))
+                                    {
+                                        horasLibres.Add(i);
+                                    }
+                                }
+                                if (horasLibres.Count != 0)
+                                {
+                                    Session.Add("horarioOpcion1", horario);
+                                    horaOpcion1 = horasLibres[0];
+                                    Session.Add("horaOpcion1", horaOpcion1);
+                                    fechaOpcion1 = fecha.AddHours(double.Parse(horaOpcion1.ToString()));
+                                    Session.Add("fechaOpcion1", fechaOpcion1);
+                                    
+                                    lblMedicoOpcion1.Text = medicoOpcion1.denominacion;
+                                    lblDiaOpcion1.Text = DateTime.Parse(fechaOpcion1.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    lblHoraOpcion1.Text = DateTime.Parse(fechaOpcion1.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    btnElegirOpcion1.Enabled = true;
+
+                                    break;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_turno_opcion2(int idEspecilidad)
+        {
+            Modelo.Medico medicoOpcion2;
+            MedicoNegocio medicoNegocio;
+            HorarioNegocio horarioNegocio;
+
+            List<Modelo.Horario> horariosDisponiblesOpcion2;
+
+            List<int> horasOcupadas;
+            List<int> horasLibres;
+
+            DateTime? fechaOpcion2;
+
+            int? horaOpcion2;
+
+            try
+            {
+                medicoNegocio = new MedicoNegocio();
+                listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
+
+                medicoOpcion2 = listaMedicos[1] is null ? null : listaMedicos[1];
+                Session.Add("medicoOpcion2", medicoOpcion2);
+                fechaOpcion2 = new DateTime();
+                horaOpcion2 = new int();
+                horasOcupadas = new List<int>();
+                horarioNegocio = new HorarioNegocio();
+                if (medicoOpcion2 is null)
+                {
+                    fechaOpcion2 = null;
+                    horaOpcion2 = null;
+                    lblMedicoOpcion2.Text = "Opcion";
+                    lblDiaOpcion2.Text = "no";
+                    lblHoraOpcion2.Text = "Disponible";
+                }
+                else
+                {
+                    horariosDisponiblesOpcion2 = horarioNegocio.listar_con_medico(medicoOpcion2.IdMedico);
+
+                    foreach (Modelo.Horario horario in horariosDisponiblesOpcion2)
+                    {
+                        int incremento = 7;
+                        for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
+                        {
+                            incremento--;
+                            if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
+                            {
+                                horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion2.IdMedico, horario.Id);
+                                horasLibres = new List<int>();
+                                for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
+                                {
+                                    if (!horasOcupadas.Contains(i))
+                                    {
+                                        horasLibres.Add(i);
+                                    }
+                                }
+                                if (horasLibres.Count != 0)
+                                {
+                                    Session.Add("horarioOpcion2", horario);
+                                    horaOpcion2 = horasLibres[0];
+                                    Session.Add("horaOpcion2", horaOpcion2);
+                                    fechaOpcion2 = fecha.AddHours(double.Parse(horaOpcion2.ToString()));
+                                    Session.Add("fechaOpcion2", fechaOpcion2);
+
+                                    lblMedicoOpcion2.Text = medicoOpcion2.denominacion;
+                                    lblDiaOpcion2.Text = DateTime.Parse(fechaOpcion2.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    lblHoraOpcion2.Text = DateTime.Parse(fechaOpcion2.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    btnElegirOpcion2.Enabled = true;
+
+                                    break;
+
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private void Cargar_turno_opcion3(int idEspecilidad)
+        {
+            Modelo.Medico medicoOpcion3;
+            MedicoNegocio medicoNegocio;
+            HorarioNegocio horarioNegocio;
+
+            List<Modelo.Horario> horariosDisponiblesOpcion3;
+
+            List<int> horasOcupadas;
+            List<int> horasLibres;
+
+            DateTime? fechaOpcion3;
+
+            int? horaOpcion3;
+            try
+            {
+                medicoNegocio = new MedicoNegocio();
+                listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
+                medicoOpcion3 = listaMedicos[2] is null ? null : listaMedicos[2];
+                Session.Add("medicoOpcion3", medicoOpcion3);
+                fechaOpcion3 = new DateTime();
+                horaOpcion3 = new int();
+                horasOcupadas = new List<int>();
+                horarioNegocio = new HorarioNegocio();
+                if (medicoOpcion3 is null)
+                {
+                    fechaOpcion3 = null;
+                    horaOpcion3 = null;
+                    lblMedicoOpcion3.Text = "Opcion";
+                    lblDiaOpcion3.Text = "no";
+                    lblHoraOpcion3.Text = "Disponible";
+                }
+                else
+                {
+                    horariosDisponiblesOpcion3 = horarioNegocio.listar_con_medico(medicoOpcion3.IdMedico);
+
+                    foreach (Modelo.Horario horario in horariosDisponiblesOpcion3)
+                    {
+                        int incremento = 7;
+                        for (DateTime fecha = DateTime.Today; incremento > 0; fecha = fecha.AddDays(1))
+                        {
+                            incremento--;
+                            if ((fecha.ToString("dddd", CultureInfo.CreateSpecificCulture("es-AR"))).ToUpper() == horario.Dia.ToUpper())
+                            {
+                                horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medicoOpcion3.IdMedico, horario.Id);
+                                horasLibres = new List<int>();
+                                for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
+                                {
+                                    if (!horasOcupadas.Contains(i))
+                                    {
+                                        horasLibres.Add(i);
+                                    }
+                                }
+                                if (horasLibres.Count != 0)
+                                {
+                                    Session.Add("horarioOpcion3", horario);
+                                    horaOpcion3 = horasLibres[0];
+                                    Session.Add("horaOpcion3", horaOpcion3);
+                                    fechaOpcion3 = fecha.AddHours(double.Parse(horaOpcion3.ToString()));
+                                    Session.Add("fechaOpcion3", fechaOpcion3);
+
+                                    lblMedicoOpcion3.Text = medicoOpcion3.denominacion;
+                                    lblDiaOpcion3.Text = DateTime.Parse(fechaOpcion3.ToString()).ToString("dddd dd MMMM", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    lblHoraOpcion3.Text = DateTime.Parse(fechaOpcion3.ToString()).ToString("HH:mm:ss", CultureInfo.CreateSpecificCulture("es-AR"));
+                                    btnElegirOpcion3.Enabled = true;
+
+                                    break;
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioTurno.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
     }
 }
