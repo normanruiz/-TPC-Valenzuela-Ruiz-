@@ -42,6 +42,39 @@ namespace Controlador
             }
         }
 
+        public List<Especialidad> listar_disponibles()
+        {
+            List<Especialidad> listaEspecialidades = new List<Especialidad>();
+            AccesoDatos Conexion = new AccesoDatos();
+            Especialidad especialidad;
+
+            try
+            {
+                Conexion.conectar();
+                Conexion.setearConsulta("SELECT DISTINCT e.[id], e.[nombre] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK) ON e.[id] = mxe.[idEspecialidad];");
+                Conexion.ejecutarLectura();
+
+                while (Conexion.Lector.Read())
+                {
+                    especialidad = new Especialidad();
+                    especialidad.Id = (Int32)Conexion.Lector["id"];
+                    especialidad.Nombre = (string)Conexion.Lector["nombre"];
+
+                    listaEspecialidades.Add(especialidad);
+                }
+
+                return listaEspecialidades;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                Conexion.cerrar();
+            }
+        }
+
         public List<Especialidad> listar_con_medico(int idMedico)
         {
             List<Especialidad> listaEspecialidades = new List<Especialidad>();

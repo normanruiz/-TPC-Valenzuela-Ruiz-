@@ -89,7 +89,7 @@ namespace Controlador
             try
             {
                 conexion.conectar();
-                conexion.setearConsulta("SELECT h.[horainicio] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS h WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) ON h.[id] = mxh.[idHorario] AND mxh.[idMedico] = @idMedico AND mxh.[idHorario] = @idDia WHERE CONVERT(DATE, h.[fecha]) >= CONVERT(DATE, GETDATE());");
+                conexion.setearConsulta("SELECT t.[horainicio] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) ON t.idHorario = mxh.[idHorario] AND mxh.[idMedico] = @idMedico AND mxh.[idHorario] = @idDia WHERE CONVERT(DATE, t.[fecha]) >= CONVERT(DATE, GETDATE());");
                 conexion.setearParametro("@idMedico", idMedico);
                 conexion.setearParametro("@idDia", idDia);
                 conexion.ejecutarLectura();

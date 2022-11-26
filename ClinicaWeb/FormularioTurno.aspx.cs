@@ -21,10 +21,7 @@ namespace ClinicaWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            EstadoNegocio estadoNegocio;
-            EspecialidadNegocio especialidadNegocio;
             TurnoNegocio turnoNegocio;
-            MedicoNegocio medicoNegocio;
             HorarioNegocio horarioNegocio;
             List<int> horasOcupadas;
             List<int> horasLibres;
@@ -66,6 +63,7 @@ namespace ClinicaWeb
 
                         Cargar_especialidades();
                         ddlEspecialidad.SelectedValue = turnoModificar.especialidad.Id.ToString();
+                        ddlEspecialidad.Enabled = true;
 
                         ckbCargaManual.Checked = true;
                         ckbCargaManual.Enabled = true;
@@ -107,6 +105,7 @@ namespace ClinicaWeb
                         }
 
                         btnAgregarObservacion.Enabled = true;
+                        btnGuardar.Enabled = true;
                     }
 
                 }
@@ -281,6 +280,7 @@ namespace ClinicaWeb
                 {
                     listaObservaciones.InnerHtml += "<li class=\"list - group - item\">" + observacion + "</li>";
                 }
+                btnGuardar.Enabled = true;
 
             }
             catch (Exception excepcion)
@@ -299,8 +299,10 @@ namespace ClinicaWeb
 
             try
             {
-                turno = (Modelo.Turno)Session["turno"];
                 //capturar especialidad y guardar en session
+                ddlEspecialidad.Items.Remove(ddlEspecialidad.Items.FindByText("Seleccionar..."));
+                ddlEspecialidad.DataBind();
+                turno = (Modelo.Turno)Session["turno"];
                 especialidadNegocio = new EspecialidadNegocio();
                 especialidad = especialidadNegocio.buscar_con_id(Int32.Parse(ddlEspecialidad.SelectedValue));
                 turno.especialidad = especialidad;
@@ -321,6 +323,7 @@ namespace ClinicaWeb
 
                     // opcion 3
                     Cargar_turno_opcion3(especialidad.Id);   
+
 
                 }
 
@@ -344,6 +347,7 @@ namespace ClinicaWeb
                 turno.horaInicio = (int)Session["horaOpcion1"];
                 turno.Fecha = (DateTime)Session["fechaOpcion1"];
                 Session["turno"] = turno;
+                tbxObservacion.Enabled = true;
                 btnAgregarObservacion.Enabled = true;
             }
             catch (Exception excepcion)
@@ -365,6 +369,7 @@ namespace ClinicaWeb
                 turno.horaInicio = (int)Session["horaOpcion2"];
                 turno.Fecha = (DateTime)Session["fechaOpcion2"];
                 Session["turno"] = turno;
+                tbxObservacion.Enabled = true;
                 btnAgregarObservacion.Enabled = true;
             }
             catch (Exception excepcion)
@@ -386,6 +391,7 @@ namespace ClinicaWeb
                 turno.horaInicio = (int)Session["horaOpcion3"];
                 turno.Fecha = (DateTime)Session["fechaOpcion3"];
                 Session["turno"] = turno;
+                tbxObservacion.Enabled = true;
                 btnAgregarObservacion.Enabled = true;
             }
             catch (Exception excepcion)
@@ -543,6 +549,7 @@ namespace ClinicaWeb
                 turno.horaInicio = Int32.Parse(ddlHora.SelectedValue);
                 turno.Fecha = turno.Fecha.AddHours(double.Parse(ddlHora.SelectedValue.ToString()));
                 Session["turno"] = turno;
+                tbxObservacion.Enabled = true;
                 btnAgregarObservacion.Enabled = true;
             }
             catch (Exception excepcion)
@@ -581,12 +588,19 @@ namespace ClinicaWeb
             EspecialidadNegocio especialidadNegocio;
             try
             {
+                ddlEspecialidad.Items.Clear();
                 especialidadNegocio = new EspecialidadNegocio();
-                listaEspecialidades = especialidadNegocio.listar();
+                listaEspecialidades = especialidadNegocio.listar_disponibles();
+                Especialidad ph = new Especialidad();
+                ph.Id = 0;
+                ph.Nombre = "Seleccionar...";
+                listaEspecialidades.Add(ph);
                 ddlEspecialidad.DataSource = listaEspecialidades;
                 ddlEspecialidad.DataTextField = "Nombre";
                 ddlEspecialidad.DataValueField = "Id";
                 ddlEspecialidad.DataBind();
+                ddlEspecialidad.SelectedValue = "0";
+
                 ddlEspecialidad.Enabled = false;
             }
             catch (Exception excepcion)
@@ -680,7 +694,7 @@ namespace ClinicaWeb
                 medicoOpcion1 = listaMedicos[0] is null ? null : listaMedicos[0];
                 Session.Add("medicoOpcion1", medicoOpcion1);
                 fechaOpcion1 = new DateTime();
-                horaOpcion1 = new int();
+                horaOpcion1 = null;
                 horasOcupadas = new List<int>();
                 horarioNegocio = new HorarioNegocio();
                 if (medicoOpcion1 is null)
@@ -730,6 +744,12 @@ namespace ClinicaWeb
                                 }
                             }
                         }
+                    }
+                    if (horaOpcion1 is null)
+                    {
+                        lblMedicoOpcion1.Text = "Opcion";
+                        lblDiaOpcion1.Text = "no";
+                        lblHoraOpcion1.Text = "disponible";
                     }
                 }
             }
@@ -812,12 +832,15 @@ namespace ClinicaWeb
                                     break;
 
                                 }
-
                             }
                         }
-
                     }
-
+                    if (horaOpcion2 is null)
+                    {
+                        lblMedicoOpcion1.Text = "Opcion";
+                        lblDiaOpcion1.Text = "no";
+                        lblHoraOpcion1.Text = "disponible";
+                    }
                 }
             }
             catch (Exception excepcion)
@@ -849,7 +872,7 @@ namespace ClinicaWeb
                 medicoOpcion3 = listaMedicos[2] is null ? null : listaMedicos[2];
                 Session.Add("medicoOpcion3", medicoOpcion3);
                 fechaOpcion3 = new DateTime();
-                horaOpcion3 = new int();
+                horaOpcion3 = null;
                 horasOcupadas = new List<int>();
                 horarioNegocio = new HorarioNegocio();
                 if (medicoOpcion3 is null)
@@ -858,7 +881,7 @@ namespace ClinicaWeb
                     horaOpcion3 = null;
                     lblMedicoOpcion3.Text = "Opcion";
                     lblDiaOpcion3.Text = "no";
-                    lblHoraOpcion3.Text = "Disponible";
+                    lblHoraOpcion3.Text = "disponible";
                 }
                 else
                 {
@@ -899,7 +922,12 @@ namespace ClinicaWeb
 
                             }
                         }
-
+                        if(horaOpcion3 is null)
+                        {
+                            lblMedicoOpcion3.Text = "Opcion";
+                            lblDiaOpcion3.Text = "no";
+                            lblHoraOpcion3.Text = "disponible";
+                        }
                     }
 
                 }

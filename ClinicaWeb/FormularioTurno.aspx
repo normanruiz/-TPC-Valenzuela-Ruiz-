@@ -17,8 +17,10 @@
         </div>
 
         <div class="row">
+
             <div class="col-3">
             </div>
+
             <div class="col-2">
                 <div class="mb-3">
                     <label for="tbxDNI" class="form-label">DNI del paciente</label>
@@ -47,10 +49,12 @@
                 <div class="mb-3">
                     <asp:Button ID="btnBuscarDni" runat="server" Text="Buscar Paciente" CssClass="btn btn-outline-primary" OnClick="tbxDNI_TextChanged" />
                 </div>
+
             </div>
             <div class="col-5">
             </div>
         </div>
+
         <% if (!ckbCargaManual.Checked)
             { %>
         <div class="row">
@@ -161,40 +165,38 @@
         </asp:UpdatePanel>
         <% } %>
 
-        <asp:UpdatePanel runat="server">
-            <ContentTemplate>
 
-                <div class="row align-items-center">
 
-                    <div class="col-3">
-                    </div>
+        <div class="row align-items-center">
 
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <h4>Agrega una observación</h4>
-                        </div>
-                        <div class="mb-3">
-                            <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
-                            <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" OnClick="btnAgregarObservacion_Click" Enabled="false" />
-                        </div>
-                        <div class="mb-3">
-                            <ul class="list-group list-group-flush" id="listaObservaciones" runat="server"></ul>
-                        </div>
+            <div class="col-3">
+            </div>
 
-                        <div class="mb-8">
-                            <asp:Button ID="btnGuardar" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" OnClick="btnGuardar_Click" />
-                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
-                        </div>
-                    </div>
-
-                    <div class="col-3">
-                    </div>
-
+            <div class="col-6">
+                <div class="mb-3">
+                    <h4>Agrega una observación</h4>
                 </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                <div class="mb-3">
+                    <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" ClientIDMode="Static" Enabled="false"></asp:TextBox>
+                </div>
+                <div class="mb-3">
+                    <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" OnClick="btnAgregarObservacion_Click" Enabled="false" />
+                </div>
+                <div class="mb-3">
+                    <ul class="list-group list-group-flush" id="listaObservaciones" runat="server"></ul>
+                </div>
+
+                <div class="mb-8">
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Turno" CssClass="btn btn-primary btn-lg" OnClick="btnGuardar_Click" Enabled="False" />
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
+                </div>
+            </div>
+
+            <div class="col-3">
+            </div>
+
+        </div>
+
     </div>
 </asp:Content>
 

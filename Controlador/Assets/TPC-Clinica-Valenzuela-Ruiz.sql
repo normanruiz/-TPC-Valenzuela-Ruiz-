@@ -1358,9 +1358,31 @@ UPDATE [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos]
  WHERE [id] = @id;
 GO
 
+SELECT oxt.[observacion]
+       FROM [dbo].[ObservacionesXTurno] AS oxt WITH (NOLOCK)
+	   WHERE oxt.[idTurno] = @idTurno;
+
+GO
+
+
+SELECT DISTINCT e.[id]
+      ,e.[nombre]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[especialidades] AS e WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXEspecialidad] AS mxe WITH (NOLOCK)
+			      ON e.[id] = mxe.[idEspecialidad];
+
+GO
 
 
 
 
 
 
+
+SELECT t.[horainicio] 
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[MedicoXHorario] AS mxh WITH (NOLOCK) 
+			      ON t.idHorario = mxh.[idHorario] 
+				     AND mxh.[idMedico] = 3 
+					 AND mxh.[idHorario] = 5
+	   WHERE CONVERT(DATE, t.[fecha]) >= CONVERT(DATE, GETDATE());
