@@ -19,11 +19,22 @@
             <ContentTemplate>
 
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-2">
+                        <asp:TextBox ID="tbxFiltroNumero" runat="server" placeholder="Filtro numero..." CssClass="form-control" OnTextChanged="tbxFiltro_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
+                        <asp:TextBox ID="tbxFiltroPaciente" runat="server" placeholder="Filtro paciente..." CssClass="form-control" OnTextChanged="tbxFiltro_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
                     </div>
-                    <div class="col-4 text-end">
+                    <div class="col-2">
+                        <asp:TextBox ID="tbxFiltroEspecialidad" runat="server" placeholder="Filtro especialidad..." CssClass="form-control" OnTextChanged="tbxFiltro_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+                    </div>
+                    <div class="col-2">
+                        <asp:TextBox ID="tbxFiltroMedico" runat="server" placeholder="Filtro medico..." CssClass="form-control" OnTextChanged="tbxFiltro_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+                    </div>
+                    <div class="col-2">
+                        <asp:TextBox TextMode="Date" ID="tbxFiltroFecha" runat="server" placeholder="Filtro fecha..." CssClass="form-control" OnTextChanged="tbxFiltro_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+                    </div>
+                    <div class="col-2 text-end">
                         <asp:Button ID="btnNuevo" runat="server" Text="Cargar Turno" OnClick="btnNuevo_Click" CssClass="btn btn-outline-secondary" />
                     </div>
                 </div>
