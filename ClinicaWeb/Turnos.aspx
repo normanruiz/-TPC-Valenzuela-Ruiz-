@@ -30,20 +30,31 @@
 
                 <div class="row">
                     <div class="col">
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
 
-                        <asp:GridView ID="dgvTurnos" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvTurnos_RowCommand">
-                            <Columns>
-                                <asp:BoundField HeaderText="Id." DataField="Id" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto" />
-                                <asp:BoundField HeaderText="Numero" DataField="Numero" />
-                                <asp:BoundField HeaderText="Paciente" DataField="paciente.denominacion" />
-                                <asp:BoundField HeaderText="Especialidad" DataField="especialidad.Nombre" />
-                                <asp:BoundField HeaderText="Medico" DataField="medico.denominacion" />
-                                <asp:BoundField HeaderText="Fecha" DataField="Fecha" />
+                                <asp:GridView ID="dgvTurnos" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvTurnos_RowCommand" AllowPaging="true" PageSize="6" OnPageIndexChanging="dgvTurnos_PageIndexChanging">
+                                    <Columns>
+                                        <asp:BoundField HeaderText="Id." DataField="Id" HeaderStyle-CssClass="oculto" ItemStyle-CssClass="oculto" />
+                                        <asp:BoundField HeaderText="Numero" DataField="Numero" />
+                                        <asp:BoundField HeaderText="Paciente" DataField="paciente.denominacion" />
+                                        <asp:BoundField HeaderText="Especialidad" DataField="especialidad.Nombre" />
+                                        <asp:BoundField HeaderText="Medico" DataField="medico.denominacion" />
+                                        <asp:BoundField HeaderText="Fecha" DataField="Fecha" />
 
-                                <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
-                                <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
-                            </Columns>
-                        </asp:GridView>
+                                        <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
+                                        <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />
+                                    </Columns>
+                                    <PagerSettings Mode="NumericFirstLast"
+                                        Position="Bottom"
+                                        PageButtonCount="10" />
+                                    <PagerStyle BackColor="LightBlue"
+                                        Height="30px"
+                                        VerticalAlign="Bottom"
+                                        HorizontalAlign="Center" />
+                                </asp:GridView>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
 

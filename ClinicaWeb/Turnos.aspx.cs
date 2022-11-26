@@ -87,5 +87,34 @@ namespace ClinicaWeb
             }
         }
 
+        protected void dgvTurnos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            List<Modelo.Turno> listaTurnos;
+            List<Modelo.Turno> listaTurnosFiltrada;
+            try
+            {
+
+                listaTurnosFiltrada = (List<Modelo.Turno>)Session["listaTurnosFiltrada"];
+                if (listaTurnosFiltrada is null)
+                {
+                    listaTurnos = (List<Modelo.Turno>)Session["listaTurnos"];
+                    dgvTurnos.PageIndex = e.NewPageIndex;
+                    dgvTurnos.DataSource = listaTurnos;
+                }
+                else
+                {
+                    dgvTurnos.PageIndex = e.NewPageIndex;
+                    dgvTurnos.DataSource = listaTurnosFiltrada;
+                }
+                dgvTurnos.DataBind();
+
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "Turnos.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }
