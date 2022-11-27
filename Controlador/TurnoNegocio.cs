@@ -220,9 +220,7 @@ namespace Controlador
                 {
                     aux = (int)conexion.Lector["contador"];
                 }
-
-                aux = aux == 0 ? 1 : aux;
-
+                aux++;
                 numero = especialidad.Nombre.Substring(0, 1) + aux.ToString("D3");
 
                 return numero;
