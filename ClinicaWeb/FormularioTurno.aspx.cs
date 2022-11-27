@@ -609,7 +609,7 @@ namespace ClinicaWeb
             {
                 medicoNegocio = new MedicoNegocio();
                 listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
-                medicoOpcion1 = listaMedicos[0] is null ? null : listaMedicos[0];
+                medicoOpcion1 = listaMedicos.Count < 0 ? null : listaMedicos[0];
                 Session.Add("medicoOpcion1", medicoOpcion1);
                 fechaOpcion1 = new DateTime();
                 horaOpcion1 = null;
@@ -699,7 +699,7 @@ namespace ClinicaWeb
                 medicoNegocio = new MedicoNegocio();
                 listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
 
-                medicoOpcion2 = listaMedicos[1] is null ? null : listaMedicos[1];
+                medicoOpcion2 = listaMedicos.Count < 2 ? null : listaMedicos[1];
                 Session.Add("medicoOpcion2", medicoOpcion2);
                 fechaOpcion2 = new DateTime();
                 horaOpcion2 = new int();
@@ -787,7 +787,7 @@ namespace ClinicaWeb
             {
                 medicoNegocio = new MedicoNegocio();
                 listaMedicos = medicoNegocio.listar_con_especialidad(idEspecilidad);
-                medicoOpcion3 = listaMedicos[2] is null ? null : listaMedicos[2];
+                medicoOpcion3 = listaMedicos.Count < 3 ? null : listaMedicos[2];
                 Session.Add("medicoOpcion3", medicoOpcion3);
                 fechaOpcion3 = new DateTime();
                 horaOpcion3 = null;
