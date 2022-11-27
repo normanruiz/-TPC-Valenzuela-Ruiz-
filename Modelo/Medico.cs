@@ -16,7 +16,14 @@ namespace Modelo
         {
             get
             {
-                return Apellido + " " + Nombre;
+                if (Apellido == "Seleccionar...")
+                {
+                    return Apellido;
+                }
+                else
+                {
+                    return Apellido + " " + Nombre;
+                }
             }
         }
 

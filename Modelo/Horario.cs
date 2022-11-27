@@ -18,7 +18,14 @@ namespace Modelo
         {
             get 
             {
-                return Dia + " " + HoraInicio + " - " + HoraFin;
+                if (Dia == "Seleccionar...")
+                {
+                    return Dia;
+                }
+                else
+                {
+                    return Dia + " " + HoraInicio + " - " + HoraFin;
+                }
             }
         }
     
