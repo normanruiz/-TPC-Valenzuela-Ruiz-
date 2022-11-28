@@ -2,6 +2,39 @@
 
 <asp:Content ID="contentBodyTurno" ContentPlaceHolderID="cphBody" runat="server">
 
+    <script>
+
+        function ValidarDNI() {
+            let estado = true;
+            let valordni = document.getElementById("tbxDNI").value;
+
+            if (valordni === "") {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                return false;
+            }
+
+            if (valordni.length < 7) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener al menos 7 digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                return false;
+            }
+
+            let re = /^[0-9]+$/;
+            if (!re.test(valordni)) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener solo digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                return false;
+            }
+
+            return estado
+        }
+
+    </script>
+
     <div class="container-fluid">
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -25,7 +58,7 @@
                     <div class="col-2">
                         <div class="mb-3">
                             <label for="tbxDNI" class="form-label">DNI del paciente</label>
-                            <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static" OnTextChanged="tbxDNI_TextChanged"></asp:TextBox>
+                            <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
                             <asp:Label for="tbxDNI" ID="lblDNI" runat="server" ClientIDMode="Static"></asp:Label>
                         </div>
 
@@ -49,7 +82,7 @@
                     <div class="col-2">
                         <div class="mb-3"></div>
                         <div class="mb-3">
-                            <asp:Button ID="btnBuscarDni" runat="server" Text="Buscar Paciente" CssClass="btn btn-outline-primary" OnClick="tbxDNI_TextChanged" />
+                            <asp:Button ID="btnBuscarDni" runat="server" Text="Buscar Paciente" CssClass="btn btn-outline-primary" OnClientClick="return ValidarDNI()" OnClick="tbxDNI_TextChanged" />
                         </div>
 
                     </div>
@@ -180,6 +213,7 @@
                         </div>
                         <div class="mb-3">
                             <asp:TextBox ID="tbxObservacion" runat="server" CssClass="form-control" ClientIDMode="Static" Enabled="false"></asp:TextBox>
+                            <asp:Label ID="lblObservacion" For="tbxObservacion" runat="server" Text=""></asp:Label>
                         </div>
                         <div class="mb-3">
                             <asp:Button ID="btnAgregarObservacion" runat="server" Text="Agregar" CssClass="btn btn-outline-primary" OnClick="btnAgregarObservacion_Click" Enabled="false" />

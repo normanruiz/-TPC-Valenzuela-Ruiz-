@@ -482,74 +482,84 @@ namespace ClinicaWeb
 
             try
             {
-                if (Session["turnoModificar"] is null)
+                if (Session["observacion"] is null)
                 {
-                    //cargar y completar el turno
-                    turno = (Modelo.Turno)Session["turno"];
-                    observacion = (string)Session["observacion"];
-                    turnoNegocio = new TurnoNegocio();
-                    turno.Numero = turnoNegocio.generar_numero(turno.Fecha, turno.especialidad);
-                    estadoNegocio = new EstadoNegocio();
-                    turno.estado = estadoNegocio.buscar_con_descripcion("Nuevo");
-
-                    //guardar el turno
-                    turnoNegocio.crear(turno);
-
-                    //Guardar la observacion
-                    turno.Id = turnoNegocio.buscar_id_de_turno(turno);
-                    turnoNegocio.guardar_observacion(turno.Id, observacion);
-
-                    //limpiar session
-                    Session.Remove("observacion");
-                    Session.Remove("turno");
-                    Session.Remove("medicoOpcion1");
-                    Session.Remove("medicoOpcion2");
-                    Session.Remove("medicoOpcion3");
-                    Session.Remove("horarioOpcion1");
-                    Session.Remove("horaOpcion1");
-                    Session.Remove("fechaOpcion1");
-                    Session.Remove("horarioOpcion2");
-                    Session.Remove("horaOpcion2");
-                    Session.Remove("fechaOpcion2");
-                    Session.Remove("horarioOpcion3");
-                    Session.Remove("horaOpcion3");
-                    Session.Remove("fechaOpcion3");
-
-                    //salir
-                    Response.Redirect("Turnos.aspx", false);
+                    tbxObservacion.CssClass = "form-control is-invalid";
+                    lblObservacion.CssClass = "form-label invalid-feedback";
+                    lblObservacion.Text = "Debe cargar una observacion.";
                 }
                 else
                 {
-                    //cargar y completar el turno
-                    turno = (Modelo.Turno)Session["turno"];
-                    observacion = (string)Session["observacion"];
+                    if (Session["turnoModificar"] is null)
+                    {
+                        //cargar y completar el turno
+                        turno = (Modelo.Turno)Session["turno"];
+                        observacion = (string)Session["observacion"];
+                        turnoNegocio = new TurnoNegocio();
+                        turno.Numero = turnoNegocio.generar_numero(turno.Fecha, turno.especialidad);
+                        estadoNegocio = new EstadoNegocio();
+                        turno.estado = estadoNegocio.buscar_con_descripcion("Nuevo");
 
-                    //guardar el turno
-                    turnoNegocio = new TurnoNegocio();
-                    turnoNegocio.actualizar(turno);
+                        //guardar el turno
+                        turnoNegocio.crear(turno);
 
-                    //Guardar la observacion
-                    turnoNegocio.guardar_observacion(turno.Id, observacion);
+                        //Guardar la observacion
+                        turno.Id = turnoNegocio.buscar_id_de_turno(turno);
+                        turnoNegocio.guardar_observacion(turno.Id, observacion);
 
-                    //limpiar session
-                    Session.Remove("observacion");
-                    Session.Remove("turno");
-                    Session.Remove("turnoModificar");
-                    Session.Remove("medicoOpcion1");
-                    Session.Remove("medicoOpcion2");
-                    Session.Remove("medicoOpcion3");
-                    Session.Remove("horarioOpcion1");
-                    Session.Remove("horaOpcion1");
-                    Session.Remove("fechaOpcion1");
-                    Session.Remove("horarioOpcion2");
-                    Session.Remove("horaOpcion2");
-                    Session.Remove("fechaOpcion2");
-                    Session.Remove("horarioOpcion3");
-                    Session.Remove("horaOpcion3");
-                    Session.Remove("fechaOpcion3");
+                        //limpiar session
+                        Session.Remove("observacion");
+                        Session.Remove("turno");
+                        Session.Remove("medicoOpcion1");
+                        Session.Remove("medicoOpcion2");
+                        Session.Remove("medicoOpcion3");
+                        Session.Remove("horarioOpcion1");
+                        Session.Remove("horaOpcion1");
+                        Session.Remove("fechaOpcion1");
+                        Session.Remove("horarioOpcion2");
+                        Session.Remove("horaOpcion2");
+                        Session.Remove("fechaOpcion2");
+                        Session.Remove("horarioOpcion3");
+                        Session.Remove("horaOpcion3");
+                        Session.Remove("fechaOpcion3");
 
-                    //salir
-                    Response.Redirect("Turnos.aspx", false);
+                        //salir
+                        Response.Redirect("Turnos.aspx", false);
+                    }
+
+                    else
+                    {
+                        //cargar y completar el turno
+                        turno = (Modelo.Turno)Session["turno"];
+                        observacion = (string)Session["observacion"];
+
+                        //guardar el turno
+                        turnoNegocio = new TurnoNegocio();
+                        turnoNegocio.actualizar(turno);
+
+                        //Guardar la observacion
+                        turnoNegocio.guardar_observacion(turno.Id, observacion);
+
+                        //limpiar session
+                        Session.Remove("observacion");
+                        Session.Remove("turno");
+                        Session.Remove("turnoModificar");
+                        Session.Remove("medicoOpcion1");
+                        Session.Remove("medicoOpcion2");
+                        Session.Remove("medicoOpcion3");
+                        Session.Remove("horarioOpcion1");
+                        Session.Remove("horaOpcion1");
+                        Session.Remove("fechaOpcion1");
+                        Session.Remove("horarioOpcion2");
+                        Session.Remove("horaOpcion2");
+                        Session.Remove("fechaOpcion2");
+                        Session.Remove("horarioOpcion3");
+                        Session.Remove("horaOpcion3");
+                        Session.Remove("fechaOpcion3");
+
+                        //salir
+                        Response.Redirect("Turnos.aspx", false);
+                    }
                 }
             }
             catch (Exception excepcion)
