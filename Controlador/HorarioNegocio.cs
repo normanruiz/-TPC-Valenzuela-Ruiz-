@@ -113,6 +113,40 @@ namespace Controlador
             }
         }
 
+        public List<int> buscar_ocupados_para_medico_en_dia_y_fecha(int idMedico, int idDia, DateTime fecha)
+        {
+            List<int> listaHorasOcupadas = new List<int>();
+            AccesoDatos conexion = new AccesoDatos();
+            int hora;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT * FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK) WHERE CONVERT(DATE, t.[fecha]) = CONVERT(DATE, @fecha) AND t.[idMedico] = @idMedico AND t.[idHorario] = @idDia;");
+                conexion.setearParametro("@idMedico", idMedico);
+                conexion.setearParametro("@idDia", idDia);
+                conexion.setearParametro("@fecha", fecha);
+                conexion.ejecutarLectura();
+
+                while (conexion.Lector.Read())
+                {
+                    hora = (int)conexion.Lector["horaInicio"];
+
+                    listaHorasOcupadas.Add(hora);
+                }
+
+                return listaHorasOcupadas;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public Horario buscar_con_id(int id)
         {
             AccesoDatos conexion = new AccesoDatos();

@@ -177,6 +177,7 @@ namespace ClinicaWeb
                 especialidadNegocio = new EspecialidadNegocio();
                 especialidad = especialidadNegocio.buscar_con_id(Int32.Parse(ddlEspecialidad.SelectedValue));
                 turno.especialidad = especialidad;
+                Session["turno"] = turno;
                 ckbCargaManual.Enabled = true;
 
                 if (ckbCargaManual.Checked)
@@ -339,16 +340,15 @@ namespace ClinicaWeb
         protected void ddlMedicos_SelectedIndexChanged(object sender, EventArgs e)
         {
             Modelo.Turno turno;
-            List<Modelo.Horario> listaHorarios;
             Modelo.Medico medico;
             MedicoNegocio medicoNegocio;
-            HorarioNegocio horarioNegocio;
 
             try
             {
                 ddlMedicos.Items.Remove(ddlMedicos.Items.FindByText("Seleccionar..."));
                 ddlMedicos.DataBind();
                 ddlHorarios.Items.Clear();
+                tbxFecha.Text = "";
                 ddlHora.Items.Clear();
                 turno = (Modelo.Turno)Session["turno"];
                 int id = Int32.Parse(ddlMedicos.SelectedValue);
@@ -378,6 +378,9 @@ namespace ClinicaWeb
             try
             {
                 ddlHorarios.Items.Remove(ddlHorarios.Items.FindByText("Seleccionar..."));
+                ddlHorarios.DataBind();
+                tbxFecha.Text = "";
+                ddlHora.Items.Clear();
                 turno = (Modelo.Turno)Session["turno"];
                 int id = Int32.Parse(ddlHorarios.SelectedValue);
                 horarioNegocio = new HorarioNegocio();
@@ -406,6 +409,7 @@ namespace ClinicaWeb
 
             try
             {
+                ddlHora.Items.Clear();
                 turno = (Modelo.Turno)Session["Turno"];
                 horarioNegocio = new HorarioNegocio();
                 horario = horarioNegocio.buscar_con_id(Int32.Parse(ddlHorarios.SelectedValue));
@@ -972,7 +976,7 @@ namespace ClinicaWeb
             try
             {
                 horarioNegocio = new HorarioNegocio();
-                horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(medico.IdMedico, horario.Id);
+                horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia_y_fecha(medico.IdMedico, horario.Id, fecha);
                 horasLibres = new List<String>();
                 for (int i = horario.HoraInicio; i < horario.HoraFin; i++)
                 {
