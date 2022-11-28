@@ -34,6 +34,8 @@ namespace ClinicaWeb
                     Response.Redirect("Error.aspx", false);
                 }
 
+
+
                 if (Session["turnoModificar"] is null)
                 {
                     tituloFormulario = "Alta de Turno";
@@ -88,6 +90,21 @@ namespace ClinicaWeb
 
                         btnAgregarObservacion.Enabled = true;
                         btnGuardar.Enabled = true;
+
+                        if (Helpers.Validacion.ValidarPermisos(this, "Medico"))
+                        {
+                            tbxDNI.Enabled = false;
+                            btnBuscarDni.Enabled = true;
+                            ddlEspecialidad.Enabled = false;
+                            ddlEstado.Enabled = true;
+                            ckbCargaManual.Enabled = false;
+                            ddlMedicos.Enabled = false;
+                            ddlHorarios.Enabled = false;
+                            tbxFecha.Enabled = false;
+                            ddlHora.Enabled = false;
+                            tbxObservacion.Enabled = true;
+                            btnAgregarObservacion.Enabled = true;
+                        }
                     }
 
                 }

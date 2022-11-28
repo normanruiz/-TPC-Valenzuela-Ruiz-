@@ -26,6 +26,8 @@ namespace ClinicaWeb
                     Response.Redirect("Error.aspx", false);
                 }
 
+
+
                 listaTurnos = turnoNegocio.listar();
                 Session["listaTurnos"] = listaTurnos;
                 dgvTurnos .DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
