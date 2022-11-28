@@ -52,6 +52,7 @@
                                         <asp:BoundField HeaderText="Especialidad" DataField="especialidad.Nombre" />
                                         <asp:BoundField HeaderText="Medico" DataField="medico.denominacion" />
                                         <asp:BoundField HeaderText="Fecha" DataField="Fecha" />
+                                        <asp:BoundField HeaderText="Estado" DataField="Estado.Descripcion" />
 
                                         <asp:ButtonField ButtonType="Button" CommandName="Modificar" HeaderText="Modificar" Text="Modificar" ControlStyle-CssClass="btn btn-outline-light" />
                                         <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Eliminar" ControlStyle-CssClass="btn btn-outline-light" />

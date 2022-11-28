@@ -23,9 +23,6 @@ namespace ClinicaWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             TurnoNegocio turnoNegocio;
-            HorarioNegocio horarioNegocio;
-            List<int> horasOcupadas;
-            List<int> horasLibres;
             List<string> listaObservacion;
 
             try
@@ -81,23 +78,7 @@ namespace ClinicaWeb
                         tbxFecha.Enabled = true;
                         tbxFecha.Text = turnoModificar.Fecha.ToString("yyyy-MM-dd");
 
-                        horarioNegocio = new HorarioNegocio();
-                        horasOcupadas = horarioNegocio.buscar_ocupados_para_medico_en_dia(turnoModificar.medico.IdMedico, turnoModificar.horario.Id);
-                        horasLibres = new List<int>();
-                        for (int i = turnoModificar.horario.HoraInicio; i < turnoModificar.horario.HoraFin; i++)
-                        {
-                            if (!horasOcupadas.Contains(i))
-                            {
-                                horasLibres.Add(i);
-                            }
-                        }
-                        if (horasLibres.Count != 0)
-                        {
-                            ddlHora.DataSource = horasLibres;
-                            ddlHora.DataBind();
-                            ddlHora.Enabled = true;
-                        }
-                        ddlHora.SelectedValue = turnoModificar.horaInicio.ToString();
+                        Cargar_horas_de_medico_en_dia(turnoModificar.medico, turnoModificar.horario, turnoModificar.Fecha, turnoModificar.horaInicio);
 
                         listaObservacion = turnoNegocio.listar_observaciones_de_turno(turnoModificar.Id);
                         foreach (string observacion in listaObservacion)
@@ -183,6 +164,9 @@ namespace ClinicaWeb
                 if (ckbCargaManual.Checked)
                 {
                     Cargar_medicos_con_especialidad(especialidad.Id);
+                    ddlHorarios.Items.Clear();
+                    tbxFecha.Text = "";
+                    ddlHora.Items.Clear();
                     ddlMedicos.Enabled = true;
                 }
                 else
@@ -439,6 +423,7 @@ namespace ClinicaWeb
                 turno = (Modelo.Turno)Session["turno"];
                 turno.horaInicio = Int32.Parse(ddlHora.SelectedValue);
                 ddlHora.Items.Remove(ddlHorarios.Items.FindByValue("Seleccionar..."));
+                turno.Fecha = DateTime.Parse(turno.Fecha.ToShortDateString());
                 turno.Fecha = turno.Fecha.AddHours(double.Parse(ddlHora.SelectedValue.ToString()));
                 Session["turno"] = turno;
                 tbxObservacion.Enabled = true;
@@ -968,7 +953,7 @@ namespace ClinicaWeb
             }
         }
 
-        private void Cargar_horas_de_medico_en_dia(Modelo.Medico medico, Modelo.Horario horario, DateTime fecha)
+        private void Cargar_horas_de_medico_en_dia(Modelo.Medico medico, Modelo.Horario horario, DateTime fecha, int? horaInicio = null)
         {
             HorarioNegocio horarioNegocio;
             List<int> horasOcupadas;
@@ -987,12 +972,24 @@ namespace ClinicaWeb
                 }
                 if (horasLibres.Count != 0)
                 {
-                    ddlHora.Items.Clear();
-                    horasLibres.Add("Seleccionar...");
-                    ddlHora.DataSource = horasLibres;
-                    ddlHora.DataBind();
-                    ddlHora.SelectedValue = ddlHora.Items.FindByValue("Seleccionar...").Value;
-                    ddlHora.Enabled = true;
+                    if (horaInicio is null)
+                    {
+                        ddlHora.Items.Clear();
+                        horasLibres.Add("Seleccionar...");
+                        ddlHora.DataSource = horasLibres;
+                        ddlHora.DataBind();
+                        ddlHora.SelectedValue = ddlHora.Items.FindByValue("Seleccionar...").Value;
+                        ddlHora.Enabled = true;
+                    }
+                    else
+                    {
+                        ddlHora.Items.Clear();
+                        horasLibres.Add(horaInicio.ToString());
+                        ddlHora.DataSource = horasLibres;
+                        ddlHora.DataBind();
+                        ddlHora.SelectedValue = ddlHora.Items.FindByValue(horaInicio.ToString()).Value;
+                        ddlHora.Enabled = true;
+                    }
                 }
                 else
                 {
