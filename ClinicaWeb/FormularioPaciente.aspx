@@ -11,14 +11,23 @@
             let estado = true;
 
             let pacienteDNI = document.getElementById("tbxDNI").value;
+            let re = /^[0-9]+$/;
             if (pacienteDNI === "") {
                 document.getElementById("tbxDNI").className = "form-control is-invalid";
                 document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDNI").className = "form-label invalid-feedback";
-
                 estado = false;
-            }
-            else {
+            } else if (pacienteDNI.length < 7) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener al menos 7 digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                estado = false;
+            } else if (!re.test(pacienteDNI)) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener solo digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                estado = false;
+            } else {
                 document.getElementById("tbxDNI").className = "form-control is-valid";
                 document.getElementById("lblDNI").innerText = "";
             }
