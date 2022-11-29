@@ -27,10 +27,9 @@ namespace ClinicaWeb
                 }
 
 
-
                 listaTurnos = turnoNegocio.listar();
                 Session["listaTurnos"] = listaTurnos;
-                dgvTurnos .DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
+                dgvTurnos.DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
                 dgvTurnos.DataBind();
 
             }
@@ -120,7 +119,7 @@ namespace ClinicaWeb
         }
 
         protected void tbxFiltro_TextChanged(object sender, EventArgs e)
-        
+
         {
             List<Modelo.Turno> listaTurnosFiltrada;
             try
