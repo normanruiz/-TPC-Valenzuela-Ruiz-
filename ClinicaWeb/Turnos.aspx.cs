@@ -26,6 +26,13 @@ namespace ClinicaWeb
                     Response.Redirect("Error.aspx", false);
                 }
 
+                if (Helpers.Validacion.ValidarPermisos(this, "Medico"))
+                {
+                    DataControlFieldCollection columnas = dgvTurnos.Columns;
+                    DataControlField columna = columnas[8];
+                    columna.Visible = false;
+                    btnNuevo.Visible = false;
+                }
 
                 listaTurnos = turnoNegocio.listar();
                 Session["listaTurnos"] = listaTurnos;
@@ -73,10 +80,10 @@ namespace ClinicaWeb
                     }
                     else if (e.CommandName == "Eliminar")
                     {
-                        turnoNegocio = new TurnoNegocio();
-                        turnoNegocio.Eliminar_observaciones_de_turno(id);
-                        turnoNegocio.Eliminar(id);
-                        Response.Redirect("Turnos.aspx", false);
+                            turnoNegocio = new TurnoNegocio();
+                            turnoNegocio.Eliminar_observaciones_de_turno(id);
+                            turnoNegocio.Eliminar(id);
+                            Response.Redirect("Turnos.aspx", false);
                     }
                 }
             }
