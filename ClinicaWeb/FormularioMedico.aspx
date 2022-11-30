@@ -11,15 +11,24 @@
 
             let estado = true;
 
-            let medicoDNI = document.getElementById("tbxDNI").value;
-            if (medicoDNI === "") {
+            let pacienteDNI = document.getElementById("tbxDNI").value;
+            let re = /^[0-9]+$/;
+            if (pacienteDNI === "") {
                 document.getElementById("tbxDNI").className = "form-control is-invalid";
                 document.getElementById("lblDNI").innerText = "El campo no puede estar vacío.";
                 document.getElementById("lblDNI").className = "form-label invalid-feedback";
-
                 estado = false;
-            }
-            else {
+            } else if (pacienteDNI.length < 7) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener al menos 7 digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                estado = false;
+            } else if (!re.test(pacienteDNI)) {
+                document.getElementById("tbxDNI").className = "form-control is-invalid";
+                document.getElementById("lblDNI").innerText = "El DNI debe contener solo digitos numericos.";
+                document.getElementById("lblDNI").className = "form-label invalid-feedback";
+                estado = false;
+            } else {
                 document.getElementById("tbxDNI").className = "form-control is-valid";
                 document.getElementById("lblDNI").innerText = "";
             }
@@ -131,143 +140,148 @@
 
     <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col-8">
-                <h1><%= tituloFormulario %></h1>
-            </div>
-            <div class="col-2">
-            </div>
-        </div>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
 
-        <div class="row">
-            <div class="col-2">
-            </div>
+                <div class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-8">
+                        <h1><%= tituloFormulario %></h1>
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
 
-            <div class="col-4">
-                <%-- Aca arranca la carga de la persona --%>
-                <div class="mb-3">
-                    <label for="tbxDNI" class="form-label">Documento Nacional de Identidad</label>
-                    <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control"  OnTextChanged="tbxDNI_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblDNI" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="tbxNombre" class="form-label">Nombre</label>
-                    <asp:TextBox ID="tbxNombre" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblNombre" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="tbxApellido" class="form-label">Apellido</label>
-                    <asp:TextBox ID="tbxApellido" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblApellido" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="tbxEmail" class="form-label">Email</label>
-                    <asp:TextBox ID="tbxEmail" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblEmail" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-            </div>
-            <div class="col-4">
-                <%-- aca arranca la carga del usuario --%>
-                <div class="mb-3">
-                    <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
-                    <asp:TextBox ID="tbxNombreUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblNombreUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
-                    <asp:TextBox ID="tbxContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
-                    <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
-                    <asp:Label ID="lblConfirmarContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-                <div class="mb-3">
-                    <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
-                    <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select" ClientIDMode="Static"></asp:DropDownList>
-                    <asp:Label ID="lblPerfil" runat="server" Text="" ClientIDMode="Static"></asp:Label>
-                </div>
-            </div>
+                <div class="row">
+                    <div class="col-2">
+                    </div>
 
-            <div class="col-2">
-            </div>
+                    <div class="col-4">
+                        <%-- Aca arranca la carga de la persona --%>
+                        <div class="mb-3">
+                            <label for="tbxDNI" class="form-label">Documento Nacional de Identidad</label>
+                            <asp:TextBox ID="tbxDNI" runat="server" CssClass="form-control" OnTextChanged="tbxDNI_TextChanged" AutoPostBack="true" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblDNI" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tbxNombre" class="form-label">Nombre</label>
+                            <asp:TextBox ID="tbxNombre" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblNombre" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tbxApellido" class="form-label">Apellido</label>
+                            <asp:TextBox ID="tbxApellido" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblApellido" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tbxEmail" class="form-label">Email</label>
+                            <asp:TextBox ID="tbxEmail" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblEmail" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <%-- aca arranca la carga del usuario --%>
+                        <div class="mb-3">
+                            <label for="tbxNombreUsuario" class="form-label">Nombre de Usuario</label>
+                            <asp:TextBox ID="tbxNombreUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblNombreUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tbxContraseñaUsuario" class="form-label">Contraseña</label>
+                            <asp:TextBox ID="tbxContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tbxConfirmarContraseñaUsuario" class="form-label">Repita la contraseña</label>
+                            <asp:TextBox ID="tbxConfirmarContraseñaUsuario" runat="server" CssClass="form-control" ClientIDMode="Static"></asp:TextBox>
+                            <asp:Label ID="lblConfirmarContraseñaUsuario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ddlPerfil" class="form-label">Tipo de perfil</label>
+                            <asp:DropDownList ID="ddlPerfil" runat="server" CssClass="form-select" ClientIDMode="Static"></asp:DropDownList>
+                            <asp:Label ID="lblPerfil" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                    </div>
 
-        </div>
-
-        <div class="row">
-
-            <div class="col-2">
-
-            </div>
-
-            <div class="col-4">
-                <%-- aca arranca la carga del especialidades --%>
-                <div class="mb-3">
-                    <label for="ddlEspecialidad" class="form-label">Especialidad</label>
-                    <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select"></asp:DropDownList>
-                </div>
-                <div class="mb-3">
-                    <asp:Button ID="btnEspecialidadAsignar" runat="server" Text="Asignar" CssClass="btn btn-outline-secondary" OnClick="btnEspecialidadAsignar_Click" />
-                </div>
-                <div class="mb-3">
-                    <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
-                        <Columns>
-                            <asp:BoundField HeaderText="ID" DataField="Id" />
-                            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-                            <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Desasignar" ControlStyle-CssClass="btn btn-outline-light" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
-                <div class="mb-3">
+                    <div class="col-2">
+                    </div>
 
                 </div>
-                
-            </div>
-            <div class="col-4">
-                <%-- aca arranca la carga del horario --%>
-                <div class="mb-3">
-                    <label for="ddlHorario" class="form-label">Horario</label>
-                    <asp:DropDownList ID="ddlHorario" runat="server" CssClass="form-select"></asp:DropDownList>
-                </div>
-                <div class="mb-3">
-                    <asp:Button ID="btnHorarioAsignar" runat="server" Text="Asignar" CssClass="btn btn-outline-secondary" OnClick="btnHorarioAsignar_Click" />
-                </div>
-                <div class="mb-3">
-                    <asp:GridView ID="dgvHorario" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvHorario_RowCommand">
-                        <Columns>
-                            <asp:BoundField HeaderText="Id." DataField="Id" />
-                            <asp:BoundField HeaderText="Dia" DataField="Dia" />
-                            <asp:BoundField HeaderText="Hora de inicio" DataField="HoraInicio" />
-                            <asp:BoundField HeaderText="Hora de fin" DataField="HoraFin" />
-                            <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Desasignar" ControlStyle-CssClass="btn btn-outline-light" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
-            </div>
 
-            <div class="col-2">
-            </div>
+                <div class="row">
 
-        </div>
+                    <div class="col-2">
+                    </div>
 
-        <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
-            </div>
-            <div class="col-2">
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary btn-lg" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
-            </div>
-            <div class="col-6">
-            </div>
-        </div>
+                    <div class="col-4">
+                        <%-- aca arranca la carga del especialidades --%>
+                        <div class="mb-3">
+                            <label for="ddlEspecialidad" class="form-label">Especialidad</label>
+                            <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:Label ID="lblEspecilidad" for="ddlEspecialidad" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <asp:Button ID="btnEspecialidadAsignar" runat="server" Text="Asignar" CssClass="btn btn-outline-secondary" OnClick="btnEspecialidadAsignar_Click" />
+                        </div>
+                        <div class="mb-3">
+                            <asp:GridView ID="dgvEspecialidad" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvEspecialidad_RowCommand">
+                                <Columns>
+                                    <asp:BoundField HeaderText="ID" DataField="Id" />
+                                    <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                                    <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Desasignar" ControlStyle-CssClass="btn btn-outline-light" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                        <div class="mb-3">
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+                        <%-- aca arranca la carga del horario --%>
+                        <div class="mb-3">
+                            <label for="ddlHorario" class="form-label">Horario</label>
+                            <asp:DropDownList ID="ddlHorario" runat="server" CssClass="form-select"></asp:DropDownList>
+                            <asp:Label ID="lblHorario" for="ddlHorario" runat="server" Text="" ClientIDMode="Static"></asp:Label>
+                        </div>
+                        <div class="mb-3">
+                            <asp:Button ID="btnHorarioAsignar" runat="server" Text="Asignar" CssClass="btn btn-outline-secondary" OnClick="btnHorarioAsignar_Click" />
+                        </div>
+                        <div class="mb-3">
+                            <asp:GridView ID="dgvHorario" runat="server" DataKeyNames="Id" CssClass="table table-dark table-striped" AutoGenerateColumns="false" OnRowCommand="dgvHorario_RowCommand">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Id." DataField="Id" />
+                                    <asp:BoundField HeaderText="Dia" DataField="Dia" />
+                                    <asp:BoundField HeaderText="Hora de inicio" DataField="HoraInicio" />
+                                    <asp:BoundField HeaderText="Hora de fin" DataField="HoraFin" />
+                                    <asp:ButtonField ButtonType="Button" CommandName="Eliminar" HeaderText="Eliminar" Text="Desasignar" ControlStyle-CssClass="btn btn-outline-light" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-2">
+                        <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-primary btn-lg" OnClick="btnCancelar_Click" />
+                    </div>
+                    <div class="col-2">
+                        <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary btn-lg" OnClientClick="return Validar()" OnClick="btnGuardar_Click" />
+                    </div>
+                    <div class="col-6">
+                    </div>
+                </div>
+
+            </ContentTemplate>
+        </asp:UpdatePanel>
 
     </div>
-
 
 </asp:Content>
 

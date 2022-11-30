@@ -125,9 +125,9 @@ namespace ClinicaWeb
                         dgvHorario.DataBind();
                     }
 
-                        //bloqueo dni y usuario
-                        tbxDNI.ReadOnly = true;
-                        tbxNombreUsuario.ReadOnly = true;
+                    //bloqueo dni y usuario
+                    tbxDNI.ReadOnly = true;
+                    tbxNombreUsuario.ReadOnly = true;
                 }
             }
             catch (Exception excepcion)
@@ -236,7 +236,7 @@ namespace ClinicaWeb
                 especialidad = new Especialidad();
                 especialidad = especialidadNegocio.buscar_con_id(Int32.Parse(ddlEspecialidad.SelectedValue));
                 listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
-                if(listaEspecialidades is null)
+                if (listaEspecialidades is null)
                 {
                     listaEspecialidades = new List<Especialidad>();
                 }
@@ -244,6 +244,11 @@ namespace ClinicaWeb
                 Session["listaEspecialidades"] = listaEspecialidades;
                 dgvEspecialidad.DataSource = listaEspecialidades;
                 dgvEspecialidad.DataBind();
+
+                ddlEspecialidad.CssClass = "form-control is-valid";
+                lblEspecilidad.CssClass = "form-label invalid-feedback";
+                lblEspecilidad.Text = "";
+
             }
             catch (Exception excepcion)
             {
@@ -271,6 +276,11 @@ namespace ClinicaWeb
                 Session["listaHorarios"] = listaHorarios;
                 dgvHorario.DataSource = listaHorarios;
                 dgvHorario.DataBind();
+
+                ddlHorario.CssClass = "form-control is-valid";
+                lblHorario.CssClass = "form-label invalid-feedback";
+                lblHorario.Text = "";
+
             }
             catch (Exception excepcion)
             {
@@ -307,22 +317,101 @@ namespace ClinicaWeb
                         {
                             if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
                             {
-                                usuarioAux = new Modelo.Usuario();
-                                usuarioAux.Nombre = tbxNombreUsuario.Text;
-                                usuarioAux.Contrasenia = tbxContraseñaUsuario.Text;
+                                if (VerificarListaEspecilidad() && VerificarListaHorario())
+                                {
+                                    usuarioAux = new Modelo.Usuario();
+                                    usuarioAux.Nombre = tbxNombreUsuario.Text;
+                                    usuarioAux.Contrasenia = tbxContraseñaUsuario.Text;
 
-                                perfilNegocio = new PerfilNegocio();
-                                perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
-                                usuarioAux.perfil = perfilAux;
+                                    perfilNegocio = new PerfilNegocio();
+                                    perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                                    usuarioAux.perfil = perfilAux;
 
-                                personaAux = new Modelo.Persona();
+                                    personaAux = new Modelo.Persona();
+                                    personaAux.DNI = tbxDNI.Text;
+                                    personaAux.Nombre = tbxNombre.Text;
+                                    personaAux.Apellido = tbxApellido.Text;
+                                    personaAux.Email = tbxEmail.Text;
+                                    personaAux.usuario = usuarioAux;
+
+                                    personaNegocio.crear(personaAux);
+                                    personaAux = personaNegocio.buscar_con_dni(personaAux.DNI);
+
+                                    medicoAux = new Modelo.Medico();
+                                    medicoAux.IdPersona = personaAux.IdPersona;
+                                    medicoAux.DNI = personaAux.DNI;
+
+                                    medicoNegocio = new MedicoNegocio();
+                                    medicoNegocio.crear(medicoAux);
+                                    medicoAux = medicoNegocio.buscar_con_dni(medicoAux.DNI);
+
+                                    medicoNegocio.establecer_especialidades(medicoAux, listaEspecialidades);
+
+                                    medicoNegocio.establecer_horarios(medicoAux, listaHorarios);
+
+                                    Session.Remove("listaHorarios");
+                                    Session.Remove("listaEspecialidades");
+                                    Response.Redirect("Medico.aspx", false);
+                                }
+                                else
+                                {
+                                    if (!VerificarListaEspecilidad())
+                                    {
+                                        ddlEspecialidad.CssClass = "form-control is-invalid";
+                                        lblEspecilidad.CssClass = "form-label invalid-feedback";
+                                        lblEspecilidad.Text = "Debe cargar al menos una especilidad.";
+                                    }
+                                    if (!VerificarListaHorario())
+                                    {
+                                        ddlHorario.CssClass = "form-control is-invalid";
+                                        lblHorario.CssClass = "form-label invalid-feedback";
+                                        lblHorario.Text = "Debe cargar al menos un horario.";
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                tbxNombreUsuario.CssClass = "form-control is-invalid";
+                                lblNombreUsuario.CssClass = "form-label invalid-feedback";
+                                lblNombreUsuario.Text = "El nombre de usuario que intenta ingresar ya existe.";
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
+                        {
+                            if (VerificarListaEspecilidad() && VerificarListaHorario())
+                            {
+                                personaAux = (Modelo.Persona)Session["personaAux"];
+                                if (personaAux.usuario is null)
+                                {
+                                    usuarioAux = new Modelo.Usuario();
+                                    usuarioAux.Nombre = tbxNombreUsuario.Text;
+                                    usuarioAux.Contrasenia = tbxContraseñaUsuario.Text;
+
+                                    perfilNegocio = new PerfilNegocio();
+                                    perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                                    usuarioAux.perfil = perfilAux;
+                                    personaAux.usuario = usuarioAux;
+                                }
+                                else
+                                {
+                                    personaAux.usuario.Nombre = tbxNombreUsuario.Text;
+                                    personaAux.usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                                    perfilNegocio = new PerfilNegocio();
+                                    personaAux.usuario.perfil = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                                }
+
                                 personaAux.DNI = tbxDNI.Text;
                                 personaAux.Nombre = tbxNombre.Text;
                                 personaAux.Apellido = tbxApellido.Text;
                                 personaAux.Email = tbxEmail.Text;
-                                personaAux.usuario = usuarioAux;
 
-                                personaNegocio.crear(personaAux);
+
+                                personaNegocio.actualizar(personaAux);
                                 personaAux = personaNegocio.buscar_con_dni(personaAux.DNI);
 
                                 medicoAux = new Modelo.Medico();
@@ -341,62 +430,22 @@ namespace ClinicaWeb
                                 Session.Remove("listaEspecialidades");
                                 Response.Redirect("Medico.aspx", false);
                             }
-                        }
-                        else
-                        {
-                            tbxNombreUsuario.CssClass = "form-control is-invalid";
-                            lblNombreUsuario.CssClass = "form-label invalid-feedback";
-                            lblNombreUsuario.Text = "El nombre de usuario que intenta ingresar ya existe.";
-                        }
-                    }
-                    else
-                    {
-                        if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
-                        {
-                            personaAux = (Modelo.Persona)Session["personaAux"];
-                            if (personaAux.usuario is null)
-                            {
-                                usuarioAux = new Modelo.Usuario();
-                                usuarioAux.Nombre = tbxNombreUsuario.Text;
-                                usuarioAux.Contrasenia = tbxContraseñaUsuario.Text;
-
-                                perfilNegocio = new PerfilNegocio();
-                                perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
-                                usuarioAux.perfil = perfilAux;
-                                personaAux.usuario = usuarioAux;
-                            }
                             else
                             {
-                                personaAux.usuario.Nombre = tbxNombreUsuario.Text;
-                                personaAux.usuario.Contrasenia = tbxContraseñaUsuario.Text;
-                                perfilNegocio = new PerfilNegocio();
-                                personaAux.usuario.perfil = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                                if (!VerificarListaEspecilidad())
+                                {
+                                    ddlEspecialidad.CssClass = "form-control is-invalid";
+                                    lblEspecilidad.CssClass = "form-label invalid-feedback";
+                                    lblEspecilidad.Text = "Debe cargar al menos una especilidad.";
+                                }
+                                if (!VerificarListaHorario())
+                                {
+                                    ddlHorario.CssClass = "form-control is-invalid";
+                                    lblHorario.CssClass = "form-label invalid-feedback";
+                                    lblHorario.Text = "Debe cargar al menos un horario.";
+                                }
+
                             }
-
-                            personaAux.DNI = tbxDNI.Text;
-                            personaAux.Nombre = tbxNombre.Text;
-                            personaAux.Apellido = tbxApellido.Text;
-                            personaAux.Email = tbxEmail.Text;
-
-
-                            personaNegocio.actualizar(personaAux);
-                            personaAux = personaNegocio.buscar_con_dni(personaAux.DNI);
-
-                            medicoAux = new Modelo.Medico();
-                            medicoAux.IdPersona = personaAux.IdPersona;
-                            medicoAux.DNI = personaAux.DNI;
-
-                            medicoNegocio = new MedicoNegocio();
-                            medicoNegocio.crear(medicoAux);
-                            medicoAux = medicoNegocio.buscar_con_dni(medicoAux.DNI);
-
-                            medicoNegocio.establecer_especialidades(medicoAux, listaEspecialidades);
-
-                            medicoNegocio.establecer_horarios(medicoAux, listaHorarios);
-
-                            Session.Remove("listaHorarios");
-                            Session.Remove("listaEspecialidades");
-                            Response.Redirect("Medico.aspx", false);
                         }
                     }
 
@@ -408,44 +457,63 @@ namespace ClinicaWeb
                     medicoModificar = medicoNegocio.buscar_con_id((Int32)Session["medicoModificar"]);
                     if (tbxContraseñaUsuario.Text == tbxConfirmarContraseñaUsuario.Text)
                     {
+                        if (VerificarListaEspecilidad() && VerificarListaHorario())
+                        {
+                            //actualizar usuario
+                            medicoModificar.usuario.Contrasenia = tbxContraseñaUsuario.Text;
+                            perfilNegocio = new PerfilNegocio();
+                            perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
+                            medicoModificar.usuario.perfil = perfilAux;
+                            usuarioNegocio.actualizar(medicoModificar.usuario);
 
-                        //actualizar usuario
-                        medicoModificar.usuario.Contrasenia = tbxContraseñaUsuario.Text;
-                        perfilNegocio = new PerfilNegocio();
-                        perfilAux = perfilNegocio.buscar_con_id(Int32.Parse(ddlPerfil.SelectedValue));
-                        medicoModificar.usuario.perfil = perfilAux;
-                        usuarioNegocio.actualizar(medicoModificar.usuario);
+                            //actualizar persona
+                            personaAux = new Modelo.Persona();
+                            personaAux.IdPersona = medicoModificar.IdPersona;
+                            personaAux.DNI = medicoModificar.DNI;
+                            personaAux.Nombre = tbxNombre.Text;
+                            personaAux.Apellido = tbxApellido.Text;
+                            personaAux.Email = tbxEmail.Text;
+                            personaAux.usuario = medicoModificar.usuario;
+                            personaNegocio = new PersonaNegocio();
+                            personaNegocio.actualizar(personaAux);
 
-                        //actualizar persona
-                        personaAux = new Modelo.Persona();
-                        personaAux.IdPersona = medicoModificar.IdPersona;
-                        personaAux.DNI = medicoModificar.DNI;
-                        personaAux.Nombre = tbxNombre.Text;
-                        personaAux.Apellido = tbxApellido.Text;
-                        personaAux.Email = tbxEmail.Text;
-                        personaAux.usuario = medicoModificar.usuario;
-                        personaNegocio = new PersonaNegocio();
-                        personaNegocio.actualizar(personaAux);
-
-                        //actualizar medico
+                            //actualizar medico
 
 
-                        //actualizar especialidades
-                        listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
-                        medicoNegocio.establecer_especialidades(medicoModificar, listaEspecialidades);
+                            //actualizar especialidades
+                            listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                            medicoNegocio.establecer_especialidades(medicoModificar, listaEspecialidades);
 
-                        //actulizar horarios
-                        listaHorarios = (List<Horario>)Session["listaHorarios"];
-                        medicoNegocio.establecer_horarios(medicoModificar, listaHorarios);
+                            //actulizar horarios
+                            listaHorarios = (List<Horario>)Session["listaHorarios"];
+                            medicoNegocio.establecer_horarios(medicoModificar, listaHorarios);
 
+                            Session.Remove("listaHorarios");
+                            Session.Remove("listaEspecialidades");
+                            Session.Remove("medicoModificar");
+                            Response.Redirect("Medico.aspx", false);
+                        }
+                        else
+                        {
+                            if (!VerificarListaEspecilidad())
+                            {
+                                ddlEspecialidad.CssClass = "form-control is-invalid";
+                                lblEspecilidad.CssClass = "form-label invalid-feedback";
+                                lblEspecilidad.Text = "Debe cargar al menos una especilidad.";
+                            }
+                            if (!VerificarListaHorario())
+                            {
+                                ddlHorario.CssClass = "form-control is-invalid";
+                                lblHorario.CssClass = "form-label invalid-feedback";
+                                lblHorario.Text = "Debe cargar al menos un horario.";
+                            }
+
+                        }
                     }
 
-                    Session.Remove("listaHorarios");
-                    Session.Remove("listaEspecialidades");
-                    Session.Remove("medicoModificar");
-                    Response.Redirect("Medico.aspx", false);
 
                 }
+
 
 
             }
@@ -454,6 +522,53 @@ namespace ClinicaWeb
                 Session.Add("pagOrigen", "FormularioMedico.aspx");
                 Session.Add("excepcion", excepcion);
                 Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        private Boolean VerificarListaEspecilidad()
+        {
+
+            try
+            {
+                listaEspecialidades = (List<Especialidad>)Session["listaEspecialidades"];
+                if (listaEspecialidades is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioMedico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+                return false;
+            }
+        }
+
+        private Boolean VerificarListaHorario()
+        {
+            try
+            {
+                listaHorarios = (List<Horario>)Session["listaHorarios"];
+                if (listaHorarios is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception excepcion)
+            {
+                Session.Add("pagOrigen", "FormularioMedico.aspx");
+                Session.Add("excepcion", excepcion);
+                Response.Redirect("Error.aspx", false);
+                return false;
             }
         }
 
@@ -488,9 +603,6 @@ namespace ClinicaWeb
                     persona = personaNegocio.buscar_con_dni(dniAux);
                     if (persona is null)
                     {
-                        tbxNombre.Text = "";
-                        tbxApellido.Text = "";
-                        tbxEmail.Text = "";
                         Session.Remove("personaAux");
                     }
                     else
@@ -509,9 +621,6 @@ namespace ClinicaWeb
                 }
                 else
                 {
-                    tbxNombre.Text = "";
-                    tbxApellido.Text = "";
-                    tbxEmail.Text = "";
                     Session.Remove("personaAux");
                 }
             }
