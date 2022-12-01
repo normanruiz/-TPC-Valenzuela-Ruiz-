@@ -18,6 +18,9 @@ namespace ClinicaWeb
             try
             {
                 turnoNegocio = new TurnoNegocio();
+                Modelo.Usuario usuario;
+                Modelo.Medico medico;
+                MedicoNegocio medicoNegocio;
 
                 if (!Helpers.Validacion.ValidarPermisos(this, "Administrador", "Recepcionista", "Medico"))
                 {
@@ -32,13 +35,21 @@ namespace ClinicaWeb
                     DataControlField columna = columnas[8];
                     columna.Visible = false;
                     btnNuevo.Visible = false;
+                    usuario = (Modelo.Usuario)Session["Usuario"];
+                    medicoNegocio = new MedicoNegocio();
+                    medico = medicoNegocio.buscar_con_usuario(usuario.Id);
+                    listaTurnos = turnoNegocio.listar(medico.IdMedico);
+                    Session["listaTurnos"] = listaTurnos;
+                    dgvTurnos.DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
+                    dgvTurnos.DataBind();
                 }
-
-                listaTurnos = turnoNegocio.listar();
-                Session["listaTurnos"] = listaTurnos;
-                dgvTurnos.DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
-                dgvTurnos.DataBind();
-
+                else
+                {
+                    listaTurnos = turnoNegocio.listar();
+                    Session["listaTurnos"] = listaTurnos;
+                    dgvTurnos.DataSource = (List<Modelo.Turno>)Session["listaTurnos"];
+                    dgvTurnos.DataBind();
+                }
             }
             catch (Exception excepcion)
             {

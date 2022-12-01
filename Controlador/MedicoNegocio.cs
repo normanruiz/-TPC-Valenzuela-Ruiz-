@@ -143,6 +143,51 @@ namespace Controlador
             }
         }
 
+        public Medico buscar_con_usuario(int idUsuario)
+        {
+            AccesoDatos conexion = new AccesoDatos();
+            Medico medico;
+            Persona persona;
+
+            try
+            {
+                conexion.conectar();
+                conexion.setearConsulta("SELECT m.[id], m.[idPersona] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK) INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK) ON m.[idPersona] = P.[id] INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK) ON p.[idUsuario] = u.[id] AND u.[id] = @idUsuario;");
+                conexion.setearParametro("@idUsuario", idUsuario);
+                conexion.ejecutarLectura();
+
+                if (conexion.Lector.Read())
+                {
+                    medico = new Medico();
+                    medico.IdMedico = (Int32)conexion.Lector["id"];
+                    medico.IdPersona = (Int32)conexion.Lector["idPersona"];
+
+                    PersonaNegocio personaNegocio = new PersonaNegocio();
+                    persona = new Persona();
+                    persona = personaNegocio.buscar_con_id((Int32)conexion.Lector["idPersona"]);
+
+                    medico.DNI = persona.DNI;
+                    medico.Nombre = persona.Nombre;
+                    medico.Apellido = persona.Apellido;
+                    medico.Email = persona.Email;
+                    medico.usuario = persona.usuario;
+                }
+                else
+                {
+                    medico = null;
+                }
+                return medico;
+            }
+            catch (Exception excepcion)
+            {
+                throw excepcion;
+            }
+            finally
+            {
+                conexion.cerrar();
+            }
+        }
+
         public Medico buscar_con_dni(string dni)
         {
             AccesoDatos conexion = new AccesoDatos();
@@ -208,30 +253,6 @@ namespace Controlador
                 conexion.cerrar();
             }
         }
-
-        //public void actualizar(Horario horario)
-        //{
-        //    AccesoDatos conexion = new AccesoDatos();
-        //    try
-        //    {
-        //        string consulta = "";
-        //        conexion.setearParametro("@id", horario.Id);
-        //        conexion.setearParametro("@dia", horario.Dia);
-        //        conexion.setearParametro("@horaInicio", horario.HoraInicio);
-        //        conexion.setearParametro("@horaFin", horario.HoraFin);
-        //        conexion.conectar();
-        //        conexion.setearConsulta(consulta);
-        //        conexion.ejecutarAccion();
-        //    }
-        //    catch (Exception excepcion)
-        //    {
-        //        throw excepcion;
-        //    }
-        //    finally
-        //    {
-        //        conexion.cerrar();
-        //    }
-        //}
 
         public void Eliminar(int id)
         {

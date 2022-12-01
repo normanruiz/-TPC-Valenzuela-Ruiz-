@@ -10,7 +10,7 @@ namespace Controlador
 {
     public class TurnoNegocio
     {
-        public List<Modelo.Turno> listar()
+        public List<Modelo.Turno> listar(int? idMedico = null)
         {
             AccesoDatos Conexion = new AccesoDatos();
             Modelo.Turno turno;
@@ -25,11 +25,21 @@ namespace Controlador
             HorarioNegocio horarioNegocio;
             Modelo.Estado estado;
             EstadoNegocio estadoNegocio;
+            string consulta = "";
 
             try
             {
                 Conexion.conectar();
-                Conexion.setearConsulta("SELECT t.[id], t.[numero], t.[idPaciente], t.[idEspecialidad], t.[idMedico], t.[idHorario], t.[horainicio], t.[fecha], t.[idEstado] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK);");
+                if (idMedico is null)
+                {
+                    consulta = "SELECT t.[id], t.[numero], t.[idPaciente], t.[idEspecialidad], t.[idMedico], t.[idHorario], t.[horainicio], t.[fecha], t.[idEstado] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK);";
+                }
+                else
+                {
+                    consulta = "SELECT t.[id], t.[numero], t.[idPaciente], t.[idEspecialidad], t.[idMedico], t.[idHorario], t.[horainicio], t.[fecha], t.[idEstado] FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[turnos] AS t WITH (NOLOCK) WHERE t.[idMedico] = @idMedico;";
+                    Conexion.setearParametro("@idMedico", idMedico);
+                }
+                Conexion.setearConsulta(consulta);
                 Conexion.ejecutarLectura();
                 listaTurnos = new List<Modelo.Turno>();
                 while (Conexion.Lector.Read())

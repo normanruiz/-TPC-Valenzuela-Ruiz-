@@ -1386,3 +1386,19 @@ SELECT t.[horainicio]
 				     AND mxh.[idMedico] = 3 
 					 AND mxh.[idHorario] = 5
 	   WHERE CONVERT(DATE, t.[fecha]) >= CONVERT(DATE, GETDATE());
+
+
+USE [TPC-Clinica-Valenzuela-Ruiz]
+GO
+
+SELECT [id]
+      ,[idPersona]
+       FROM [TPC-Clinica-Valenzuela-Ruiz].[dbo].[medicos] AS m WITH (NOLOCK)
+	        INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[personas] AS p WITH (NOLOCK)
+			      ON m.[idPersona] = P.[id]
+		    INNER JOIN [TPC-Clinica-Valenzuela-Ruiz].[dbo].[usuarios] AS u WITH (NOLOCK)
+			      ON p.[idUsuario] = u.[id]
+				     AND u.[id] = @idUsuario;
+
+GO
+
